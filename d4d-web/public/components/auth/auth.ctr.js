@@ -9,6 +9,10 @@
         var vm = this;
         
         vm.signin = signin;
+        vm.username = "";
+        vm.password = "";
+        vm.login = login;
+        vm.showToast = showToast;
         
         function signin(){
             
@@ -36,6 +40,21 @@
             );
         }
         console.log("authController");
+        
+        function login(username, password) {
+            vm.username = username;
+            vm.password = password;
+            
+            if(vm.username == null && vm.password != null) {
+                vm.showToast("Enter the username");
+            } else if(vm.username != null && vm.password == null) {
+                vm.showToast("Enter the password");
+            } else if(vm.username == null && vm.password == null) {
+                vm.showToast("Enter the username and the password");
+            } else {
+                vm.showToast("Success");
+            }
+        }
         
     });
 

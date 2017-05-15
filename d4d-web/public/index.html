@@ -10,6 +10,9 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         
         <link rel="stylesheet" href="styles/style.css">
+        <link rel="stylesheet" href="components/profile/profile.css">
+        <link rel="stylesheet" href="components/managingjobs/managingjobs.css">
+        <link rel="stylesheet" href="components/home/home.css">
         
         <!-- Angular Material requires Angular.js Libraries -->
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
@@ -34,21 +37,54 @@
         <!-- Components -->
         <script src="components/auth/auth.ctr.js"></script>
         <script src="components/auth/auth.fac.js"></script>
+        <script src="components/signin/signin.ctr.js"></script>
+        <script src="components/profile/profile.ctr.js"></script>
+        <script src="components/managingjobs/managingjobs.ctr.js"></script>
+        <script src="components/home/home.ctr.js"></script>
         
         <script>
           // Initialize Firebase
+          //var config = {
+           // apiKey: "",
+            //authDomain: "",
+          //  databaseURL: "",
+           // storageBucket: "",
+          //  messagingSenderId: ""
+         // };
+          //firebase.initializeApp(config);
+            
           var config = {
-            apiKey: "",
-            authDomain: "",
-            databaseURL: "",
-            storageBucket: "",
-            messagingSenderId: ""
+            apiKey: "AIzaSyD2djmdUVRd1M2tzthf3y0MQ2N-DWzQTHo",
+            authDomain: "dronemap-883ec.firebaseapp.com",
+            databaseURL: "https://dronemap-883ec.firebaseio.com",
+            storageBucket: "dronemap-883ec.appspot.com",
+            messagingSenderId: "232842522483"
           };
           firebase.initializeApp(config);
         </script>
         
     </head>
-    <body class="body-color">
-        <div ui-view></div>
+    <body class="site-background-color">
+        <div layout="row">
+          <div class="signin-card">
+            <md-card class="md-primary">
+                <md-content class="md-padding">
+                    <!-- NAVIGATION -->
+                    <nav class="navbar navbar-inverse" role="navigation">
+                        <table>
+                            <tr>
+                                <td><a ui-sref="home">Home</a></td>
+                                <td><a ui-sref="managingjobs">Manage Jobs</a></td>
+                                <td><a ui-sref="auth">Login</a></td>
+                                <td><a ui-sref="signin">SignIn</a></td>
+                                <td><a ui-sref="profile">Profile</a></td>
+                            </tr>
+                        </table>
+                    </nav>
+                </md-content>
+            </md-card>
+          </div>
+        </div>
+        <div class="site-background-color" ui-view></div>
     </body>
 </html>

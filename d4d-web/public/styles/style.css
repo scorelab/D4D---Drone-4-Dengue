@@ -1,0 +1,8 @@
+.site-background-color {
+    background: #E4E4E4;
+    /*background: rgb(64,196,255);*/
+}
+.site-background-image {
+    background-image: url("../images/background-image.jpg");
+    height: 100%;
+}
