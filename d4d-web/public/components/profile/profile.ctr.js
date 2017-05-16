@@ -8,7 +8,6 @@
         
         var vm = this;
         
-        //vm.selecting = selecting;
         vm.showToast = showToast;
         vm.saveSelectedValue = saveSelectedValue;
         vm.selectedValue = "";

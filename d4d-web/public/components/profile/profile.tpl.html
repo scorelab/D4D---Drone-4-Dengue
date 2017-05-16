@@ -13,9 +13,9 @@
                 <md-input-container>
                     <label>User Category</label>
                      
-                      <md-select ng-model="selectedValue" class="dropdown-list" ng-change="vm.saveSelectedValue(selectedValue)">
-                          <md-option ng-repeat="singleProfile in vm.profileList" value="{{singleProfile}}">{{singleProfile}}</md-option>
-                      </md-select>
+                    <md-select ng-model="selectedValue" class="dropdown-list" ng-change="vm.saveSelectedValue(selectedValue)" required>
+                        <md-option ng-repeat="singleProfile in vm.profileList" value="{{singleProfile}}">{{singleProfile}}</md-option>
+                    </md-select>
                 </md-input-container>
             </center>
         </md-content>

@@ -41,6 +41,12 @@
             url: '/home',
             templateUrl: 'components/home/home.tpl.html',
             controller: 'homeController as vm'
+        })
+      
+        .state('createjob', {
+            url: '/managingjobs/createjob',
+            templateUrl: 'components/createjob/createjob.tpl.html',
+            controller: 'createjobController as vm'
         });
       
     });
