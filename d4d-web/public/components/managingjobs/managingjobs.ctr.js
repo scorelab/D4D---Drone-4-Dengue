@@ -8,46 +8,122 @@
         
         var vm = this;
         
-        vm.signin = signin;
-        vm.showToast = showToast;
-        vm.validateEmail = validateEmail;
-        vm.username = "";
-        vm.password = "";
-        vm.email = "";
-        vm.siteURL = "";
-        
-        console.log("managingController");
-        
-        function showToast(message) {
-            $mdToast.show(
-                $mdToast.simple()
-                .content(message)
-                .hideDelay(3000)
-            );
-        }
-        
-        function signin(username, password, email) {
-            vm.username = username;
-            vm.password = password;
-            vm.email = email;
-            
-            if(vm.username != null && vm.password != null && vm.email != null) {
-                if(vm.validateEmail(vm.email)) {
-                    vm.siteURL = (window.location.href).replace("signin", "profile");
-                    window.location = vm.siteURL;
-
-                } else {
-                    vm.showToast("Invalid email address");
-                }   
-            } else {
-                vm.showToast("Fill all fields");
+        vm.processingJobsArray = [
+            {"Job_ID": "001",
+            "Requester_ID": "J001",
+            "Name": "Drone Pilot 1",
+            "Area": "Colombo 1"
+            },
+            {"Job_ID": "002",
+            "Requester_ID": "J002",
+            "Name": "Drone Pilot 2",
+            "Area": "Colombo 2"
+            },
+            {"Job_ID": "003",
+            "Requester_ID": "J003",
+            "Name": "Drone Pilot 3",
+            "Area": "Colombo 3"
+            },
+            {"Job_ID": "004",
+            "Requester_ID": "J004",
+            "Name": "Drone Pilot 4",
+            "Area": "Colombo 4"
+            },
+            {"Job_ID": "005",
+            "Requester_ID": "J005",
+            "Name": "Drone Pilot 5",
+            "Area": "Colombo 5"
+            },
+            {"Job_ID": "006",
+            "Requester_ID": "J006",
+            "Name": "Drone Pilot 6",
+            "Area": "Colombo 6"
+            },
+            {"Job_ID": "007",
+            "Requester_ID": "J007",
+            "Name": "Drone Pilot 7",
+            "Area": "Colombo 7"
             }
-        }
+        ];
         
-        function validateEmail(email) {
-            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return re.test(email);
-        }
+        vm.analysingJobsArray = [
+            {"Job_ID": "001",
+            "Requester_ID": "J001",
+            "Name": "Drone Pilot 1",
+            "Area": "Colombo 1"
+            },
+            {"Job_ID": "002",
+            "Requester_ID": "J002",
+            "Name": "Drone Pilot 2",
+            "Area": "Colombo 2"
+            },
+            {"Job_ID": "003",
+            "Requester_ID": "J003",
+            "Name": "Drone Pilot 3",
+            "Area": "Colombo 3"
+            },
+            {"Job_ID": "004",
+            "Requester_ID": "J004",
+            "Name": "Drone Pilot 4",
+            "Area": "Colombo 4"
+            },
+            {"Job_ID": "005",
+            "Requester_ID": "J005",
+            "Name": "Drone Pilot 5",
+            "Area": "Colombo 5"
+            },
+            {"Job_ID": "006",
+            "Requester_ID": "J006",
+            "Name": "Drone Pilot 6",
+            "Area": "Colombo 6"
+            },
+            {"Job_ID": "007",
+            "Requester_ID": "J007",
+            "Name": "Drone Pilot 7",
+            "Area": "Colombo 7"
+            }
+        ];
+        
+        vm.completedJobsArray = [
+            {"Job_ID": "001",
+            "Requester_ID": "J001",
+            "Name": "Drone Pilot 1",
+            "Area": "Colombo 1"
+            },
+            {"Job_ID": "002",
+            "Requester_ID": "J002",
+            "Name": "Drone Pilot 2",
+            "Area": "Colombo 2"
+            },
+            {"Job_ID": "003",
+            "Requester_ID": "J003",
+            "Name": "Drone Pilot 3",
+            "Area": "Colombo 3"
+            },
+            {"Job_ID": "004",
+            "Requester_ID": "J004",
+            "Name": "Drone Pilot 4",
+            "Area": "Colombo 4"
+            },
+            {"Job_ID": "005",
+            "Requester_ID": "J005",
+            "Name": "Drone Pilot 5",
+            "Area": "Colombo 5"
+            },
+            {"Job_ID": "006",
+            "Requester_ID": "J006",
+            "Name": "Drone Pilot 6",
+            "Area": "Colombo 6"
+            },
+            {"Job_ID": "007",
+            "Requester_ID": "J007",
+            "Name": "Drone Pilot 7",
+            "Area": "Colombo 7"
+            }
+        ];
+        
+        console.log('managingController');
+        
     });
 
 })();

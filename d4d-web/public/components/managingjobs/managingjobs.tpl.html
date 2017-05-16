@@ -1,7 +1,7 @@
 <script src="../managingjobs/managingjobs.ctr.js"></script>
 
 <div layout="row">
-    <div class="signin-card">
+    <div class="signin-card sign-card-area">
         <md-card class="md-primary">
             <md-content class="md-padding signin-card-color">
                 <center>
@@ -11,82 +11,113 @@
                     </md-content>
                 </center>
             </md-content>
-            <div ng-cloak="" class="tabsdemoDynamicHeight" ng-app="MyApp">
+            <div ng-cloak="" class="tabsdemoDynamicHeight" ng-app="d4d">
                 <md-content>
                     <md-tabs md-dynamic-height="" md-border-bottom="">
-                      <md-tab label="Processing Jobs">
-                        <md-content class="md-padding">
-                          <h1 class="md-display-2">Tab 1</h1>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
-                          <!--<div layout="row" layout-wrap>
-                            <div flex="none">
-                                [flex="none"]
-                            </div>
-                            <div flex>
-                                [flex]
-                            </div>
-                            <div flex="nogrow">
-                            [flex="nogrow"]
-                            </div>
-                            <div flex="grow">
-                                [flex="grow"]
-                            </div>
-                            <div flex="initial">
-                                [flex="initial"]
-                            </div>
-                            <div flex="auto">
-                                [flex="auto"]
-                            </div>
-                            <div flex="noshrink">
-                                [flex="noshrink"]
-                            </div>
-                            <div flex="0">
-                                [flex="0"]
-                            </div>
-                          </div>-->
-                        </md-content>
-                      </md-tab>
-                      <md-tab label="Analysing Jobs">
-                        <md-content class="md-padding">
-                          <h1 class="md-display-2">Tab 2</h1>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
-                        </md-content>
-                      </md-tab>
-                      <md-tab label="Completed Jobs">
-                        <md-content class="md-padding">
-                          <h1 class="md-display-2">Tab 3</h1>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
-                        </md-content>
-                      </md-tab>
+                        <md-tab label="Processing Jobs">
+                            <md-content>
+                                <md-button class="md-accent">Create a New Job</md-button>
+                            </md-content>
+                            <md-content class="md-padding">
+                                <table class="table-area">
+                                    <tr>
+                                        <th>Job ID</th>
+                                        <th>Requester's ID</th>
+                                        <th>Name</th>
+                                        <th>Area</th>
+                                        <th>View Job</th>
+                                    </tr>
+                                    <tr ng-repeat="singleRow in vm.processingJobsArray">
+                                        <td>{{singleRow.Job_ID}}</td>
+                                        <td>{{singleRow.Requester_ID}}</td>
+                                        <td>{{singleRow.Name}}</td>
+                                        <td>{{singleRow.Area}}</td>
+                                        <td>view</td>
+                                    </tr>
+                                </table>
+                            </md-content>
+                        </md-tab>
+                        <md-tab label="Analysing Jobs">
+                            <md-content class="md-padding">
+                                <md-content>
+                                    <md-button class="md-accent">Create a New Job</md-button>
+                                </md-content>
+                                <md-content class="md-padding">
+                                    <table class="table-area">
+                                        <tr>
+                                            <th>Job ID</th>
+                                            <th>Requester's ID</th>
+                                            <th>Name</th>
+                                            <th>Area</th>
+                                            <th>View Job</th>
+                                        </tr>
+                                        <tr ng-repeat="singleRow in vm.analysingJobsArray">
+                                            <td>{{singleRow.Job_ID}}</td>
+                                            <td>{{singleRow.Requester_ID}}</td>
+                                            <td>{{singleRow.Name}}</td>
+                                            <td>{{singleRow.Area}}</td>
+                                            <td>view</td>
+                                        </tr>
+                                    </table>
+                                </md-content>
+                            </md-content>
+                        </md-tab>
+                        <md-tab label="Completed Jobs">
+                            <md-content class="md-padding">
+                                <md-content>
+                                    <md-button class="md-accent">Create a New Job</md-button>
+                                </md-content>
+                                <md-content class="md-padding">
+                                    <table class="table-area">
+                                        <tr>
+                                            <th>Job ID</th>
+                                            <th>Requester's ID</th>
+                                            <th>Name</th>
+                                            <th>Area</th>
+                                            <th>View Job</th>
+                                        </tr>
+                                        <tr ng-repeat="singleRow in vm.completedJobsArray">
+                                            <td>{{singleRow.Job_ID}}</td>
+                                            <td>{{singleRow.Requester_ID}}</td>
+                                            <td>{{singleRow.Name}}</td>
+                                            <td>{{singleRow.Area}}</td>
+                                            <td>view</td>
+                                        </tr>
+                                    </table>
+                                </md-content>
+                            </md-content>
+                        </md-tab>
                     </md-tabs>
                 </md-content>
             </div>
-            <!--<div layout="row" layout-wrap>
-                <div flex="none">
-                    [flex="none"]
-                </div>
-                <div flex>
-                    [flex]
-                </div>
-                <div flex="nogrow">
-                [flex="nogrow"]
-                </div>
-                <div flex="grow">
-                    [flex="grow"]
-                </div>
-                <div flex="initial">
-                    [flex="initial"]
-                </div>
-                <div flex="auto">
-                    [flex="auto"]
-                </div>
-                <div flex="noshrink">
-                    [flex="noshrink"]
-                </div>
-                <div flex="0">
-                    [flex="0"]
-                </div>
-            </div>-->
         </md-card>
     </div>
 </div>
+
+
+<!--<div layout="row" layout-wrap>
+<div flex="none">
+    [flex="none"]
+</div>
+<div flex>
+    [flex]
+</div>
+<div flex="nogrow">
+[flex="nogrow"]
+</div>
+<div flex="grow">
+    [flex="grow"]
+</div>
+<div flex="initial">
+    [flex="initial"]
+</div>
+<div flex="auto">
+    [flex="auto"]
+</div>
+<div flex="noshrink">
+    [flex="noshrink"]
+</div>
+<div flex="0">
+    [flex="0"]
+</div>
+</div>-->

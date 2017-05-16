@@ -11,3 +11,9 @@
 .tabsdemoDynamicHeight md-content h1:first-child {
     margin-top: 0; 
 }
+.sign-card-area {
+    width: 100%;
+}
+.table-area {
+    width: 100%;
+}
