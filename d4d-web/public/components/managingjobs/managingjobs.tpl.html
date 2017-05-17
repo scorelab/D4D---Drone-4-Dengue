@@ -10,14 +10,14 @@
                         <md-divider></md-divider>
                     </md-content>
                 </center>
+                <md-content>
+                    <md-button class="md-accent" ui-sref="createjob">Create a New Job</md-button>
+                </md-content>
             </md-content>
             <div ng-cloak="" class="tabsdemoDynamicHeight" ng-app="d4d">
                 <md-content>
                     <md-tabs md-dynamic-height="" md-border-bottom="">
                         <md-tab label="Processing Jobs">
-                            <md-content>
-                                <md-button class="md-accent" ui-sref="createjob">Create a New Job</md-button>
-                            </md-content>
                             <md-content class="md-padding">
                                 <table class="table-area">
                                     <tr>
@@ -32,16 +32,13 @@
                                         <td>{{singleRow.Requester_ID}}</td>
                                         <td>{{singleRow.Name}}</td>
                                         <td>{{singleRow.Area}}</td>
-                                        <td><a href="index.html#/managingjobs/viewjob/{{singleRow.Job_ID}}">view</a></td>
+                                        <td><a href="index.html#/managingjobs/viewprocessingjob/{{singleRow.Job_ID}}">view</a></td>
                                     </tr>
                                 </table>
                             </md-content>
                         </md-tab>
                         <md-tab label="Analysing Jobs">
                             <md-content class="md-padding">
-                                <md-content>
-                                    <md-button class="md-accent" ui-sref="createjob">Create a New Job</md-button>
-                                </md-content>
                                 <md-content class="md-padding">
                                     <table class="table-area">
                                         <tr>
@@ -64,9 +61,6 @@
                         </md-tab>
                         <md-tab label="Completed Jobs">
                             <md-content class="md-padding">
-                                <md-content>
-                                    <md-button class="md-accent" ui-sref="createjob">Create a New Job</md-button>
-                                </md-content>
                                 <md-content class="md-padding">
                                     <table class="table-area">
                                         <tr>

@@ -4,7 +4,7 @@
     
     angular
         .module('d4d')
-        .controller('viewjobController', function (auth, $state, $mdToast, $stateParams) {
+        .controller('viewprocessingjobController', function (auth, $state, $mdToast, $stateParams) {
         
         var vm = this;
         
@@ -16,7 +16,7 @@
         vm.confirmRequest = confirmRequest;
         vm.loadingData = loadingData;
         
-        console.log("viewjobController");
+        console.log("viewprocessingjobController");
         vm.loadingData(vm.job_id);
         
         function loadingData(job_id) {

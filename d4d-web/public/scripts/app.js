@@ -49,13 +49,13 @@
             controller: 'createjobController as vm'
         })
       
-       .state('viewjob', {
-            url: '/managingjobs/viewjob/:job_id',
+       .state('viewprocessingjob', {
+            url: '/managingjobs/viewprocessingjob/:job_id',
             controller: function($stateParams){
                 $stateParams.job_id
             },
-            templateUrl: 'components/viewjob/viewjob.tpl.html',
-            controller: 'viewjobController as vm'
+            templateUrl: 'components/viewprocessingjob/viewprocessingjob.tpl.html',
+            controller: 'viewprocessingjobController as vm'
         });
       
     });
