@@ -47,6 +47,15 @@
             url: '/managingjobs/createjob',
             templateUrl: 'components/createjob/createjob.tpl.html',
             controller: 'createjobController as vm'
+        })
+      
+       .state('viewjob', {
+            url: '/managingjobs/viewjob/:job_id',
+            controller: function($stateParams){
+                $stateParams.job_id
+            },
+            templateUrl: 'components/viewjob/viewjob.tpl.html',
+            controller: 'viewjobController as vm'
         });
       
     });
