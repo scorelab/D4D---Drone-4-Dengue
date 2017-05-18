@@ -1,0 +1,82 @@
+<!--Processing Jobs-->
+<div layout="row" ng-if="vm.tab_number === '1'">
+  <div flex="33" class="signin-card" flex-offset="33">
+    <md-card class="md-primary">
+        <md-content class="md-padding signin-card-color">
+            <center>
+                <md-content class="md-padding signin-card-color">
+                    <h1 class="md-display-1 h1-text-white">Job {{vm.job_id}} Details</h1>
+                    <md-divider></md-divider>
+                </md-content>
+                <md-content>
+                    <md-list>
+                        <md-list-item class="md-3-line">
+                            <div class="md-list-item-text">
+                                <h3>Job ID</h3>
+                                <h4>{{vm.job_id}}</h4>
+                            </div>
+                        </md-list-item>
+                        <md-list-item class="md-3-line">
+                            <div class="md-list-item-text">
+                                <h3>Capturing Area</h3>
+                                <h4>{{vm.capturing_area}}</h4>
+                            </div>
+                        </md-list-item>
+                        <md-list-item class="md-3-line">
+                            <div class="md-list-item-text">
+                                <h3>Request Type</h3>
+                                <h4>{{vm.request_type}}</h4>
+                            </div>
+                        </md-list-item>
+                        <md-list-item class="md-3-line">
+                            <div class="md-list-item-text">
+                                <h3>Capturing Date</h3>
+                                <h4>{{vm.capturing_date}}</h4>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </md-content>
+                <md-content>
+                    <md-button class="md-accent" ng-click="vm.confirmRequest(job_id, capturing_area, request_type, capturing_date)">Confirm</md-button>
+                </md-content>
+            </center>
+        </md-content>
+    </md-card>
+  </div>
+</div>
+
+<!--Analysing Jobs-->
+<div layout="row" ng-if="vm.tab_number === '2'">
+  <div class="signin-card sign-card-area">
+    <md-card class="md-primary">
+        <md-content class="md-padding signin-card-color">
+            <center>
+                <md-content class="md-padding signin-card-color">
+                    <h1 class="md-display-1 h1-text-white">Analysing Job {{vm.job_id}}</h1>
+                    <md-divider></md-divider>
+                </md-content>
+                <md-content>
+                    <div ng-cloak="" class="tabsdemoDynamicHeight" ng-app="d4d">
+                        <md-content>
+                            <md-tabs md-dynamic-height="" md-border-bottom="">
+                                <md-tab ng-repeat="singleImage in vm.imageList" label="{{singleImage.imageName}}">
+                                    <md-content class="md-padding">
+                                        <md-content>
+                                            <md-button class="md-accent" ng-click="vm.save(singleImage)">Save</md-button>
+                                            <md-button class="md-accent" ng-click="vm.cancel(singleImage)">Cancel</md-button>
+                                        </md-content>
+                                        <img src="{{singleImage.imageLink}}" style="width: 700px;">
+                                    </md-content>
+                                </md-tab>
+                            </md-tabs>
+                        </md-content>
+                    </div>
+                </md-content>
+                <md-content>
+                    <md-button class="md-accent" ng-click="vm.confirmImages()">Confirm</md-button>
+                </md-content>
+            </center>
+        </md-content>
+    </md-card>
+  </div>
+</div>
