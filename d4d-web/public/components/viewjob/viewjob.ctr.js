@@ -46,6 +46,10 @@
                         "imageLink": "../public/images/3.jpg"
                     }
                 ];
+            } else if(tab_number == "3") {
+                vm.capturing_area = "Colombo";
+                vm.request_type = "Dengue Monitoring";
+                vm.capturing_date = "06/03/2017";
             }   
         }
         
@@ -68,12 +72,10 @@
         }
         
         function save(singleImage) {
-            console.log(singleImage);
             vm.showToast("Saved");
         }
         
         function cancel(singleImage) {
-            console.log(singleImage);
             vm.showToast("Cancelled");
         }
         
