@@ -20,9 +20,10 @@
         vm.longitudeArray = [];
         
         vm.triangleCoords = [
+            new google.maps.LatLng(7.0873, 80.0144),
             new google.maps.LatLng(6.8018, 79.9227),
-            new google.maps.LatLng(7.2906, 80.6337),
-            new google.maps.LatLng(6.0535, 80.2210)
+            new google.maps.LatLng(6.0535, 80.2210),     
+            new google.maps.LatLng(7.2906, 80.6337)              
         ];
         
         // Styling & Controls
@@ -56,7 +57,7 @@
         
         //vm.ne, vm.sw, vm.a1, vm.a2;
         NgMap.getMap().then(function(map) {
-            console.log('map', map);
+            //console.log('map', map);
             vm.myPolygon.setMap(map);
             vm.map = map;
         });
