@@ -8,12 +8,38 @@
                 <md-content class="md-padding signin-card-color">
                     <h1 class="md-display-1 h1-text-white">Create a Job</h1>
                     <md-divider></md-divider>
+                    <!--<ng-map zoom="13" center="6.9271, 79.8612"
+                        map-type-id="ROADMAP"
+                        street-view-control-options="{position: 'LEFT_CENTER'}">
+                        <drawing-manager
+                          on-overlaycomplete="vm.onMapOverlayCompleted()"
+                          drawing-control-options="{position: 'TOP_CENTER',drawingModes:['rectangle']}"
+                          drawingControl="true"
+                          drawingMode="null"
+                          markerOptions="{icon:'www.example.com/icon'}"
+                          rectangleOptions="{fillColor:'red'}"
+                          circleOptions="{fillColor: '#FFFF00',fillOpacity: 1,strokeWeight: 5,clickable: false,zIndex: 1,editable: true}" >
+                        </drawing-manager>
+                    </ng-map>-->
+                    <!--<ng-map default-style="true" zoom="9" center="6.9271, 79.8612">
+                      <shape name="rectangle"
+                        editable="true"
+                        draggable="true"
+                        bounds="[[6.850, 79.750],[6.9371, 80.04796757812505]]"
+                        on-bounds_changed="vm.boundsChanged()">
+                      </shape>
+                    </ng-map>
+
+                    <b>Rectangle moved.</b><br/>
+                    New north-east corner: {{vm.ne.lat()}}, {{vm.ne.lng()}}<br/>
+                    New south-west corner: {{vm.sw.lat()}}, {{vm.sw.lng()}}-->
                 </md-content>
-                <md-input-container>
+                <md-input-container class="map-label-area">
                     <label>Capturing Area</label>
-                    <input type="text" ng-model="capturing_area" required>
-                    <!--<img src="../../images/background-image.jpg" alt="Map Area" style="width:304px;height:228px;">-->
                 </md-input-container>
+                <ng-map default-style="true" zoom="9" center="6.9271, 79.8612">
+                </ng-map>
+                
                 <md-input-container class="dropdown-area">
                     <label>Requesting Type</label>
                     <md-select ng-model="selectedValue" ng-change="vm.saveSelectedValue(selectedValue)" required>
@@ -25,7 +51,7 @@
                     <input type="date" ng-model="capturing_date" required>
                 </md-input-container>
                 <md-content>
-                    <md-button class="md-accent" ng-click="vm.sendData(capturing_area, selectedValue, capturing_date)">Send</md-button>
+                    <md-button class="md-accent" ng-click="vm.sendData(selectedValue, capturing_date)">Send</md-button>
                 </md-content>
             </center>
         </md-content>

@@ -3,7 +3,7 @@
   "use strict";
 
   angular
-      .module('d4d', ['ngMaterial', 'ui.router', 'firebase'])
+      .module('d4d', ['ngMaterial', 'ui.router', 'firebase', 'ngMap'])
       .config(function($mdThemingProvider, $stateProvider, $urlRouterProvider) {
       
       $mdThemingProvider.theme('default')
