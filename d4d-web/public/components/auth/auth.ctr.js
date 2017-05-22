@@ -1,37 +1,24 @@
+//https://github.com/firebase/angularfire/issues/768
+
 (function() {
 
     "use strict";
     
-    angular
-        .module('d4d')
-        .controller('authController', function(auth, $state, $mdToast) {
+    angular.module('d4d')
+        .controller('authController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', function($state, $mdToast, $firebaseAuth, $firebase) {
         
         var vm = this;
-        
-        vm.signin = signin;
-        vm.username = "";
-        vm.password = "";
-        vm.login = login;
-        vm.showToast = showToast;
-        
-        function signin(){
-            
-            vm.auth = null;
-            vm.error = null;
-            vm.user = null;
-            
-            auth.ref.$signInWithPopup("google").then(function(auth) {
-                vm.auth = auth;
-                vm.user = auth.user;
-                console.log("Signed in as:", auth);
-                showToast(vm.user.displayName+" Signed!!!")
-                $state.go('/');
-            }).catch(function(error) {
-                vm.error = error;
-                console.error("Authentication failed:", error);
-            });
-        }
-        
+        var config = {
+          apiKey: "AIzaSyAfh1IU93CQfo9nyJqnxxcZ0R7z3Uve3nE",
+          authDomain: "dronemap-b66a3.firebaseapp.com",
+          databaseURL: "https://dronemap-b66a3.firebaseio.com"
+        };
+        firebase.initializeApp(config);
+
+        var rootRef = firebase.auth();
+        //var firebaseREF = new Firebase('https://dronemap-883ec.firebaseio.com');
+        var d4dLogin = $firebaseAuth(rootRef);
+                
         function showToast(message) {
             $mdToast.show(
                 $mdToast.simple()
@@ -39,23 +26,21 @@
                 .hideDelay(3000)
             );
         }
-        console.log("authController");
+        //console.log("authController");
         
-        function login(username, password) {
-            vm.username = username;
-            vm.password = password;
-            
-            if(vm.username == null && vm.password != null) {
-                vm.showToast("Enter the username");
-            } else if(vm.username != null && vm.password == null) {
-                vm.showToast("Enter the password");
-            } else if(vm.username == null && vm.password == null) {
-                vm.showToast("Enter the username and the password");
-            } else {
-                vm.showToast("Success");
-            }
-        }
-        
-    });
-
+        function login(username, password) {    
+            firebase.auth().signInWithEmailAndPassword(username, password).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // [START_EXCLUDE]
+                if (errorCode === 'auth/wrong-password') {
+                    alert('Wrong password.');
+                } else {
+                    alert(errorMessage);
+                }
+                console.log(error);
+            });
+        }   
+    }]);
 })();
