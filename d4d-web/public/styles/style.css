@@ -13,3 +13,30 @@
     width: 100%;
     margin-bottom: 34px;
 }
+.tabsdemoDynamicHeight md-content {
+  background-color: transparent !important; 
+}
+.tabsdemoDynamicHeight md-content md-tabs {
+    background: #f6f6f6;
+    border: 1px solid #e1e1e1; 
+}
+.tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
+      background: white; 
+}
+.tabsdemoDynamicHeight md-content h1:first-child {
+    margin-top: 0; 
+}
+.sign-card-area {
+    width: 100%;
+}
+.table-area {
+    width: 100%;
+}
+.dropdown-list {
+     width:190px;
+}
+.navBardemoBasicUsage md-content .ext-content {
+  padding: 50px;
+  margin: 20px;
+  background-color: #FFF2E0; 
+}

@@ -60,6 +60,15 @@
                     <div ng-cloak="" class="tabsdemoDynamicHeight" ng-app="d4d">
                         <md-content>
                             <md-tabs md-dynamic-height="" md-border-bottom="">
+                                <md-tab label="Upload Images">
+                                    <md-content class="md-padding">
+                                        <md-content>
+                                            <md-button class="md-accent">Upload</md-button>
+                                            <md-button class="md-accent">Cancel</md-button>
+                                        </md-content>
+                                        <img style="width: 700px;">
+                                    </md-content>
+                                </md-tab>
                                 <md-tab ng-repeat="singleImage in vm.imageList" label="{{singleImage.imageName}}">
                                     <md-content class="md-padding">
                                         <md-content>

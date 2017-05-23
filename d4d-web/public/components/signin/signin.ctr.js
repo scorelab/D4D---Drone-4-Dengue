@@ -11,7 +11,6 @@
         vm.signin = signin;
         vm.showToast = showToast;
         vm.validateEmail = validateEmail;
-        vm.username = "";
         vm.password = "";
         vm.email = "";
         vm.siteURL = "";
@@ -26,12 +25,11 @@
             );
         }
         
-        function signin(username, password, email) {
-            vm.username = username;
+        function signin(password, email) {
             vm.password = password;
             vm.email = email;
             
-            if(vm.username != null && vm.password != null && vm.email != null) {
+            if(vm.password != null && vm.email != null) {
                 if(vm.validateEmail(vm.email)) {
                     vm.siteURL = (window.location.href).replace("signin", "profile");
                     window.location = vm.siteURL;

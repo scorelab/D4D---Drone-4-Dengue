@@ -1,5 +1,3 @@
-<script src="../signin/signin.ctr.js"></script>
-
 <div layout="row">
   <div flex="33" class="signin-card" flex-offset="33">
     <md-card class="md-primary">
@@ -14,15 +12,11 @@
                     <input type="text" ng-model="email" required>
                 </md-input-container>
                 <md-input-container>
-                    <label>Username</label>
-                    <input type="text" ng-model="username" required>
-                </md-input-container>
-                <md-input-container>
                     <label>Password</label>
                     <input type="password" ng-model="password" required>
                 </md-input-container>
                 <md-content>
-                    <md-button class="md-accent" ng-click="vm.signin(username, password, email)">Sign In</md-button>
+                    <md-button class="md-accent" ng-click="vm.signin(password, email)">Sign In</md-button>
                 </md-content>
             </center>
         </md-content>

@@ -20,6 +20,7 @@
         vm.save = save;
         vm.cancel = cancel;
         vm.confirmImages = confirmImages;
+       // vm.uploadImage = uploadImage;
         
         console.log("viewjobController");
         vm.loadingData(vm.job_id, vm.tab_number);
@@ -31,7 +32,6 @@
                 vm.request_type = "Dengue Monitoring";
                 vm.capturing_date = "06/03/2017";
             } else if(tab_number == "2") {
-                console.log(tab_number);
                 vm.imageList = [
                     {
                         "imageName": "Image 1",
@@ -82,6 +82,25 @@
         function confirmImages() {
             vm.showToast("Confirmed");
         }
+        
+        /*function uploadImage () {
+            upload({
+              url: '/upload',
+              method: 'POST',
+              data: {
+                anint: 123,
+                aBlob: Blob([1,2,3]), // Only works in newer browsers
+                aFile: $scope.myFile, // a jqLite type="file" element, upload() will extract all the files from the input and put them into the FormData object before sending.
+              }
+            }).then(
+              function (response) {
+                console.log(response.data); // will output whatever you choose to return from the server on a successful upload
+              },
+              function (response) {
+                  console.error(response); //  Will return if status code is above 200 and lower than 300, same as $http
+              }
+            );
+        }*/
         
     });
 
