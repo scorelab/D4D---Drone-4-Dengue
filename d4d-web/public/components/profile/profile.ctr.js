@@ -11,7 +11,7 @@
         vm.showToast = showToast;
         vm.saveSelectedValue = saveSelectedValue;
         vm.selectedValue = "";
-        vm.profileList = ["PHI", "Doctor", "Other"];
+        vm.profileList = ["PHI", "Drone Pilot"];
         
         function showToast(message) {
             $mdToast.show(
