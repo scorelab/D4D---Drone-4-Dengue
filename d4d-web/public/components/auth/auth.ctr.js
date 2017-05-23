@@ -42,7 +42,7 @@
         }
         //console.log("authController");
         
-        function login(uesrname, password){
+        function login(username, password){
             vm.username = username;
             console.log(vm.username);
 //            var em = this.username;
