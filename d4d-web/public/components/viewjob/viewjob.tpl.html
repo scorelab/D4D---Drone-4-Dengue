@@ -62,8 +62,20 @@
                             <md-tabs md-dynamic-height="" md-border-bottom="">
                                 <md-tab label="Upload Images">
                                     <md-content class="md-padding">
+                                        <div class="fb-image-upload">
+                                            <form ng-submit="vm.upload_image(image)">
+                                                <div class="fb-error" ng-show="error">{{vm.error}}</div>
+                                                <div class="fb-inputs" ng-hide="image.isUploading">
+                                                    <input class="fb-image-upload" fb-image-upload class="fb-input" type="file" name="image"/>
+                                                    <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid"/>
+                                                </div>
+                                                <div class="fb-uploading" ng-show="image.isUploading">
+                                                    Uploading...
+                                                </div>
+                                            </form>
+                                        </div>
                                         <md-content>
-                                            <md-button class="md-accent">Upload</md-button>
+                                            <!--<md-button class="md-accent">Upload</md-button>-->
                                             <md-button class="md-accent">Cancel</md-button>
                                         </md-content>
                                         <img style="width: 700px;">

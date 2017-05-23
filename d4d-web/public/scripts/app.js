@@ -57,6 +57,12 @@
             },
             templateUrl: 'components/viewjob/viewjob.tpl.html',
             controller: 'viewjobController as vm'
+        })
+      
+        .state('imageuploading', {
+            url: '/imageuploading',
+            templateUrl: 'components/imageuploading/template.html',
+            controller: 'ImageUpload as vm'
         });
       
     });
