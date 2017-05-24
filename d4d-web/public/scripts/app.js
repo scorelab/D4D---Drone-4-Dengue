@@ -63,6 +63,12 @@
             url: '/imageuploading',
             templateUrl: 'components/imageuploading/template.html',
             controller: 'ImageUpload as vm'
+        })
+      
+        .state('forgotpassword', {
+            url: '/forgotpassword',
+            templateUrl: 'components/forgotpassword/forgotpassword.tpl.html',
+            controller: 'forgotpasswordController as vm'
         });
       
     });
