@@ -36,7 +36,7 @@
                     vm.showToast("Invalid email address");
                 }   
             } else {
-                vm.showToast("Fill all fields");
+                vm.showToast("Enter the email address");
             }
         }
         
