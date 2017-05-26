@@ -40,24 +40,27 @@
                 .hideDelay(3000)
             );
         }
-        //console.log("authController");
-        
+            
         function login(username, password){
             vm.username = username;
-            console.log(vm.username);
-//            var em = this.username;
-//            var ps = this.password;
-//            var authentication = firebase.auth().signInWithEmailAndPassword(em, ps);
-//            console.log(authentication);
+            vm.password = password;
+            if(validateEmail(vm,username)){
+                if(firebase.auth().signInWithEmailAndPassword(vm.username, vm.password)){
+                    //logged-in
+                    //remove sign-in button
+                    //add sign-out button
+                }else{
+                    //return login details invalid error to front-end
+                }
+            }else{
+                //return email invalid error to front-end
+            }      
         }
-            
+        
+        //pls add this to general js file, then we can call it from anywhere
         function validateEmail(email) {
             var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(email);
         }
-
-  
-
-   
     }]);
 })();
