@@ -1,10 +1,29 @@
+<!--Menu-->
+<div layout="row">
+  <div class="signin-card">
+    <md-card class="md-primary">
+        <md-content class="md-padding">
+            <nav class="navbar navbar-inverse" role="navigation">
+                <table>
+                    <tr>
+                        <td><a ui-sref="home">Home</a></td>
+                        <td><a ui-sref="auth">Login</a></td>
+                        <td><a ui-sref="signup">SignUp</a></td>
+                    </tr>
+                </table>
+            </nav>
+        </md-content>
+    </md-card>
+  </div>
+</div>
+<!--Content-->
 <div layout="row">
   <div flex="33" class="signin-card" flex-offset="33">
     <md-card class="md-primary">
         <md-content class="md-padding signin-card-color">
             <center>
                 <md-content class="md-padding signin-card-color">
-                    <h1 class="md-display-1 h1-text-white">SignIn to App</h1>
+                    <h1 class="md-display-1 h1-text-white">SignUp to App</h1>
                     <md-divider></md-divider>
                 </md-content>
                 <md-input-container>
@@ -16,7 +35,7 @@
                     <input type="password" ng-model="password" required>
                 </md-input-container>
                 <md-content>
-                    <md-button class="md-accent" ng-click="vm.signin(password, email)">Sign In</md-button>
+                    <md-button class="md-accent" ng-click="vm.signup(password, email)">Sign Up</md-button>
                 </md-content>
             </center>
         </md-content>

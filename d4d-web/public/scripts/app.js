@@ -19,10 +19,10 @@
             controller: 'authController as vm'
         })
       
-        .state('signin', {
-            url: '/signin',
-            templateUrl: 'components/signin/signin.tpl.html',
-            controller: 'signinController as vm'
+        .state('signup', {
+            url: '/signup',
+            templateUrl: 'components/signup/signup.tpl.html',
+            controller: 'signupController as vm'
         })
       
         .state('profile', {
