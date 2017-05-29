@@ -67,14 +67,17 @@
         <script src="components/imageuploading/fp-src.js"></script>
         <script src="components/imageuploading/imageUpload.js"></script>
         <script src="components/forgotpassword/forgotpassword.ctr.js"></script>
+        
+        <!--Injecting shared services-->
+        <script src="components/sharedservices/sharedusernameservices.js"></script>
+        <script src="components/sharedservices/shareduseridservices.js"></script>
            
     </head>
     <body class="site-background-color">
-        <div layout="row">
+        <!--<div layout="row">
           <div class="signin-card">
             <md-card class="md-primary">
                 <md-content class="md-padding">
-                    <!-- NAVIGATION -->
                     <nav class="navbar navbar-inverse" role="navigation">
                         <table>
                             <tr>
@@ -89,7 +92,7 @@
                 </md-content>
             </md-card>
           </div>
-        </div>
+        </div>-->
         <div class="site-background-color" ui-view></div>
     </body>
 </html>

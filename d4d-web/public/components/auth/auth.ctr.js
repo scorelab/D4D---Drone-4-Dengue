@@ -7,7 +7,7 @@
     "use strict";
     
     angular.module('d4d')
-        .controller('authController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', function($state, $mdToast, $firebaseAuth, $firebase) {
+        .controller('authController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', '$firebaseObject', 'sharedUsernameServices', 'sharedUseridServices', function($state, $mdToast, $firebaseAuth, $firebase, $firebaseObject, $sharedUsernameServices, $sharedUseridServices) {
         
         var vm = this;
             
@@ -25,14 +25,17 @@
             storageBucket: "dronemap-b66a3.appspot.com",
             messagingSenderId: "610754060845"
         };
+            
         if (!firebase.apps.length) {
             firebase.initializeApp(config);
         }
 
         var rootRef = firebase.auth();
-        //var firebaseREF = new Firebase('https://dronemap-883ec.firebaseio.com');
         var d4dLogin = $firebaseAuth(rootRef);
-                
+        
+        // Get a reference to the database service
+        var database = firebase.database().ref("users");
+            
         function showToast(message) {
             $mdToast.show(
                 $mdToast.simple()
@@ -44,17 +47,27 @@
         function login(username, password){
             vm.username = username;
             vm.password = password;
-            if(validateEmail(vm,username)){
-                if(firebase.auth().signInWithEmailAndPassword(vm.username, vm.password)){
-                    //logged-in
-                    //remove sign-in button
-                    //add sign-out button
-                }else{
-                    //return login details invalid error to front-end
-                }
-            }else{
-                //return email invalid error to front-end
-            }      
+            
+            if(vm.username != null || vm.password !=null) {
+                if(validateEmail(vm.username)){
+                    if(firebase.auth().signInWithEmailAndPassword(vm.username, vm.password)){
+                        $sharedUsernameServices.setUsername(d4dLogin.$getAuth().email);
+                        
+                        $sharedUseridServices.setUsername(d4dLogin.$getAuth().uid);
+                        
+                        var siteURL = (window.location.href).concat("managingjobs");
+                        window.location = siteURL;
+                        
+                    }else{
+                        vm.showToast("An error occured");
+                    }
+                } else {
+                    vm.showToast("Enter a valid email address");
+                }  
+            } else {
+                vm.showToast("Fill all fields");
+            }
+                
         }
         
         //pls add this to general js file, then we can call it from anywhere
