@@ -4,126 +4,54 @@
     
     angular
         .module('d4d')
-        .controller('managingController', function (auth, $state, $mdToast) {
+        .controller('managingController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', '$firebaseObject', 'sharedUsernameServices', 'sharedUseridServices', function ($state, $mdToast, $firebaseAuth, $firebase, $firebaseObject, $sharedUsernameServices, $sharedUseridServices) {
         
-        var vm = this;
+            var vm = this;
         
-        vm.processingJobsArray = [
-            {"Job_ID": "001",
-            "Requester_ID": "J001",
-            "Name": "Drone Pilot 1",
-            "Area": "Colombo 1"
-            },
-            {"Job_ID": "002",
-            "Requester_ID": "J002",
-            "Name": "Drone Pilot 2",
-            "Area": "Colombo 2"
-            },
-            {"Job_ID": "003",
-            "Requester_ID": "J003",
-            "Name": "Drone Pilot 3",
-            "Area": "Colombo 3"
-            },
-            {"Job_ID": "004",
-            "Requester_ID": "J004",
-            "Name": "Drone Pilot 4",
-            "Area": "Colombo 4"
-            },
-            {"Job_ID": "005",
-            "Requester_ID": "J005",
-            "Name": "Drone Pilot 5",
-            "Area": "Colombo 5"
-            },
-            {"Job_ID": "006",
-            "Requester_ID": "J006",
-            "Name": "Drone Pilot 6",
-            "Area": "Colombo 6"
-            },
-            {"Job_ID": "007",
-            "Requester_ID": "J007",
-            "Name": "Drone Pilot 7",
-            "Area": "Colombo 7"
+            vm.logout = logout;
+            vm.loadJobs = loadJobs;
+            vm.loadJobs();
+        
+            vm.processingJobsArray = [];
+            vm.analysingJobsArray = [];
+            vm.completedJobsArray = [];
+            
+            vm.gettingName = $sharedUsernameServices.getUsername();
+            vm.gettingID = $sharedUseridServices.getUserid();
+
+            console.log('managingController');
+
+            function loadJobs() {
+                var userId = vm.gettingID;
+                //var userId = firebase.auth().currentUser.uid;
+
+                var processingJobsData = firebase.database().ref('jobs/processingjobs');
+                processingJobsData.on('value', function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        vm.processingJobsArray.push(childSnapshot.val());
+                    });
+                });
+                
+                var analysingJobsData = firebase.database().ref('jobs/analysingjobs');
+                analysingJobsData.on('value', function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        vm.analysingJobsArray.push(childSnapshot.val());
+                    });
+                });
+                     
+                var completedJobsData = firebase.database().ref('jobs/completedjobs');
+                completedJobsData.on('value', function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        vm.completedJobsArray.push(childSnapshot.val());
+                    });
+                });
+
             }
-        ];
-        
-        vm.analysingJobsArray = [
-            {"Job_ID": "001",
-            "Requester_ID": "J001",
-            "Name": "Drone Pilot 1",
-            "Area": "Colombo 1"
-            },
-            {"Job_ID": "002",
-            "Requester_ID": "J002",
-            "Name": "Drone Pilot 2",
-            "Area": "Colombo 2"
-            },
-            {"Job_ID": "003",
-            "Requester_ID": "J003",
-            "Name": "Drone Pilot 3",
-            "Area": "Colombo 3"
-            },
-            {"Job_ID": "004",
-            "Requester_ID": "J004",
-            "Name": "Drone Pilot 4",
-            "Area": "Colombo 4"
-            },
-            {"Job_ID": "005",
-            "Requester_ID": "J005",
-            "Name": "Drone Pilot 5",
-            "Area": "Colombo 5"
-            },
-            {"Job_ID": "006",
-            "Requester_ID": "J006",
-            "Name": "Drone Pilot 6",
-            "Area": "Colombo 6"
-            },
-            {"Job_ID": "007",
-            "Requester_ID": "J007",
-            "Name": "Drone Pilot 7",
-            "Area": "Colombo 7"
+
+            function logout() {
+                firebase.auth().signOut();
             }
-        ];
-        
-        vm.completedJobsArray = [
-            {"Job_ID": "001",
-            "Requester_ID": "J001",
-            "Name": "Drone Pilot 1",
-            "Area": "Colombo 1"
-            },
-            {"Job_ID": "002",
-            "Requester_ID": "J002",
-            "Name": "Drone Pilot 2",
-            "Area": "Colombo 2"
-            },
-            {"Job_ID": "003",
-            "Requester_ID": "J003",
-            "Name": "Drone Pilot 3",
-            "Area": "Colombo 3"
-            },
-            {"Job_ID": "004",
-            "Requester_ID": "J004",
-            "Name": "Drone Pilot 4",
-            "Area": "Colombo 4"
-            },
-            {"Job_ID": "005",
-            "Requester_ID": "J005",
-            "Name": "Drone Pilot 5",
-            "Area": "Colombo 5"
-            },
-            {"Job_ID": "006",
-            "Requester_ID": "J006",
-            "Name": "Drone Pilot 6",
-            "Area": "Colombo 6"
-            },
-            {"Job_ID": "007",
-            "Requester_ID": "J007",
-            "Name": "Drone Pilot 7",
-            "Area": "Colombo 7"
-            }
-        ];
-        
-        console.log('managingController');
-        
-    });
+
+    }]);
 
 })();

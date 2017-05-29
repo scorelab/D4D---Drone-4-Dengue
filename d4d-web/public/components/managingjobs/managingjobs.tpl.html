@@ -1,3 +1,24 @@
+<!--Menu-->
+<div layout="row">
+  <div class="signin-card">
+    <md-card class="md-primary">
+        <md-content class="md-padding">
+            <nav class="navbar navbar-inverse" role="navigation">
+                <table>
+                    <tr>
+                        <td><a ui-sref="home">Home</a></td>
+                        <td><a ui-sref="managingjobs">Manage Jobs</a></td>
+                        <td><a ng-click="vm.logout()" ui-sref="auth" >Logout</a></td>
+                        <td><a ui-sref="profile">Profile</a></td>
+                        <td>{{vm.gettingName}}</td>
+                    </tr>
+                </table>
+            </nav>
+        </md-content>
+    </md-card>
+  </div>
+</div>
+<!--Content-->
 <div layout="row">
     <div class="signin-card sign-card-area">
         <md-card class="md-primary">
