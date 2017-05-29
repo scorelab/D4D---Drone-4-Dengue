@@ -49,7 +49,6 @@
                     if(vm.validateEmail(vm.email)) {
                         firebase.auth().createUserWithEmailAndPassword(vm.email, vm.password)
                             .then(function(firebaseUser) {
-                                console.log("User " + firebaseUser.uid + " created successfully!");
                                 vm.siteURL = (window.location.href).replace("signup", "profile");
                                 window.location = vm.siteURL;
                             
