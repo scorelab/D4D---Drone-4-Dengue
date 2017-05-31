@@ -42,14 +42,12 @@
                                     <tr>
                                         <th>Job ID</th>
                                         <th>Requester's ID</th>
-                                        <th>Name</th>
                                         <th>Area</th>
                                         <th>View Job</th>
                                     </tr>
                                     <tr ng-repeat="singleRow in vm.processingJobsArray">
                                         <td>{{singleRow.Job_ID}}</td>
                                         <td>{{singleRow.Requester_ID}}</td>
-                                        <td>{{singleRow.Name}}</td>
                                         <td>{{singleRow.Area}}</td>
                                         <td><a href="index.html#/managingjobs/viewjob/{{singleRow.Job_ID}}/1">view</a></td>
                                     </tr>
@@ -62,14 +60,12 @@
                                     <tr>
                                         <th>Job ID</th>
                                         <th>Requester's ID</th>
-                                        <th>Name</th>
                                         <th>Area</th>
                                         <th>View Job</th>
                                     </tr>
                                     <tr ng-repeat="singleRow in vm.analysingJobsArray">
                                         <td>{{singleRow.Job_ID}}</td>
                                         <td>{{singleRow.Requester_ID}}</td>
-                                        <td>{{singleRow.Name}}</td>
                                         <td>{{singleRow.Area}}</td>
                                         <td><a href="index.html#/managingjobs/viewjob/{{singleRow.Job_ID}}/2">view</a></td>
                                     </tr>
@@ -82,14 +78,12 @@
                                     <tr>
                                         <th>Job ID</th>
                                         <th>Requester's ID</th>
-                                        <th>Name</th>
                                         <th>Area</th>
                                         <th>View Job</th>
                                     </tr>
                                     <tr ng-repeat="singleRow in vm.completedJobsArray">
                                         <td>{{singleRow.Job_ID}}</td>
                                         <td>{{singleRow.Requester_ID}}</td>
-                                        <td>{{singleRow.Name}}</td>
                                         <td>{{singleRow.Area}}</td>
                                         <td><a href="index.html#/managingjobs/viewjob/{{singleRow.Job_ID}}/3">view</a></td>
                                     </tr>
