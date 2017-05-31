@@ -4,7 +4,7 @@
     
     angular
         .module('d4d')
-        .controller('managingController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', '$firebaseObject', 'sharedUsernameServices', 'sharedUseridServices', function ($state, $mdToast, $firebaseAuth, $firebase, $firebaseObject, $sharedUsernameServices, $sharedUseridServices) {
+        .controller('managingController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', '$firebaseObject', 'sharedUsernameServices', 'sharedUseridServices', 'sharedUserCategoryServices', function ($state, $mdToast, $firebaseAuth, $firebase, $firebaseObject, $sharedUsernameServices, $sharedUseridServices, $sharedUserCategoryServices) {
         
             var vm = this;
         
@@ -18,8 +18,10 @@
             
             vm.gettingName = $sharedUsernameServices.getUsername();
             vm.gettingID = $sharedUseridServices.getUserid();
+            vm.getCategory = $sharedUserCategoryServices.getUserCategory();
 
             console.log('managingController');
+            console.log(vm.getCategory);
 
             function loadJobs() {
                 var userId = vm.gettingID;

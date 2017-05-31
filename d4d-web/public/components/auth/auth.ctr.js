@@ -7,7 +7,7 @@
     "use strict";
     
     angular.module('d4d')
-        .controller('authController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', '$firebaseObject', 'sharedUsernameServices', 'sharedUseridServices', function($state, $mdToast, $firebaseAuth, $firebase, $firebaseObject, $sharedUsernameServices, $sharedUseridServices) {
+        .controller('authController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', '$firebaseObject', 'sharedUsernameServices', 'sharedUseridServices', 'sharedUserCategoryServices', function($state, $mdToast, $firebaseAuth, $firebase, $firebaseObject, $sharedUsernameServices, $sharedUseridServices, $sharedUserCategoryServices) {
         
         var vm = this;
             
@@ -55,8 +55,16 @@
                         
                         $sharedUseridServices.setUsername(d4dLogin.$getAuth().uid);
                         
-                        var siteURL = (window.location.href).concat("managingjobs");
-                        window.location = siteURL;
+                        var processingJobsData = firebase.database().ref('users/'+ d4dLogin.$getAuth().uid);
+                        processingJobsData.on('value', function(snapshot) {
+                            snapshot.forEach(function(childSnapshot) {
+                                if(childSnapshot.key == 'profile') {
+                                    $sharedUserCategoryServices.setUserCategory(childSnapshot.val());
+                                    var siteURL = (window.location.href).concat("managingjobs");
+                                    window.location = siteURL;
+                                }
+                            });
+                        });                        
                         
                     }else{
                         vm.showToast("An error occured");
