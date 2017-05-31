@@ -18,7 +18,7 @@
         vm.map;
         vm.latitudeArray = [];
         vm.longitudeArray = [];
-        
+        vm.requestingTypeList = [{id:0,name:"Dengue Monitoring"},{id:1,name:"Other"}];
         vm.triangleCoords = [
             new google.maps.LatLng(7.0873, 80.0144),
             new google.maps.LatLng(6.8018, 79.9227),
@@ -37,8 +37,6 @@
             fillColor: '#FF0000',
             fillOpacity: 0.35
         });
-        
-        
         
         function getPolygonCoords() {
             var len = vm.myPolygon.getPath().getLength();
@@ -71,8 +69,6 @@
             //vm.map.showInfoWindow('foo', this.getBounds());
         };*/
         
-        vm.requestingTypeList = ["Dengue Monitoring", "Occation", "Other"];
-        
         function showToast(message) {
             $mdToast.show(
                 $mdToast.simple()
@@ -94,6 +90,22 @@
             if(vm.selectedValue != null && vm.capturing_date != null) {
                 vm.showToast("Send the request"); 
                 vm.getPolygonCoords();
+                
+                /*Get the highest job id*/
+                var processingJobsData = firebase.database().ref('jobs/processingjobs');
+                var processingNumArray = [];
+                processingJobsData.on('value', function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        processingNumArray.push((childSnapshot.key).substr(1));
+                        console.log(processingNumArray);
+                    });
+                });
+                
+                /*firebase.database().ref('jobs/processingjobs/p010').set({
+                    Area: "Piliyandala",
+                    Job_ID: "p010",
+                    Requester_ID: "dp1"
+                });*/
             } else {
                 vm.showToast("Fill all fields");
             }            
@@ -103,6 +115,18 @@
             console.log(e.type);
         }*/
         
+        /*function saveSelectedValue(selectValue) {
+            console.log(selectValue);
+
+            firebase.database().ref('users/' + vm.gettingID).set({
+                username: vm.gettingName,
+                profile: selectValue
+            });
+
+            var siteURL = (window.location.href).replace("profile", "");
+            window.location = siteURL;
+            location.reload();
+        }*/
     });
 
 })();

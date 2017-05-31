@@ -11,7 +11,7 @@
                 <md-input-container class="dropdown-area" style="width: 50%;">
                     <label>Requesting Type</label>
                     <md-select ng-model="selectedValue" ng-change="vm.saveSelectedValue(selectedValue)" required>
-                          <md-option ng-repeat="singleRequest in vm.requestingTypeList" value="{{singleRequest}}">{{singleRequest}}</md-option>
+                          <md-option ng-repeat="singleRequest in vm.requestingTypeList" value="{{singleRequest.id}}">{{singleRequest.name}}</md-option>
                     </md-select>
                 </md-input-container>
                 
