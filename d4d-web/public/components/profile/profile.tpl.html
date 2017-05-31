@@ -12,7 +12,7 @@
                     <label>User Category</label>
                      
                     <md-select ng-model="selectedValue" class="dropdown-list" ng-change="vm.saveSelectedValue(selectedValue)" required>
-                        <md-option ng-repeat="singleProfile in vm.profileList" value="{{singleProfile}}">{{singleProfile}}</md-option>
+                        <md-option ng-repeat="singleProfile in vm.profileList" value="{{singleProfile.id}}">{{singleProfile.name}}</md-option>
                     </md-select>
                 </md-input-container>
             </center>

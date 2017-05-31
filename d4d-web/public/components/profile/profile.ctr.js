@@ -11,7 +11,7 @@
             vm.showToast = showToast;
             vm.saveSelectedValue = saveSelectedValue;
             vm.selectedValue = "";
-            vm.profileList = ["PHI", "Drone Pilot"];
+            vm.profileList = [{id:0,name:"PHI"},{id:1,name:"Drone Pilot"}];
             
             vm.gettingName = $sharedUsernameServices.getUsername();
             vm.gettingID = $sharedUseridServices.getUserid();
