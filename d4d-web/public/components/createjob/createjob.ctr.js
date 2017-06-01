@@ -6,6 +6,19 @@
         .module('d4d')
         .controller('createjobController', function (auth, $state, $mdToast, NgMap) {
         
+        var config = {
+            apiKey: "AIzaSyAfh1IU93CQfo9nyJqnxxcZ0R7z3Uve3nE",
+            authDomain: "dronemap-b66a3.firebaseapp.com",
+            databaseURL: "https://dronemap-b66a3.firebaseio.com",
+            projectId: "dronemap-b66a3",
+            storageBucket: "dronemap-b66a3.appspot.com",
+            messagingSenderId: "610754060845"
+        };
+            
+        if (!firebase.apps.length) {
+            firebase.initializeApp(config);
+        }
+        
         var vm = this;
         
         vm.capturing_area = "";
@@ -91,17 +104,13 @@
                 vm.showToast("Send the request"); 
                 vm.getPolygonCoords();
                 
-                /*Get the highest job id*/
-                var processingJobsData = firebase.database().ref('jobs/processingjobs');
-                var processingNumArray = [];
-                processingJobsData.on('value', function(snapshot) {
-                    snapshot.forEach(function(childSnapshot) {
-                        processingNumArray.push((childSnapshot.key).substr(1));
-                        console.log(processingNumArray);
-                    });
-                });
                 
-                /*firebase.database().ref('jobs/processingjobs/p010').set({
+                
+                /*var currentIDNum = oneBeforeNextIDNum + 001;
+                
+                console.log(currentIDNum);*/
+
+                /*firebase.database().ref('jobs/processingjobs/p' + ).set({
                     Area: "Piliyandala",
                     Job_ID: "p010",
                     Requester_ID: "dp1"
