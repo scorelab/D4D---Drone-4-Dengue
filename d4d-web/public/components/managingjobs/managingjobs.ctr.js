@@ -6,6 +6,19 @@
         .module('d4d')
         .controller('managingController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', '$firebaseObject', 'sharedUsernameServices', 'sharedUseridServices', 'sharedUserCategoryServices', function ($state, $mdToast, $firebaseAuth, $firebase, $firebaseObject, $sharedUsernameServices, $sharedUseridServices, $sharedUserCategoryServices) {
         
+            var config = {
+                apiKey: "AIzaSyAfh1IU93CQfo9nyJqnxxcZ0R7z3Uve3nE",
+                authDomain: "dronemap-b66a3.firebaseapp.com",
+                databaseURL: "https://dronemap-b66a3.firebaseio.com",
+                projectId: "dronemap-b66a3",
+                storageBucket: "dronemap-b66a3.appspot.com",
+                messagingSenderId: "610754060845"
+            };
+
+            if (!firebase.apps.length) {
+                firebase.initializeApp(config);
+            }
+
             var vm = this;
         
             vm.logout = logout;
@@ -21,7 +34,6 @@
             vm.getCategory = $sharedUserCategoryServices.getUserCategory();
 
             console.log('managingController');
-            console.log(vm.getCategory);
 
             function loadJobs() {
                 var userId = vm.gettingID;

@@ -1,7 +1,28 @@
+<!--Menu-->
+<div layout="row">
+  <div class="signin-card">
+    <md-card class="md-primary">
+        <md-content class="md-padding">
+            <nav class="navbar navbar-inverse" role="navigation">
+                <table>
+                    <tr>
+                        <td><a ui-sref="home">Home</a></td>
+                        <td><a ui-sref="managingjobs">Manage Jobs</a></td>
+                        <td><a ng-click="vm.logout()" ui-sref="auth" >Logout</a></td>
+                        <!--<td><a ui-sref="profile">Profile</a></td>-->
+                        <td>{{vm.gettingName}}</td>
+                    </tr>
+                </table>
+            </nav>
+        </md-content>
+    </md-card>
+  </div>
+</div>
+<!--Content-->
 <div layout="row">
   <div class="signin-card sign-card-area">
     <md-card class="md-primary">
-        <md-content class="md-padding signin-card-color">
+        <md-content class="md-padding signin-card-color" ng-show="vm.showback == false">
             <center>
                 <md-content class="md-padding signin-card-color">
                     <h1 class="md-display-1 h1-text-white">Create a Job</h1>
@@ -10,7 +31,7 @@
                 
                 <md-input-container class="dropdown-area" style="width: 50%;">
                     <label>Requesting Type</label>
-                    <md-select ng-model="selectedValue" ng-change="vm.saveSelectedValue(selectedValue)" required>
+                    <md-select ng-model="selectedValue" required>
                           <md-option ng-repeat="singleRequest in vm.requestingTypeList" value="{{singleRequest.id}}">{{singleRequest.name}}</md-option>
                     </md-select>
                 </md-input-container>
@@ -29,6 +50,13 @@
                 <md-content>
                     <md-button class="md-accent" ng-click="vm.sendData(selectedValue, capturing_date)">Send</md-button>
                 </md-content>
+            </center>
+        </md-content>
+        <md-content class="md-padding signin-card-color" ng-show="vm.showback == true">
+            <center>
+                <md-content>
+                    <md-button class="md-accent" ui-sref="managingjobs">Back</md-button>
+                </md-content>        
             </center>
         </md-content>
     </md-card>
