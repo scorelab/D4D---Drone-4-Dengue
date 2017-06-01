@@ -41,14 +41,19 @@
                                 <table class="table-area">
                                     <tr>
                                         <th>Job ID</th>
-                                        <th>Requester's ID</th>
-                                        <th>Area</th>
+                                        <th>Requesting Type</th>
+                                        <th>Capturing Date</th>
+                                        <th>Requester</th>
                                         <th>View Job</th>
                                     </tr>
                                     <tr ng-repeat="singleRow in vm.processingJobsArray">
-                                        <td>{{singleRow.Job_ID}}</td>
-                                        <td>{{singleRow.Requester_ID}}</td>
-                                        <td>{{singleRow.Area}}</td>
+                                        <td>{{singleRow.jobid}}</td>
+                                        <td>
+                                            <span ng-if="singleRow.requesting_type == '0'">Dengue Monitoring</span>
+                                            <span ng-if="singleRow.requesting_type == '1'">Other</span>
+                                        </td>
+                                        <td>{{singleRow.capturing_date}}</td>
+                                        <td>{{singleRow.requester}}</td>
                                         <td><a href="index.html#/managingjobs/viewjob/{{singleRow.Job_ID}}/1">view</a></td>
                                     </tr>
                                 </table>
@@ -59,14 +64,19 @@
                                 <table class="table-area">
                                     <tr>
                                         <th>Job ID</th>
-                                        <th>Requester's ID</th>
-                                        <th>Area</th>
+                                        <th>Requesting Type</th>
+                                        <th>Capturing Date</th>
+                                        <th>Requester</th>
                                         <th>View Job</th>
                                     </tr>
                                     <tr ng-repeat="singleRow in vm.analysingJobsArray">
-                                        <td>{{singleRow.Job_ID}}</td>
-                                        <td>{{singleRow.Requester_ID}}</td>
-                                        <td>{{singleRow.Area}}</td>
+                                        <td>{{singleRow.jobid}}</td>
+                                        <td>
+                                            <span ng-if="singleRow.requesting_type == '0'">Dengue Monitoring</span>
+                                            <span ng-if="singleRow.requesting_type == '1'">Other</span>
+                                        </td>
+                                        <td>{{singleRow.capturing_date}}</td>
+                                        <td>{{singleRow.requester}}</td>
                                         <td><a href="index.html#/managingjobs/viewjob/{{singleRow.Job_ID}}/2">view</a></td>
                                     </tr>
                                 </table>
@@ -77,14 +87,19 @@
                                 <table class="table-area">
                                     <tr>
                                         <th>Job ID</th>
-                                        <th>Requester's ID</th>
-                                        <th>Area</th>
+                                        <th>Requesting Type</th>
+                                        <th>Capturing Date</th>
+                                        <th>Requester</th>
                                         <th>View Job</th>
                                     </tr>
                                     <tr ng-repeat="singleRow in vm.completedJobsArray">
-                                        <td>{{singleRow.Job_ID}}</td>
-                                        <td>{{singleRow.Requester_ID}}</td>
-                                        <td>{{singleRow.Area}}</td>
+                                        <td>{{singleRow.jobid}}</td>
+                                        <td>
+                                            <span ng-if="singleRow.requesting_type == '0'">Dengue Monitoring</span>
+                                            <span ng-if="singleRow.requesting_type == '1'">Other</span>
+                                        </td>
+                                        <td>{{singleRow.capturing_date}}</td>
+                                        <td>{{singleRow.requester}}</td>
                                         <td><a href="index.html#/managingjobs/viewjob/{{singleRow.Job_ID}}/3">view</a></td>
                                     </tr>
                                 </table>
