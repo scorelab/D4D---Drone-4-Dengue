@@ -104,7 +104,45 @@
                 vm.showToast("Send the request"); 
                 vm.getPolygonCoords();
                 
+                *Get the highest job id in processing jobs*/
+                var processingJobsData = firebase.database().ref('jobs/processingjobs');
+                var processingNumArray = [];
                 
+                processingJobsData.on('value', function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        processingNumArray.push(parseInt((childSnapshot.key).substr(1)));
+                    });
+                });
+                
+                var maxProcessingNum = Math.max.apply(null, processingNumArray);
+                
+                /*Get the highest job id in analysing jobs*/
+                var analysingJobsData = firebase.database().ref('jobs/analysingjobs');
+                var analysingNumArray = [];
+                
+                analysingJobsData.on('value', function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        analysingNumArray.push(parseInt((childSnapshot.key).substr(1)));
+                    });
+                });
+                
+                var maxAnalysingNum = Math.max.apply(null, analysingNumArray);
+                
+                /*Get the highest job id in completed jobs*/
+                var completedJobsData = firebase.database().ref('jobs/completedjobs');
+                var completedNumArray = [];
+                
+                completedJobsData.on('value', function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        completedNumArray.push(parseInt((childSnapshot.key).substr(1)));
+                    });
+                });
+                
+                var maxCompletedNum = Math.max.apply(null, completedNumArray);
+                
+                /*Get the highest num from all three arrays to make the next ID*/
+                var oneBeforeNextIDNum = Math.max(maxCompletedNum, maxProcessingNum, maxAnalysingNum);
+                console.log(oneBeforeNextIDNum);
                 
                 /*var currentIDNum = oneBeforeNextIDNum + 001;
                 
