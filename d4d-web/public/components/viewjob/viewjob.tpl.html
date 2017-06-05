@@ -40,8 +40,14 @@
                         </md-list-item>
                         <md-list-item class="md-3-line">
                             <div class="md-list-item-text">
-                                <h3>Capturing Area</h3>
-                                <h4>{{vm.capturing_area}}</h4>
+                                <h3>Latitude</h3>
+                                <h4>{{vm.latitude}}</h4>
+                            </div>
+                        </md-list-item>
+                        <md-list-item class="md-3-line">
+                            <div class="md-list-item-text">
+                                <h3>Longitude</h3>
+                                <h4>{{vm.longitude}}</h4>
                             </div>
                         </md-list-item>
                         <md-list-item class="md-3-line">
@@ -65,7 +71,7 @@
                     </md-list>
                 </md-content>
                 <md-content>
-                    <md-button class="md-accent" ng-click="vm.confirmRequest(job_id, capturing_area, request_type, capturing_date)" 
+                    <md-button class="md-accent" ng-click="vm.confirmRequest()" 
                                ng-if="vm.getCategory == 'pilot'">Confirm</md-button>
                     <md-button class="md-accent" ng-click="vm.gotoManageJob()">Back</md-button>
                 </md-content>

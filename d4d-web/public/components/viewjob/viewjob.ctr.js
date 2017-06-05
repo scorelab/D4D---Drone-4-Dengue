@@ -28,6 +28,9 @@
             vm.requesting_type = "";
             vm.capturing_date = "";
             vm.requester = "";
+            vm.latitude = [];
+            vm.longitude = [];
+            vm.requesting_value = 0;
             
             vm.imageList = [];
             vm.showToast = showToast;
@@ -58,15 +61,17 @@
                     var ref = firebase.database().ref("jobs/processingjobs/" + vm.job_id);
                     ref.once("value")
                       .then(function(snapshot) {
-                        if(snapshot.child("requesting_type").val() == "0") {
+                        vm.requesting_value = snapshot.child("requesting_type").val();
+                        if(vm.requesting_value == "0") {
                             vm.requesting_type = "Dengue Monitoring";
-                        } else if(snapshot.child("requesting_type").val() == "1") {
+                        } else if(vm.requesting_value == "1") {
                             vm.requesting_type = "Other";
                         }
                          
                         vm.capturing_date = snapshot.child("capturing_date").val(); 
                         vm.requester = snapshot.child("requester").val(); 
-                        vm.capturing_area = "Colombo";
+                        vm.latitude = snapshot.child("latitude").val();
+                        vm.longitude = snapshot.child("logitude").val();
                         
                         vm.triggerPage();
                     });
@@ -102,13 +107,19 @@
                 );
             }
 
-            function confirmRequest(job_id, capturing_area, request_type, capturing_date) {
-                vm.job_id = job_id;
-                vm.capturing_area = capturing_area;
-                vm.request_type = request_type;
-                vm.capturing_date = capturing_date;
+            function confirmRequest() {
+                firebase.database().ref('jobs/analysingjobs/a' + vm.job_id.replace("p", "")).set({
+                    "capturing_date": vm.capturing_date,
+                    "jobid": "a" + vm.job_id.replace("p", ""),
+                    "requesting_type": vm.requesting_value,
+                    "latitude": vm.latitude,
+                    "logitude": vm.longitude,
+                    "requester": vm.user_id
+                });
+                
+                firebase.database().ref('jobs/processingjobs/' + vm.job_id).remove();
 
-                vm.showToast("Success"); 
+                vm.gotoManageJob(); 
             }
 
             function save(singleImage) {
