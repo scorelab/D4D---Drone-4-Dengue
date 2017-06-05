@@ -10,7 +10,8 @@
                         <td><a ui-sref="managingjobs">Manage Jobs</a></td>
                         <td><a ng-click="vm.logout()" ui-sref="auth" >Logout</a></td>
                         <!--<td><a ui-sref="profile">Profile</a></td>-->
-                        <td>{{vm.gettingName}}</td>
+                        <td>{{vm.user_id}}</td>
+                        <!--<td>{{vm.gettingName}}</td>-->
                     </tr>
                 </table>
             </nav>
@@ -20,7 +21,7 @@
 </div>
 <!--Content-->
 <!--Processing Jobs-->
-<div layout="row" ng-if="vm.tab_number === '1'">
+<div layout="row" ng-if="vm.tab_number === '001'">
   <div flex="33" class="signin-card" flex-offset="33">
     <md-card class="md-primary">
         <md-content class="md-padding signin-card-color">
@@ -64,8 +65,9 @@
                     </md-list>
                 </md-content>
                 <md-content>
-                    <md-button class="md-accent" ng-click="vm.confirmRequest(job_id, capturing_area, request_type, capturing_date)">Confirm</md-button>
-                    <md-button class="md-accent" ui-sref="managingjobs">Back</md-button>
+                    <md-button class="md-accent" ng-click="vm.confirmRequest(job_id, capturing_area, request_type, capturing_date)" 
+                               ng-if="vm.getCategory == '1'">Confirm</md-button>
+                    <md-button class="md-accent" ng-click="vm.gotoManageJob()">Back</md-button>
                 </md-content>
             </center>
         </md-content>
@@ -74,7 +76,7 @@
 </div>
 
 <!--Analysing Jobs-->
-<div layout="row" ng-if="vm.tab_number === '2'">
+<div layout="row" ng-if="vm.tab_number === '002'">
   <div class="signin-card sign-card-area">
     <md-card class="md-primary">
         <md-content class="md-padding signin-card-color">
@@ -132,7 +134,7 @@
 </div>
 
 <!--Completed Jobs-->
-<div layout="row" ng-if="vm.tab_number === '3'">
+<div layout="row" ng-if="vm.tab_number === '003'">
   <div flex="33" class="signin-card" flex-offset="33">
     <md-card class="md-primary">
         <md-content class="md-padding signin-card-color">

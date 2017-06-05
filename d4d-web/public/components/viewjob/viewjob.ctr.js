@@ -37,10 +37,13 @@
             vm.cancel = cancel;
             vm.confirmImages = confirmImages;
             vm.triggerPage = triggerPage;
+            vm.gotoManageJob = gotoManageJob;
            // vm.uploadImage = uploadImage;
 
             console.log("viewjobController");
             vm.loadingData(vm.job_id, vm.tab_number);
+            
+            vm.user_id = $stateParams.user_id;
             
             vm.gettingName = $sharedUsernameServices.getUsername();
             vm.gettingID = $sharedUseridServices.getUserid();
@@ -48,7 +51,7 @@
 
             function loadingData(job_id, tab_number) {
 
-                if(tab_number == "1") {
+                if(tab_number == "001") {
                     
                     /*Get data related to given Job ID*/
                     var ref = firebase.database().ref("jobs/processingjobs/" + vm.job_id);
@@ -67,7 +70,7 @@
                         vm.triggerPage();
                     });
                     
-                } else if(tab_number == "2") {
+                } else if(tab_number == "002") {
                     vm.imageList = [
                         {
                             "imageName": "Image 1",
@@ -82,7 +85,7 @@
                             "imageLink": "../public/images/3.jpg"
                         }
                     ];
-                } else if(tab_number == "3") {
+                } else if(tab_number == "003") {
                     vm.capturing_area = "Colombo";
                     vm.request_type = "Dengue Monitoring";
                     vm.capturing_date = "06/03/2017";
@@ -123,6 +126,16 @@
                 vm.showToast("Landed");
             }
 
+            function gotoManageJob() {
+                var siteURL = (window.location.href).replace("/viewjob", "");
+                var siteURL2 = siteURL.replace("/" + vm.job_id, "");
+                var siteURL3 = siteURL2.replace("/" + vm.tab_number, "");
+                
+                window.location = siteURL3;
+                
+                location.reload();
+            }
+            
             /*function uploadImage () {
                 upload({
                   url: '/upload',

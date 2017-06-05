@@ -56,10 +56,11 @@
         })
       
        .state('viewjob', {
-            url: '/managingjobs/viewjob/:job_id/:tab_number',
+            url: '/managingjobs/:user_id/viewjob/:job_id/:tab_number',
             controller: function($stateParams){
                 $stateParams.job_id,
-                $stateParams.tab_number
+                $stateParams.tab_number,
+                $stateParams.user_id
             },
             templateUrl: 'components/viewjob/viewjob.tpl.html',
             controller: 'viewjobController as vm'
