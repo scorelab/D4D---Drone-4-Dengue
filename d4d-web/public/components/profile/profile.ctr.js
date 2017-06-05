@@ -6,12 +6,25 @@
         .module('d4d')
         .controller('profileController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', '$firebaseObject', 'sharedUsernameServices', 'sharedUseridServices', function ($state, $mdToast, $firebaseAuth, $firebase, $firebaseObject, $sharedUsernameServices, $sharedUseridServices)  {
         
+            var config = {
+                apiKey: "AIzaSyAfh1IU93CQfo9nyJqnxxcZ0R7z3Uve3nE",
+                authDomain: "dronemap-b66a3.firebaseapp.com",
+                databaseURL: "https://dronemap-b66a3.firebaseio.com",
+                projectId: "dronemap-b66a3",
+                storageBucket: "dronemap-b66a3.appspot.com",
+                messagingSenderId: "610754060845"
+            };
+
+            if (!firebase.apps.length) {
+                firebase.initializeApp(config);
+            }
+            
             var vm = this;
 
             vm.showToast = showToast;
             vm.saveSelectedValue = saveSelectedValue;
             vm.selectedValue = "";
-            vm.profileList = [{id:0,name:"PHI"},{id:1,name:"Drone Pilot"}];
+            vm.profileList = [{id:"phi",name:"PHI"},{id:"pilot",name:"Drone Pilot"}];
             
             vm.gettingName = $sharedUsernameServices.getUsername();
             vm.gettingID = $sharedUseridServices.getUserid();
