@@ -4,7 +4,7 @@
     
     angular
         .module('d4d')
-        .controller('managingController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', '$firebaseObject', 'sharedUsernameServices', 'sharedUseridServices', 'sharedUserCategoryServices', function ($state, $mdToast, $firebaseAuth, $firebase, $firebaseObject, $sharedUsernameServices, $sharedUseridServices, $sharedUserCategoryServices) {
+        .controller('managingController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', '$firebaseObject', 'sharedUsernameServices', 'sharedUseridServices', 'sharedUserCategoryServices', '$stateParams', function ($state, $mdToast, $firebaseAuth, $firebase, $firebaseObject, $sharedUsernameServices, $sharedUseridServices, $sharedUserCategoryServices, $stateParams) {
         
             var config = {
                 apiKey: "AIzaSyAfh1IU93CQfo9nyJqnxxcZ0R7z3Uve3nE",
@@ -23,11 +23,14 @@
         
             vm.logout = logout;
             vm.loadJobs = loadJobs;
+            vm.gotoCreateJob = gotoCreateJob;
             vm.loadJobs();
         
             vm.processingJobsArray = [];
             vm.analysingJobsArray = [];
             vm.completedJobsArray = [];
+            
+            vm.user_id = $stateParams.user_id;
             
             vm.gettingName = $sharedUsernameServices.getUsername();
             vm.gettingID = $sharedUseridServices.getUserid();
@@ -62,6 +65,11 @@
 
             }
 
+            function gotoCreateJob() {
+                var siteURL = (window.location.href).concat("/createjob");
+                window.location = siteURL;
+            }
+            
             function logout() {
                 firebase.auth().signOut();
             }

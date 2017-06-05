@@ -10,7 +10,8 @@
                         <td><a ui-sref="managingjobs">Manage Jobs</a></td>
                         <td><a ng-click="vm.logout()" ui-sref="auth" >Logout</a></td>
                         <!--<td><a ui-sref="profile">Profile</a></td>-->
-                        <td>{{vm.gettingName}}</td>
+                        <td>{{vm.user_id}}</td>
+                        <!--<td>{{vm.gettingName}}</td>-->
                     </tr>
                 </table>
             </nav>
@@ -30,7 +31,7 @@
                     </md-content>
                 </center>
                 <md-content ng-if="vm.getCategory == 0">
-                    <md-button class="md-accent" ui-sref="createjob">Create a New Job</md-button>
+                    <md-button class="md-accent" ng-click="vm.gotoCreateJob()">Create a New Job</md-button>
                 </md-content>
             </md-content>
             <div ng-cloak="" class="tabsdemoDynamicHeight" ng-app="d4d">

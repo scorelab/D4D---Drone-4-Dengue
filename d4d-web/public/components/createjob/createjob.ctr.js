@@ -4,7 +4,7 @@
     
     angular
         .module('d4d')
-        .controller('createjobController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', '$firebaseObject', 'sharedUsernameServices', 'sharedUseridServices', 'sharedUserCategoryServices', 'NgMap', function($state, $mdToast, $firebaseAuth, $firebase, $firebaseObject, $sharedUsernameServices, $sharedUseridServices, $sharedUserCategoryServices, NgMap)  {
+        .controller('createjobController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', '$firebaseObject', 'sharedUsernameServices', 'sharedUseridServices', 'sharedUserCategoryServices', 'NgMap', '$stateParams', function($state, $mdToast, $firebaseAuth, $firebase, $firebaseObject, $sharedUsernameServices, $sharedUseridServices, $sharedUserCategoryServices, NgMap, $stateParams)  {
         
             var config = {
                 apiKey: "AIzaSyAfh1IU93CQfo9nyJqnxxcZ0R7z3Uve3nE",
@@ -33,11 +33,11 @@
             vm.longitudeArray = [];
             vm.requestingTypeList = [{id:0,name:"Dengue Monitoring"},{id:1,name:"Other"}];
 
+            vm.user_id = $stateParams.user_id;
+            
             vm.gettingName = $sharedUsernameServices.getUsername();
             vm.gettingID = $sharedUseridServices.getUserid();
             vm.getCategory = $sharedUserCategoryServices.getUserCategory();
-
-            vm.showback = false;
 
             vm.triangleCoords = [
                 new google.maps.LatLng(7.0873, 80.0144),
@@ -159,10 +159,13 @@
                         "requesting_type": selectedValue,
                         "latitude": vm.latitudeArray,
                         "logitude": vm.longitudeArray,
-                        "requester": vm.gettingName
+                        "requester": vm.user_id
                     });
 
-                    vm.showback = true; 
+                    var siteURL = (window.location.href).replace("/createjob", "");
+                    window.location = siteURL; 
+                    location.reload();
+                    
                 } else {
                     vm.showToast("Fill all fields");
                 }            

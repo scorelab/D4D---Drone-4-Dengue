@@ -32,7 +32,10 @@
         })
       
         .state('managingjobs', {
-            url: '/managingjobs',
+            url: '/managingjobs/:user_id',
+            controller: function($stateParams){
+                $stateParams.user_id
+            },
             templateUrl: 'components/managingjobs/managingjobs.tpl.html',
             controller: 'managingController as vm'
         })
@@ -44,7 +47,10 @@
         })
       
         .state('createjob', {
-            url: '/managingjobs/createjob',
+            url: '/managingjobs/:user_id/createjob',
+            controller: function($stateParams){
+                $stateParams.user_id
+            },
             templateUrl: 'components/createjob/createjob.tpl.html',
             controller: 'createjobController as vm'
         })

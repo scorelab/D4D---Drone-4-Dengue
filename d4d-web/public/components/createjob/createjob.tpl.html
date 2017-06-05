@@ -10,7 +10,8 @@
                         <td><a ui-sref="managingjobs">Manage Jobs</a></td>
                         <td><a ng-click="vm.logout()" ui-sref="auth" >Logout</a></td>
                         <!--<td><a ui-sref="profile">Profile</a></td>-->
-                        <td>{{vm.gettingName}}</td>
+                        <td>{{vm.user_id}}</td>
+                        <!--<td>{{vm.gettingName}}</td>-->
                     </tr>
                 </table>
             </nav>
@@ -22,7 +23,7 @@
 <div layout="row">
   <div class="signin-card sign-card-area">
     <md-card class="md-primary">
-        <md-content class="md-padding signin-card-color" ng-show="vm.showback == false">
+        <md-content class="md-padding signin-card-color">
             <center>
                 <md-content class="md-padding signin-card-color">
                     <h1 class="md-display-1 h1-text-white">Create a Job</h1>
@@ -50,13 +51,6 @@
                 <md-content>
                     <md-button class="md-accent" ng-click="vm.sendData(selectedValue, capturing_date)">Send</md-button>
                 </md-content>
-            </center>
-        </md-content>
-        <md-content class="md-padding signin-card-color" ng-show="vm.showback == true">
-            <center>
-                <md-content>
-                    <md-button class="md-accent" ui-sref="managingjobs">Back</md-button>
-                </md-content>        
             </center>
         </md-content>
     </md-card>

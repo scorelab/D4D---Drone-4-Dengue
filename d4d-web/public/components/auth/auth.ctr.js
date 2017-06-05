@@ -60,7 +60,7 @@
                             snapshot.forEach(function(childSnapshot) {
                                 if(childSnapshot.key == 'profile') {
                                     $sharedUserCategoryServices.setUserCategory(childSnapshot.val());
-                                    var siteURL = (window.location.href).concat("managingjobs");
+                                    var siteURL = (window.location.href).concat("managingjobs/" + d4dLogin.$getAuth().email);
                                     window.location = siteURL;
                                 }
                             });
