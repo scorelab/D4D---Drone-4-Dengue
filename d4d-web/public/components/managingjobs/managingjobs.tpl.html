@@ -30,7 +30,7 @@
                         <md-divider></md-divider>
                     </md-content>
                 </center>
-                <md-content ng-if="vm.getCategory == 0">
+                <md-content ng-if="vm.getCategory == 'phi'">
                     <md-button class="md-accent" ng-click="vm.gotoCreateJob()">Create a New Job</md-button>
                 </md-content>
             </md-content>
@@ -55,7 +55,11 @@
                                         </td>
                                         <td>{{singleRow.capturing_date}}</td>
                                         <td>{{singleRow.requester}}</td>
-                                        <td><a href="index.html#/managingjobs/{{vm.user_id}}/viewjob/{{singleRow.jobid}}/001">view</a></td>
+                                        <td>
+                                            <a href="index.html#/managingjobs/{{vm.user_id}}/viewjob/{{singleRow.jobid}}/001/{{vm.getCategory}}">
+                                                view
+                                            </a>
+                                        </td>
                                     </tr>
                                 </table>
                             </md-content>
@@ -78,7 +82,11 @@
                                         </td>
                                         <td>{{singleRow.capturing_date}}</td>
                                         <td>{{singleRow.requester}}</td>
-                                        <td><a href="index.html#/managingjobs/{{vm.user_id}}/viewjob/{{singleRow.jobid}}/002">view</a></td>
+                                        <td>
+                                            <a href="index.html#/managingjobs/{{vm.user_id}}/viewjob/{{singleRow.jobid}}/002/{{vm.getCategory}}">
+                                                view
+                                            </a>
+                                        </td>
                                     </tr>
                                 </table>
                             </md-content>
@@ -101,7 +109,11 @@
                                         </td>
                                         <td>{{singleRow.capturing_date}}</td>
                                         <td>{{singleRow.requester}}</td>
-                                        <td><a href="index.html#/managingjobs/{{vm.user_id}}/viewjob/{{singleRow.jobid}}/003">view</a></td>
+                                        <td>
+                                            <a href="index.html#/managingjobs/{{vm.user_id}}/viewjob/{{singleRow.jobid}}/003/{{vm.getCategory}}">
+                                                view
+                                            </a>
+                                        </td>
                                     </tr>
                                 </table>
                             </md-content>

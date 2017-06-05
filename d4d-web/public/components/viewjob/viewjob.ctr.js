@@ -44,6 +44,7 @@
             vm.loadingData(vm.job_id, vm.tab_number);
             
             vm.user_id = $stateParams.user_id;
+            vm.category_id = $stateParams.category_id;
             
             vm.gettingName = $sharedUsernameServices.getUsername();
             vm.gettingID = $sharedUseridServices.getUserid();
@@ -130,8 +131,9 @@
                 var siteURL = (window.location.href).replace("/viewjob", "");
                 var siteURL2 = siteURL.replace("/" + vm.job_id, "");
                 var siteURL3 = siteURL2.replace("/" + vm.tab_number, "");
+                var siteURL4 = siteURL3.replace("/" + vm.category_id, "");
                 
-                window.location = siteURL3;
+                window.location = siteURL4;
                 
                 location.reload();
             }
