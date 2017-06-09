@@ -47,6 +47,7 @@
             vm.gotoManageJob = gotoManageJob;
             vm.imageUpload = imageUpload;
             vm.binEncode = binEncode;
+            vm.deleteImage = deleteImage;
 
             console.log("viewjobController");
             vm.loadingData(vm.job_id, vm.tab_number);
@@ -210,6 +211,25 @@
                 }
                 
                 return binArray;
+            }
+            
+            function deleteImage(imageData) {
+                firebase.database().ref('images/' + (imageData.fullPath).replace(".jpg", "")).remove(
+                    function(error) {
+                        if(error) {
+                            console.log("Problem Occured " + error);
+                        } else {
+                            var imagesRef = storageRef.child(vm.job_id.substr(1)+"/" + imageData.name);
+                            
+                            imagesRef.delete().then(function() {
+                                location.reload();                                
+                            }).catch(function(error) {
+                                console.log("Problem Occured");
+                                console.log(error);
+                            });
+                        }
+                    }
+                );                
             }
         
     }]);
