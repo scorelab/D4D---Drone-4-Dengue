@@ -98,40 +98,56 @@
                                 <md-tab label="Upload Images">
                                     <md-content class="md-padding">
                                         <div class="fb-image-upload">
-                                            <form ng-submit="vm.upload_image(image)">
+                                            <form>
                                                 <div class="fb-error" ng-show="error">{{vm.error}}</div>
                                                 <div class="fb-inputs" ng-hide="image.isUploading">
                                                     <input class="fb-image-upload" fb-image-upload class="fb-input" type="file" name="image"/>
-                                                    <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid"/>
+                                                    <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid" ng-click="vm.imageUpload(image)"/>
                                                 </div>
                                                 <div class="fb-uploading" ng-show="image.isUploading">
                                                     Uploading...
                                                 </div>
                                             </form>
                                         </div>
-                                        <md-content>
-                                            <!--<md-button class="md-accent">Upload</md-button>-->
-                                            <md-button class="md-accent">Cancel</md-button>
-                                        </md-content>
-                                        <img style="width: 700px;">
                                     </md-content>
                                 </md-tab>
-                                <md-tab ng-repeat="singleImage in vm.imageList" label="{{singleImage.imageName}}">
+                                <md-tab label="Images">
                                     <md-content class="md-padding">
-                                        <md-content>
+                                        <span ng-repeat="singleImage in vm.imageList">
+                                            <img src="{{singleImage['url']}}" style="width: 700px;">
+                                            <md-content ng-if="vm.category_id == 'phi'">
+                                                <md-button class="md-accent" ng-click="vm.save(singleImage)">Confirm</md-button>
+                                                <md-button class="md-accent" ng-click="vm.cancel(singleImage)">Cancel</md-button>
+                                            </md-content>
+                                            <md-content ng-if="vm.category_id == 'pilot'">
+                                                <md-button class="md-accent">Delete</md-button>
+                                            </md-content>
+                                            <hr/>
+                                        </span>
+                                        <!--<md-content>
                                             <md-button class="md-accent" ng-click="vm.save(singleImage)">Save</md-button>
                                             <md-button class="md-accent" ng-click="vm.cancel(singleImage)">Cancel</md-button>
                                         </md-content>
-                                        <img src="{{singleImage.imageLink}}" style="width: 700px;">
+                                        <img src="{{singleImage.imageLink}}" style="width: 700px;">-->
                                     </md-content>
                                 </md-tab>
+                                <!--<span ng-if="vm.imageList.length > 0">
+                                    <md-tab ng-repeat="singleImage in vm.imageList" label="{{singleImage.imageName}}">
+                                        <md-content class="md-padding">
+                                            <md-content>
+                                                <md-button class="md-accent" ng-click="vm.save(singleImage)">Save</md-button>
+                                                <md-button class="md-accent" ng-click="vm.cancel(singleImage)">Cancel</md-button>
+                                            </md-content>
+                                            <img src="{{singleImage.imageLink}}" style="width: 700px;">
+                                        </md-content>
+                                    </md-tab>
+                                </span>-->
                             </md-tabs>
                         </md-content>
                     </div>
                 </md-content>
                 <md-content>
-                    <md-button class="md-accent" ng-click="vm.confirmImages()">Confirm</md-button>
-                    <md-button class="md-accent" ui-sref="managingjobs">Back</md-button>
+                    <md-button class="md-accent" ng-click="vm.gotoManageJob()">Back</md-button>
                 </md-content>
             </center>
         </md-content>

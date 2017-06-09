@@ -4,7 +4,7 @@
     
     angular
         .module('d4d')
-        .controller('viewjobController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', '$firebaseObject', 'sharedUsernameServices', 'sharedUseridServices', 'sharedUserCategoryServices', '$stateParams', function($state, $mdToast, $firebaseAuth, $firebase, $firebaseObject, $sharedUsernameServices, $sharedUseridServices, $sharedUserCategoryServices, $stateParams) {
+        .controller('viewjobController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', '$firebaseObject', 'sharedUsernameServices', 'sharedUseridServices', 'sharedUserCategoryServices', '$stateParams', '$firebaseArray', function($state, $mdToast, $firebaseAuth, $firebase, $firebaseObject, $sharedUsernameServices, $sharedUseridServices, $sharedUserCategoryServices, $stateParams, $firebaseArray) {
         
             var config = {
                 apiKey: "AIzaSyAfh1IU93CQfo9nyJqnxxcZ0R7z3Uve3nE",
@@ -21,9 +21,13 @@
             
             var vm = this;
 
+            /*State Parameters*/
             vm.job_id = $stateParams.job_id;
             vm.tab_number = $stateParams.tab_number;
+            vm.user_id = $stateParams.user_id;
+            vm.category_id = $stateParams.category_id;
             
+            /*Creating Jobs*/
             vm.capturing_area = "";
             vm.requesting_type = "";
             vm.capturing_date = "";
@@ -32,26 +36,31 @@
             vm.longitude = [];
             vm.requesting_value = 0;
             
+            /*Set of Functions*/
             vm.imageList = [];
             vm.showToast = showToast;
             vm.confirmRequest = confirmRequest;
             vm.loadingData = loadingData;
             vm.save = save;
             vm.cancel = cancel;
-            vm.confirmImages = confirmImages;
             vm.triggerPage = triggerPage;
             vm.gotoManageJob = gotoManageJob;
-           // vm.uploadImage = uploadImage;
+            vm.imageUpload = imageUpload;
+            vm.binEncode = binEncode;
 
             console.log("viewjobController");
             vm.loadingData(vm.job_id, vm.tab_number);
             
-            vm.user_id = $stateParams.user_id;
-            vm.category_id = $stateParams.category_id;
-            
+            /*Service Parameters*/
             vm.gettingName = $sharedUsernameServices.getUsername();
             vm.gettingID = $sharedUseridServices.getUserid();
             vm.getCategory = $sharedUserCategoryServices.getUserCategory();
+            
+            /*Creating Storage Bucket for Uploading Images*/
+            //var storage = firebase.storage();
+            var storage = firebase.app().storage("gs://dronemap-b66a3.appspot.com/");
+            // Create a storage reference from our storage service
+            var storageRef = storage.ref();
 
             function loadingData(job_id, tab_number) {
 
@@ -77,20 +86,13 @@
                     });
                     
                 } else if(tab_number == "002") {
-                    vm.imageList = [
-                        {
-                            "imageName": "Image 1",
-                            "imageLink": "../public/images/1.jpg"
-                        },
-                        {
-                            "imageName": "Image 2",
-                            "imageLink": "../public/images/2.jpg"
-                        },
-                        {
-                            "imageName": "Image 3",
-                            "imageLink": "../public/images/3.jpg"
-                        }
-                    ];
+                    var setOfImages = firebase.database().ref('images/'+vm.job_id.replace("a", ""));
+                    setOfImages.on('value', function(snapshot) {
+                        snapshot.forEach(function(childSnapshot) {
+                            vm.imageList.push(childSnapshot.val());
+                        });
+                    });
+                
                 } else if(tab_number == "003") {
                     vm.capturing_area = "Colombo";
                     vm.request_type = "Dengue Monitoring";
@@ -129,10 +131,6 @@
             function cancel(singleImage) {
                 vm.showToast("Cancelled");
             }
-
-            function confirmImages() {
-                vm.showToast("Confirmed");
-            }
             
             function triggerPage() {
                 vm.showToast("Landed");
@@ -149,24 +147,70 @@
                 location.reload();
             }
             
-            /*function uploadImage () {
-                upload({
-                  url: '/upload',
-                  method: 'POST',
-                  data: {
-                    anint: 123,
-                    aBlob: Blob([1,2,3]), // Only works in newer browsers
-                    aFile: $scope.myFile, // a jqLite type="file" element, upload() will extract all the files from the input and put them into the FormData object before sending.
-                  }
-                }).then(
-                  function (response) {
-                    console.log(response.data); // will output whatever you choose to return from the server on a successful upload
-                  },
-                  function (response) {
-                      console.error(response); //  Will return if status code is above 200 and lower than 300, same as $http
-                  }
-                );
-            }*/
+            function imageUpload(image) {
+                
+                var binStr = atob((image.data).replace(/^data:image\/jpeg;base64,/, ""));
+                var len = binStr.length;
+                var arr = new Uint8Array(len);
+
+                for (var i = 0; i < len; i++) {
+                    arr[i] = binStr.charCodeAt(i);
+                }
+                
+                // Create a child reference
+                var imagesRef = storageRef.child(vm.job_id.substr(1)+"/"+image.filename);  //imagesRef now points to the uploading image
+                var file = new File([arr], image.filename, {
+                    type: "image/jpeg",
+                });
+
+                imagesRef.put(file).then(function(snapshot) {
+                    // Get metadata properties
+                    imagesRef.getMetadata().then(function(metadata) {
+                        firebase.database().ref('images/' + vm.job_id.substr(1) + "/" + (image.filename).replace(".jpg", "")).set({
+                            "url": metadata.downloadURLs[0],
+                            "jobid": vm.job_id.substr(1),
+                            "fullPath": metadata.fullPath,
+                            "name": metadata.name
+                        }, function(error) {
+                            if (error) {
+                                console.log("Data could not be saved." + error);
+                            } else {
+                                console.log("Data saved successfully.");
+                                location.reload();
+                            }
+                            
+                        });
+                        
+                    }).catch(function(error) {
+                        console.log("Problem Occured!");
+                        console.log(error);
+                    });
+                    
+                });
+            }
+            
+            function binEncode(data) {
+                /*console.log(data);*/
+                var binArray = []
+                var datEncode = "";
+
+                for (var i=0; i < data.length; i++) {
+                    binArray.push(data[i].charCodeAt(0).toString(2)); 
+                } 
+                for (var j=0; j < binArray.length; j++) {
+                    var pad = padding_left(binArray[j], '0', 8);
+                    datEncode += pad + ' '; 
+                }
+                function padding_left(s, c, n) { if (! s || ! c || s.length >= n) {
+                    return s;
+                }
+                var max = (n - s.length)/c.length;
+                for (var i = 0; i < max; i++) {
+                    s = c + s; } return s;
+                }
+                
+                return binArray;
+            }
         
     }]);
 
