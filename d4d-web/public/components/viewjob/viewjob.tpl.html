@@ -143,9 +143,12 @@
                         </md-content>
                     </div>
                 </md-content>
+                
                 <md-content>
+                    <md-button class="md-accent" ng-if="vm.category_id == 'phi'" ng-click="vm.completeAnalysing()">Analysing Completed</md-button>
                     <md-button class="md-accent" ng-click="vm.gotoManageJob()">Back</md-button>
                 </md-content>
+                
             </center>
         </md-content>
     </md-card>
@@ -172,14 +175,20 @@
                         </md-list-item>
                         <md-list-item class="md-3-line">
                             <div class="md-list-item-text">
-                                <h3>Capturing Area</h3>
-                                <h4>{{vm.capturing_area}}</h4>
+                                <h3>Latitude</h3>
+                                <h4>{{vm.latitude}}</h4>
+                            </div>
+                        </md-list-item>
+                        <md-list-item class="md-3-line">
+                            <div class="md-list-item-text">
+                                <h3>Longitude</h3>
+                                <h4>{{vm.longitude}}</h4>
                             </div>
                         </md-list-item>
                         <md-list-item class="md-3-line">
                             <div class="md-list-item-text">
                                 <h3>Request Type</h3>
-                                <h4>{{vm.request_type}}</h4>
+                                <h4>{{vm.requesting_type}}</h4>
                             </div>
                         </md-list-item>
                         <md-list-item class="md-3-line">
@@ -188,10 +197,21 @@
                                 <h4>{{vm.capturing_date}}</h4>
                             </div>
                         </md-list-item>
+                        <md-list-item class="md-3-line">
+                            <div class="md-list-item-text">
+                                <h3>Requester</h3>
+                                <h4>{{vm.requester}}</h4>
+                            </div>
+                        </md-list-item>
                     </md-list>
                 </md-content>
+                <md-content class="md-padding">
+                    <span ng-repeat="singleImage in vm.imageList">
+                        <img src="{{singleImage['url']}}" style="width: 250px;" ng-if="singleImage.confirmed == 1">
+                    </span>
+                </md-content>
                 <md-content>
-                    <md-button class="md-accent" ui-sref="managingjobs">Back</md-button>
+                    <md-button class="md-accent" ng-click="vm.gotoManageJob()">Back</md-button>
                 </md-content>
             </center>
         </md-content>

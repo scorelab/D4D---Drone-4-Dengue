@@ -47,6 +47,7 @@
             vm.imageUpload = imageUpload;
             vm.binEncode = binEncode;
             vm.deleteImage = deleteImage;
+            vm.completeAnalysing = completeAnalysing;
 
             console.log("viewjobController");
             vm.loadingData(vm.job_id, vm.tab_number);
@@ -93,12 +94,53 @@
                         });
                     });
                     
+                    /*Get data related to given Job ID*/
+                    var ref = firebase.database().ref("jobs/analysingjobs/" + vm.job_id);
+                    ref.once("value")
+                      .then(function(snapshot) {
+                        vm.requesting_value = snapshot.child("requesting_type").val();
+                        if(vm.requesting_value == "0") {
+                            vm.requesting_type = "Dengue Monitoring";
+                        } else if(vm.requesting_value == "1") {
+                            vm.requesting_type = "Other";
+                        }
+                         
+                        vm.capturing_date = snapshot.child("capturing_date").val(); 
+                        vm.requester = snapshot.child("requester").val(); 
+                        vm.latitude = snapshot.child("latitude").val();
+                        vm.longitude = snapshot.child("logitude").val();
+                    });
+                    
                     vm.triggerPage();
                 
                 } else if(tab_number == "003") {
-                    vm.capturing_area = "Colombo";
-                    vm.request_type = "Dengue Monitoring";
-                    vm.capturing_date = "06/03/2017";
+                    var setOfImages = firebase.database().ref('images/'+vm.job_id.replace("c", ""));
+                    setOfImages.on('value', function(snapshot) {
+                        snapshot.forEach(function(childSnapshot) {
+                            vm.imageList.push(childSnapshot.val());
+                        });
+                    });
+                    
+                    /*Get data related to given Job ID*/
+                    var ref = firebase.database().ref("jobs/completedjobs/" + vm.job_id);
+                    ref.once("value")
+                      .then(function(snapshot) {
+                        vm.requesting_value = snapshot.child("requesting_type").val();
+                        if(vm.requesting_value == "0") {
+                            vm.requesting_type = "Dengue Monitoring";
+                        } else if(vm.requesting_value == "1") {
+                            vm.requesting_type = "Other";
+                        }
+                         
+                        vm.capturing_date = snapshot.child("capturing_date").val(); 
+                        vm.requester = snapshot.child("requester").val(); 
+                        vm.latitude = snapshot.child("latitude").val();
+                        vm.longitude = snapshot.child("logitude").val();
+                        
+                        vm.triggerPage();
+                    });
+                    
+                    vm.triggerPage();
                 }   
             }
 
@@ -236,6 +278,31 @@
                         }
                     }
                 );                
+            }
+            
+            function completeAnalysing() {
+                firebase.database().ref('jobs/completedjobs/c' + vm.job_id.replace("a", "")).set({
+                    "capturing_date": vm.capturing_date,
+                    "jobid": "c" + vm.job_id.replace("a", ""),
+                    "requesting_type": vm.requesting_value,
+                    "latitude": vm.latitude,
+                    "logitude": vm.longitude,
+                    "requester": vm.user_id
+                }, function(error) {
+                    if(error) {
+                        console.log("Did not save to complete job database");
+                        console.log(error);
+                    } else {
+                        firebase.database().ref('jobs/analysingjobs/' + vm.job_id).remove(function(error) {
+                            if(error) {
+                                console.log("Did not save to analyse job database");
+                                console.log(error);
+                            } else {
+                                vm.gotoManageJob(); 
+                            }
+                        });
+                    }
+                });
             }
         
     }]);
