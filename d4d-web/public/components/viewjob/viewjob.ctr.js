@@ -41,8 +41,7 @@
             vm.showToast = showToast;
             vm.confirmRequest = confirmRequest;
             vm.loadingData = loadingData;
-            vm.save = save;
-            vm.cancel = cancel;
+            vm.confirm = confirm;
             vm.triggerPage = triggerPage;
             vm.gotoManageJob = gotoManageJob;
             vm.imageUpload = imageUpload;
@@ -93,6 +92,8 @@
                             vm.imageList.push(childSnapshot.val());
                         });
                     });
+                    
+                    vm.triggerPage();
                 
                 } else if(tab_number == "003") {
                     vm.capturing_area = "Colombo";
@@ -125,12 +126,16 @@
                 vm.gotoManageJob(); 
             }
 
-            function save(singleImage) {
-                vm.showToast("Saved");
-            }
-
-            function cancel(singleImage) {
-                vm.showToast("Cancelled");
+            function confirm(image) {
+                var imageRef = firebase.database().ref('images/' + vm.job_id.substr(1) + "/" + (image.name).replace(".jpg", ""));
+                
+                imageRef.update({ "confirmed" : 1 }, function(error) {
+                    if (error) {
+                        console.log("Data could not be saved." + error);
+                    } else {
+                        location.reload();                     
+                    }
+                });
             }
             
             function triggerPage() {
@@ -171,7 +176,8 @@
                             "url": metadata.downloadURLs[0],
                             "jobid": vm.job_id.substr(1),
                             "fullPath": metadata.fullPath,
-                            "name": metadata.name
+                            "name": metadata.name,
+                            "confirmed": 0
                         }, function(error) {
                             if (error) {
                                 console.log("Data could not be saved." + error);
