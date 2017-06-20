@@ -1,0 +1,117 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    tools:context="com.dji.GSDemo.GoogleMap.MainActivity">
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal">-->
+        <!--<TextView-->
+            <!--android:id="@+id/ConnectStatusTextView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="DroneDriver"-->
+            <!--android:gravity="center"-->
+            <!--android:textColor="#4a148c"-->
+            <!--android:textSize="21sp"-->
+            <!--/>-->
+    <!--</LinearLayout>-->
+
+    <fragment
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.google.android.gms.maps.SupportMapFragment">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/fab_margin"
+                android:clickable="true"
+                app:backgroundTint="#90caf9"
+                android:src="@drawable/ic_start_navigation"
+                android:layout_marginBottom="21dp"
+                android:layout_marginStart="31dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"/>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/locate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="#8bc34a"
+                android:src="@drawable/ic_my_location_black"
+                android:layout_alignTop="@+id/start"
+                android:layout_gravity="bottom|end"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:layout_marginEnd="20dp"
+                android:layout_alignParentEnd="true"
+                />
+
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/config"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                app:backgroundTint="#eeeeee"
+                android:src="@drawable/ic_settings"
+                android:layout_above="@+id/prepare"
+                android:layout_alignEnd="@+id/prepare"
+                android:layout_marginBottom="21dp"/>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/prepare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="#eeeeee"
+                android:src="@drawable/ic_config"
+                android:layout_above="@+id/locate"
+                android:layout_alignStart="@+id/start"
+                android:layout_marginBottom="15dp"
+                />
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="#eeeeee"
+                android:src="@drawable/ic_camera_black"
+                android:layout_above="@+id/locate"
+                android:layout_alignStart="@+id/locate"
+                android:layout_marginBottom="15dp"
+                />
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/btnNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="#eeeeee"
+                android:src="@drawable/aircraft"
+                android:layout_above="@+id/camera"
+                android:layout_alignEnd="@+id/camera"
+                android:layout_marginBottom="15dp"
+                />
+
+        </RelativeLayout>
+
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/fab1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@android:drawable/ic_dialog_email" />-->
+    </fragment>
+
+</RelativeLayout>
