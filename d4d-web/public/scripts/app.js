@@ -79,5 +79,11 @@
             controller: 'forgotpasswordController as vm'
         });
       
+        /*.state('navbar', {
+            url: '/navbar',
+            templateUrl: 'components/navigationbar/navbar.tpl.html',
+            controller: 'navbarController as vm'
+        });*/
+      
     });
 })();

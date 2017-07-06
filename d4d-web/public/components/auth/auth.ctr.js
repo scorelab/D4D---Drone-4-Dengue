@@ -36,6 +36,8 @@
         // Get a reference to the database service
         var database = firebase.database().ref("users");
             
+        vm.currentNavItem = "login";
+            
         function showToast(message) {
             $mdToast.show(
                 $mdToast.simple()

@@ -7,9 +7,9 @@
             <nav class="navbar navbar-inverse" role="navigation">
                 <table>
                     <tr>
-                        <td><a ui-sref="home">Home</a></td>
-                        <td><a ui-sref="auth">Login</a></td>
-                        <td><a ui-sref="signup">SignUp</a></td>
+                        <td><md-button ui-sref="home" class="navbar-colors">Home</md-button></td>
+                        <td><md-button ui-sref="auth">Login</md-button></td>
+                        <td><md-button ui-sref="signup">SignUp</md-button></td>
                     </tr>
                 </table>
             </nav>
@@ -25,10 +25,9 @@
             <nav class="navbar navbar-inverse" role="navigation">
                 <table>
                     <tr>
-                        <td><a ui-sref="home">Home</a></td>
-                        <td><a ui-sref="managingjobs">Manage Jobs</a></td>
-                        <td><a ng-click="vm.logout()" ui-sref="auth" >Logout</a></td>
-                        <!--<td><a ui-sref="profile">Profile</a></td>-->
+                        <td><md-button ui-sref="home" class="navbar-colors">Home</md-button></td>
+                        <td><md-button ui-sref="managingjobs">Manage Jobs</md-button></td>
+                        <td><md-button ng-click="vm.logout()" ui-sref="auth" >Logout</md-button></td>
                         <td>{{vm.gettingName}}</td>
                     </tr>
                 </table>

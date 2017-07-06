@@ -71,6 +71,17 @@
            
     </head>
     <body class="site-background-color">
+        <!--<div ng-cloak>
+          <md-content class="md-padding">
+            <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+                <md-nav-item ui-sref="home" name="home">Home</md-nav-item>
+                <md-nav-item ui-sref="auth" name="login">Login</md-nav-item>
+                <md-nav-item ui-sref="signup" name="signup">SignUp</md-nav-item>
+                <md-nav-item ui-sref="auth" md-nav-click="vm.logout()">Logout</md-nav-item>
+                <md-nav-item >{{vm.user_email}}</md-nav-item>
+            </md-nav-bar>
+          </md-content>
+        </div>-->
         <div class="site-background-color" ui-view></div>
     </body>
 </html>
