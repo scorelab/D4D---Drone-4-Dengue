@@ -28,6 +28,7 @@
             vm.saveSelectedValue = saveSelectedValue;
             vm.sendData = sendData;
             vm.getPolygonCoords = getPolygonCoords;
+            vm.triggerPage = triggerPage;
             vm.map;
             vm.latitudeArray = [];
             vm.longitudeArray = [];
@@ -35,9 +36,20 @@
 
             vm.user_id = $stateParams.user_id;
             
+            vm.user_email = "";
+            vm.getCategory = "";
+                
+            var ref = firebase.database().ref("users/" + vm.user_id);
+            ref.once("value")
+              .then(function(snapshot) {
+                vm.user_email = snapshot.child("username").val();
+                vm.getCategory = snapshot.child("profile").val();
+                vm.triggerPage();
+            });
+            
             vm.gettingName = $sharedUsernameServices.getUsername();
             vm.gettingID = $sharedUseridServices.getUserid();
-            vm.getCategory = $sharedUserCategoryServices.getUserCategory();
+            //vm.getCategory = $sharedUserCategoryServices.getUserCategory();
 
             vm.triangleCoords = [
                 new google.maps.LatLng(7.0873, 80.0144),
@@ -46,8 +58,20 @@
                 new google.maps.LatLng(7.2906, 80.6337)              
             ];
 
+            vm.bounds = {
+              north: 7.0873,
+              south: 6.8018,
+              east: 80.0144,
+              west: 79.9227
+            };
+            
             // Styling & Controls
-            vm.myPolygon = new google.maps.Polygon({
+            vm.rectangle = new google.maps.Rectangle({
+                bounds: vm.bounds,
+                editable: true,
+                draggable: true
+            });
+            /*vm.myPolygon = new google.maps.Polygon({
                 paths: vm.triangleCoords,
                 draggable: true, // turn off if it gets annoying
                 editable: true,
@@ -56,23 +80,31 @@
                 strokeWeight: 2,
                 fillColor: '#FF0000',
                 fillOpacity: 0.35
-            });
+            });*/
 
             function getPolygonCoords() {
-                var len = vm.myPolygon.getPath().getLength();
+                //var len = vm.rectangle.getPath().getLength();
                 vm.latitudeArray = [];
                 vm.longitudeArray = [];
+                
+                var ne = (vm.rectangle).getBounds().getNorthEast();
+                var sw = (vm.rectangle).getBounds().getSouthWest();
+                
+                vm.latitudeArray.push(ne.lat());
+                vm.latitudeArray.push(sw.lat());
+                vm.longitudeArray.push(ne.lng());
+                vm.longitudeArray.push(sw.lng());
 
-                for (var i = 0; i < len; i++) {
-                    var tempString = vm.myPolygon.getPath().getAt(i).toUrlValue(5);
+                /*for (var i = 0; i < len; i++) {
+                    var tempString = vm.rectangle.getPath().getAt(i).toUrlValue(5);
                     var tempArray = tempString.split(",");
                     vm.latitudeArray.push(tempArray[0]);
                     vm.longitudeArray.push(tempArray[1]);
-                }
+                }*/
             }
 
             NgMap.getMap().then(function(map) {
-                vm.myPolygon.setMap(map);
+                vm.rectangle.setMap(map);
                 vm.map = map;
             });
 
@@ -159,7 +191,7 @@
                         "requesting_type": selectedValue,
                         "latitude": vm.latitudeArray,
                         "logitude": vm.longitudeArray,
-                        "requester": vm.user_id
+                        "requester": vm.user_email
                     });
 
                     var siteURL = (window.location.href).replace("/createjob", "");
@@ -169,6 +201,10 @@
                 } else {
                     vm.showToast("Fill all fields");
                 }            
+            }
+            
+            function triggerPage() {
+                vm.showToast("Landed");
             }
         }]);
 
