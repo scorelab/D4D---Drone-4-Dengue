@@ -23,7 +23,8 @@
 
             vm.capturing_area = "";
             vm.selectedValue = "";
-            vm.capturing_date = "";
+            vm.capturing_start_date = "";
+            vm.capturing_end_date = ""
             vm.showToast = showToast;
             vm.saveSelectedValue = saveSelectedValue;
             vm.sendData = sendData;
@@ -123,11 +124,12 @@
                 console.log(selectValue);
             }
 
-            function sendData(selectedValue, capturing_date) {
+            function sendData(selectedValue, capturing_start_date, capturing_end_date) {
                 vm.selectedValue = selectedValue;
-                vm.capturing_date = capturing_date;
+                vm.capturing_start_date = capturing_start_date;
+                vm.capturing_end_date = capturing_end_date;
 
-                if(vm.selectedValue != null && vm.capturing_date != null) {
+                if(vm.selectedValue != null && vm.capturing_start_date != null && vm.capturing_end_date != null) {
                     vm.getPolygonCoords();
 
                     /*Get the highest job id in processing jobs*/
@@ -179,24 +181,36 @@
                         currentIDNum = currentIDNum;
                     }
 
-                    /*Get a proper date format*/
-                    var day = capturing_date.getDate();
-                    var month = capturing_date.getMonth() + 1;
-                    var year = capturing_date.getFullYear();
+                    /*Get a proper date format for start date*/
+                    var day = capturing_start_date.getDate();
+                    var month = capturing_start_date.getMonth() + 1;
+                    var year = capturing_start_date.getFullYear();
                     var sendingDate = [month, day, year].join('/');
                     
-                    firebase.database().ref('jobs/processingjobs/p' + currentIDNum).set({
-                        "capturing_date": sendingDate,
-                        "jobid": "p" + currentIDNum,
-                        "requesting_type": selectedValue,
-                        "latitude": vm.latitudeArray,
-                        "logitude": vm.longitudeArray,
-                        "requester": vm.user_email
-                    });
+                    /*Get a proper date format for end date*/
+                    var day_end = capturing_end_date.getDate();
+                    var month_end = capturing_end_date.getMonth() + 1;
+                    var year_end = capturing_end_date.getFullYear();
+                    var endingDate = [month_end, day_end, year_end].join('/');
+                    
+                    if(capturing_start_date.getTime()<capturing_end_date.getTime() || capturing_start_date.getTime()==capturing_end_date.getTime()) {
+                        firebase.database().ref('jobs/processingjobs/p' + currentIDNum).set({
+                            "capturing_start_date": sendingDate,
+                            "capturing_end_date": endingDate,
+                            "jobid": "p" + currentIDNum,
+                            "requesting_type": selectedValue,
+                            "latitude": vm.latitudeArray,
+                            "logitude": vm.longitudeArray,
+                            "requester": vm.user_email
+                        });
 
-                    var siteURL = (window.location.href).replace("/createjob", "");
-                    window.location = siteURL; 
-                    location.reload();
+                        var siteURL = (window.location.href).replace("/createjob", "");
+                        window.location = siteURL; 
+                        location.reload();
+                    } else {
+                        vm.showToast("Enter valid dates");
+                    }
+                    
                     
                 } else {
                     vm.showToast("Fill all fields");
