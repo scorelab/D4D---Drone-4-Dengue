@@ -23,18 +23,32 @@
         
             vm.logout = logout;
             vm.loadJobs = loadJobs;
-            vm.gotoCreateJob = gotoCreateJob;
             vm.loadJobs();
+            
+            vm.gotoCreateJob = gotoCreateJob;
+            vm.triggerPage = triggerPage;
+            vm.showToast = showToast;
+            
         
             vm.processingJobsArray = [];
             vm.analysingJobsArray = [];
             vm.completedJobsArray = [];
             
             vm.user_id = $stateParams.user_id;
+            vm.user_email = "";
+            vm.getCategory = "";
+                
+            var ref = firebase.database().ref("users/" + vm.user_id);
+            ref.once("value")
+              .then(function(snapshot) {
+                vm.user_email = snapshot.child("username").val();
+                vm.getCategory = snapshot.child("profile").val();
+                vm.triggerPage();
+            });
             
             vm.gettingName = $sharedUsernameServices.getUsername();
             vm.gettingID = $sharedUseridServices.getUserid();
-            vm.getCategory = $sharedUserCategoryServices.getUserCategory();
+            //vm.getCategory = $sharedUserCategoryServices.getUserCategory();
 
             console.log('managingController');
 
@@ -72,6 +86,18 @@
             
             function logout() {
                 firebase.auth().signOut();
+            }
+            
+            function showToast(message) {
+                $mdToast.show(
+                    $mdToast.simple()
+                    .content(message)
+                    .hideDelay(3000)
+                );
+            }
+            
+            function triggerPage() {
+                vm.showToast("Landed");
             }
 
     }]);

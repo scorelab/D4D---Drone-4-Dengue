@@ -27,6 +27,17 @@
             vm.user_id = $stateParams.user_id;
             vm.category_id = $stateParams.category_id;
             
+            vm.user_email = "";
+            vm.getCategory = "";
+                
+            var ref = firebase.database().ref("users/" + vm.user_id);
+            ref.once("value")
+              .then(function(snapshot) {
+                vm.user_email = snapshot.child("username").val();
+                vm.getCategory = snapshot.child("profile").val();
+                //vm.triggerPage();
+            });
+            
             /*Creating Jobs*/
             vm.capturing_area = "";
             vm.requesting_type = "";
@@ -55,7 +66,7 @@
             /*Service Parameters*/
             vm.gettingName = $sharedUsernameServices.getUsername();
             vm.gettingID = $sharedUseridServices.getUserid();
-            vm.getCategory = $sharedUserCategoryServices.getUserCategory();
+            //vm.getCategory = $sharedUserCategoryServices.getUserCategory();
             
             /*Creating Storage Bucket for Uploading Images*/
             //var storage = firebase.storage();
@@ -160,7 +171,7 @@
                     "requesting_type": vm.requesting_value,
                     "latitude": vm.latitude,
                     "logitude": vm.longitude,
-                    "requester": vm.user_id
+                    "requester": vm.user_email
                 });
                 
                 firebase.database().ref('jobs/processingjobs/' + vm.job_id).remove();
@@ -287,7 +298,7 @@
                     "requesting_type": vm.requesting_value,
                     "latitude": vm.latitude,
                     "logitude": vm.longitude,
-                    "requester": vm.user_id
+                    "requester": vm.user_email
                 }, function(error) {
                     if(error) {
                         console.log("Did not save to complete job database");

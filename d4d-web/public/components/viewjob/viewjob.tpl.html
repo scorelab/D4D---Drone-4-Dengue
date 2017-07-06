@@ -10,7 +10,7 @@
                         <td><a ui-sref="managingjobs">Manage Jobs</a></td>
                         <td><a ng-click="vm.logout()" ui-sref="auth" >Logout</a></td>
                         <!--<td><a ui-sref="profile">Profile</a></td>-->
-                        <td>{{vm.user_id}}</td>
+                        <td>{{vm.user_email}}</td>
                         <!--<td>{{vm.gettingName}}</td>-->
                     </tr>
                 </table>
@@ -144,8 +144,13 @@
                     </div>
                 </md-content>
                 
-                <md-content>
+                <md-content ng-if="vm.imageList.length > 0">
                     <md-button class="md-accent" ng-if="vm.category_id == 'phi'" ng-click="vm.completeAnalysing()">Analysing Completed</md-button>
+                    <md-button class="md-accent" ng-click="vm.gotoManageJob()">Back</md-button>
+                </md-content>
+                
+                <md-content ng-if="vm.imageList.length == 0">
+                    <div class="md-accent">No Images to Show</div>
                     <md-button class="md-accent" ng-click="vm.gotoManageJob()">Back</md-button>
                 </md-content>
                 
