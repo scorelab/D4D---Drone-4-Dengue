@@ -43,7 +43,8 @@
                                     <tr>
                                         <th>Job ID</th>
                                         <th>Requesting Type</th>
-                                        <th>Capturing Date</th>
+                                        <th>Capturing Start Date</th>
+                                        <th>Capturing End Date</th>
                                         <th>Requester</th>
                                         <th>View Job</th>
                                     </tr>
@@ -53,7 +54,8 @@
                                             <span ng-if="singleRow.requesting_type == '0'">Dengue Monitoring</span>
                                             <span ng-if="singleRow.requesting_type == '1'">Other</span>
                                         </td>
-                                        <td>{{singleRow.capturing_date}}</td>
+                                        <td>{{singleRow.capturing_start_date}}</td>
+                                        <td>{{singleRow.capturing_end_date}}</td>
                                         <td>{{singleRow.requester}}</td>
                                         <td>
                                             <a href="#/managingjobs/{{vm.user_id}}/viewjob/{{singleRow.jobid}}/001/{{vm.getCategory}}">
@@ -70,7 +72,8 @@
                                     <tr>
                                         <th>Job ID</th>
                                         <th>Requesting Type</th>
-                                        <th>Capturing Date</th>
+                                        <th>Capturing Start Date</th>
+                                        <th>Capturing End Date</th>
                                         <th>Requester</th>
                                         <th>View Job</th>
                                     </tr>
@@ -80,7 +83,8 @@
                                             <span ng-if="singleRow.requesting_type == '0'">Dengue Monitoring</span>
                                             <span ng-if="singleRow.requesting_type == '1'">Other</span>
                                         </td>
-                                        <td>{{singleRow.capturing_date}}</td>
+                                        <td>{{singleRow.capturing_start_date}}</td>
+                                        <td>{{singleRow.capturing_end_date}}</td>
                                         <td>{{singleRow.requester}}</td>
                                         <td>
                                             <a href="#/managingjobs/{{vm.user_id}}/viewjob/{{singleRow.jobid}}/002/{{vm.getCategory}}">
@@ -97,7 +101,8 @@
                                     <tr>
                                         <th>Job ID</th>
                                         <th>Requesting Type</th>
-                                        <th>Capturing Date</th>
+                                        <th>Capturing Start Date</th>
+                                        <th>Capturing End Date</th>
                                         <th>Requester</th>
                                         <th>View Job</th>
                                     </tr>
@@ -107,7 +112,8 @@
                                             <span ng-if="singleRow.requesting_type == '0'">Dengue Monitoring</span>
                                             <span ng-if="singleRow.requesting_type == '1'">Other</span>
                                         </td>
-                                        <td>{{singleRow.capturing_date}}</td>
+                                        <td>{{singleRow.capturing_start_date}}</td>
+                                        <td>{{singleRow.capturing_end_date}}</td>
                                         <td>{{singleRow.requester}}</td>
                                         <td>
                                             <a href="#/managingjobs/{{vm.user_id}}/viewjob/{{singleRow.jobid}}/003/{{vm.getCategory}}">
