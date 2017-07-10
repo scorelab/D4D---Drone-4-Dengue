@@ -67,6 +67,16 @@
             controller: 'viewjobController as vm'
         })
       
+        .state('editjob', {
+            url: '/managingjobs/:user_id/editjob/:job_id',
+            controller: function($stateParams){
+                $stateParams.job_id,
+                $stateParams.user_id
+            },
+            templateUrl: 'components/editjob/editjob.tpl.html',
+            controller: 'editjobController as vm'
+        })
+      
         .state('imageuploading', {
             url: '/imageuploading',
             templateUrl: 'components/imageuploading/template.html',

@@ -47,6 +47,7 @@
                                         <th>Capturing End Date</th>
                                         <th>Requester</th>
                                         <th>View Job</th>
+                                        <th ng-if="vm.getCategory == 'phi'">Edit Job</th>
                                     </tr>
                                     <tr ng-repeat="singleRow in vm.processingJobsArray">
                                         <td>{{singleRow.jobid}}</td>
@@ -60,6 +61,11 @@
                                         <td>
                                             <a href="#/managingjobs/{{vm.user_id}}/viewjob/{{singleRow.jobid}}/001/{{vm.getCategory}}">
                                                 view
+                                            </a>
+                                        </td>
+                                        <td ng-if="vm.getCategory == 'phi'">
+                                            <a href="#/managingjobs/{{vm.user_id}}/editjob/{{singleRow.jobid}}">
+                                                edit
                                             </a>
                                         </td>
                                     </tr>
