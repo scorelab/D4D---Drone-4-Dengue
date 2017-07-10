@@ -41,7 +41,8 @@
             /*Creating Jobs*/
             vm.capturing_area = "";
             vm.requesting_type = "";
-            vm.capturing_date = "";
+            vm.capturing_start_date = "";
+            vm.capturing_end_date = "";
             vm.requester = "";
             vm.latitude = [];
             vm.longitude = [];
@@ -89,7 +90,8 @@
                             vm.requesting_type = "Other";
                         }
                          
-                        vm.capturing_date = snapshot.child("capturing_date").val(); 
+                        vm.capturing_start_date = snapshot.child("capturing_start_date").val(); 
+                        vm.capturing_end_date = snapshot.child("capturing_end_date").val(); 
                         vm.requester = snapshot.child("requester").val(); 
                         vm.latitude = snapshot.child("latitude").val();
                         vm.longitude = snapshot.child("logitude").val();
@@ -116,7 +118,8 @@
                             vm.requesting_type = "Other";
                         }
                          
-                        vm.capturing_date = snapshot.child("capturing_date").val(); 
+                        vm.capturing_start_date = snapshot.child("capturing_start_date").val(); 
+                        vm.capturing_end_date = snapshot.child("capturing_end_date").val(); 
                         vm.requester = snapshot.child("requester").val(); 
                         vm.latitude = snapshot.child("latitude").val();
                         vm.longitude = snapshot.child("logitude").val();
@@ -143,7 +146,8 @@
                             vm.requesting_type = "Other";
                         }
                          
-                        vm.capturing_date = snapshot.child("capturing_date").val(); 
+                        vm.capturing_start_date = snapshot.child("capturing_start_date").val(); 
+                        vm.capturing_end_date = snapshot.child("capturing_end_date").val(); 
                         vm.requester = snapshot.child("requester").val(); 
                         vm.latitude = snapshot.child("latitude").val();
                         vm.longitude = snapshot.child("logitude").val();
@@ -166,17 +170,28 @@
 
             function confirmRequest() {
                 firebase.database().ref('jobs/analysingjobs/a' + vm.job_id.replace("p", "")).set({
-                    "capturing_date": vm.capturing_date,
+                    "capturing_start_date": vm.capturing_start_date,
+                    "capturing_end_date": vm.capturing_end_date,
                     "jobid": "a" + vm.job_id.replace("p", ""),
                     "requesting_type": vm.requesting_value,
                     "latitude": vm.latitude,
                     "logitude": vm.longitude,
                     "requester": vm.user_email
+                }, function(error) {
+                    if(error) {
+                        console.log("Did not confirm");
+                        console.log(error);
+                    } else {
+                        firebase.database().ref('jobs/processingjobs/' + vm.job_id).remove(function(error) {
+                            if(error) {
+                                console.log("Did not save to analyse job database");
+                                console.log(error);
+                            } else {
+                                vm.gotoManageJob(); 
+                            }
+                        });
+                    }
                 });
-                
-                firebase.database().ref('jobs/processingjobs/' + vm.job_id).remove();
-
-                vm.gotoManageJob(); 
             }
 
             function confirm(image) {
@@ -293,7 +308,8 @@
             
             function completeAnalysing() {
                 firebase.database().ref('jobs/completedjobs/c' + vm.job_id.replace("a", "")).set({
-                    "capturing_date": vm.capturing_date,
+                    "capturing_start_date": vm.capturing_start_date,
+                    "capturing_end_date": vm.capturing_end_date,
                     "jobid": "c" + vm.job_id.replace("a", ""),
                     "requesting_type": vm.requesting_value,
                     "latitude": vm.latitude,
