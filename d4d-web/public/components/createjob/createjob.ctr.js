@@ -29,6 +29,7 @@
             vm.saveSelectedValue = saveSelectedValue;
             vm.sendData = sendData;
             vm.getPolygonCoords = getPolygonCoords;
+            vm.gotoManageJob = gotoManageJob;
             vm.triggerPage = triggerPage;
             vm.map;
             vm.latitudeArray = [];
@@ -215,6 +216,14 @@
                 } else {
                     vm.showToast("Fill all fields");
                 }            
+            }
+            
+            function gotoManageJob() {
+                var siteURL = (window.location.href).replace("/createjob", "");
+                
+                window.location = siteURL;
+                
+                location.reload();
             }
             
             function triggerPage() {
