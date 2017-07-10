@@ -4,7 +4,7 @@
     
     angular
         .module('d4d')
-        .controller('viewjobController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', '$firebaseObject', 'sharedUsernameServices', 'sharedUseridServices', 'sharedUserCategoryServices', '$stateParams', '$firebaseArray', function($state, $mdToast, $firebaseAuth, $firebase, $firebaseObject, $sharedUsernameServices, $sharedUseridServices, $sharedUserCategoryServices, $stateParams, $firebaseArray) {
+        .controller('viewjobController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', '$firebaseObject', 'sharedUsernameServices', 'sharedUseridServices', 'sharedUserCategoryServices', '$stateParams', '$firebaseArray', 'NgMap', function($state, $mdToast, $firebaseAuth, $firebase, $firebaseObject, $sharedUsernameServices, $sharedUseridServices, $sharedUserCategoryServices, $stateParams, $firebaseArray, NgMap) {
         
             var config = {
                 apiKey: "AIzaSyAfh1IU93CQfo9nyJqnxxcZ0R7z3Uve3nE",
@@ -47,6 +47,19 @@
             vm.latitude = [];
             vm.longitude = [];
             vm.requesting_value = 0;
+            vm.north = 0;
+            vm.south = 0;
+            vm.east = 0;
+            vm.west = 0;
+            
+            vm.bounds = {};
+            
+            vm.rectangle = new google.maps.Rectangle({});
+            
+            NgMap.getMap().then(function(map) {
+                vm.rectangle.setMap(map);
+                vm.map = map;
+            });
             
             /*Set of Functions*/
             vm.imageList = [];
@@ -96,8 +109,27 @@
                         vm.latitude = snapshot.child("latitude").val();
                         vm.longitude = snapshot.child("logitude").val();
                         
-                        vm.triggerPage();
+                        vm.bounds = {
+                          north: vm.latitude[0],
+                          south: vm.latitude[1],
+                          east: vm.longitude[0],
+                          west: vm.longitude[1]
+                        };
+                        
+                        vm.rectangle = new google.maps.Rectangle({
+                            bounds: vm.bounds,
+                            editable: false,
+                            draggable: false
+                        });
+                        
+                        NgMap.getMap().then(function(map) {
+                            vm.rectangle.setMap(map);
+                            vm.map = map;
+                        });
+                        
                     });
+                    
+                    vm.triggerPage();
                     
                 } else if(tab_number == "002") {
                     var setOfImages = firebase.database().ref('images/'+vm.job_id.replace("a", ""));
@@ -123,6 +155,24 @@
                         vm.requester = snapshot.child("requester").val(); 
                         vm.latitude = snapshot.child("latitude").val();
                         vm.longitude = snapshot.child("logitude").val();
+                        
+                        vm.bounds = {
+                          north: vm.latitude[0],
+                          south: vm.latitude[1],
+                          east: vm.longitude[0],
+                          west: vm.longitude[1]
+                        };
+                        
+                        vm.rectangle = new google.maps.Rectangle({
+                            bounds: vm.bounds,
+                            editable: false,
+                            draggable: false
+                        });
+                        
+                        NgMap.getMap().then(function(map) {
+                            vm.rectangle.setMap(map);
+                            vm.map = map;
+                        });
                     });
                     
                     vm.triggerPage();
@@ -152,7 +202,24 @@
                         vm.latitude = snapshot.child("latitude").val();
                         vm.longitude = snapshot.child("logitude").val();
                         
-                        vm.triggerPage();
+                        vm.bounds = {
+                          north: vm.latitude[0],
+                          south: vm.latitude[1],
+                          east: vm.longitude[0],
+                          west: vm.longitude[1]
+                        };
+                        
+                        vm.rectangle = new google.maps.Rectangle({
+                            bounds: vm.bounds,
+                            editable: false,
+                            draggable: false
+                        });
+                        
+                        NgMap.getMap().then(function(map) {
+                            vm.rectangle.setMap(map);
+                            vm.map = map;
+                        });
+                        
                     });
                     
                     vm.triggerPage();
