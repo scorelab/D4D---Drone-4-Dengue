@@ -63,6 +63,7 @@
             
             /*Set of Functions*/
             vm.imageList = [];
+            vm.uploadignImageList = [];
             vm.showToast = showToast;
             vm.confirmRequest = confirmRequest;
             vm.loadingData = loadingData;
@@ -70,9 +71,9 @@
             vm.triggerPage = triggerPage;
             vm.gotoManageJob = gotoManageJob;
             vm.imageUpload = imageUpload;
-            vm.binEncode = binEncode;
             vm.deleteImage = deleteImage;
             vm.completeAnalysing = completeAnalysing;
+            vm.getFileDetails = getFileDetails;
 
             console.log("viewjobController");
             vm.loadingData(vm.job_id, vm.tab_number);
@@ -88,6 +89,11 @@
             // Create a storage reference from our storage service
             var storageRef = storage.ref();
 
+            var el = document.getElementById('files');
+            if(el){
+              el.addEventListener('click', swapper, false);
+            }
+            
             function loadingData(job_id, tab_number) {
 
                 if(tab_number == "001") {
@@ -289,6 +295,15 @@
             }
             
             function imageUpload(image) {
+                /*console.log(vm.uploadignImageList);
+                
+                var reader = new FileReader();
+                console.log(vm.uploadignImageList.length);
+                
+                for(var i=0; i<vm.uploadignImageList.length; i++) {
+                    var dataURL = (vm.uploadignImageList[i].url);
+                    console.log(vm.uploadignImageList[i]);
+                }*/
                 
                 var binStr = atob((image.data).replace(/^data:image\/jpeg;base64,/, ""));
                 var len = binStr.length;
@@ -329,29 +344,6 @@
                     });
                     
                 });
-            }
-            
-            function binEncode(data) {
-                /*console.log(data);*/
-                var binArray = []
-                var datEncode = "";
-
-                for (var i=0; i < data.length; i++) {
-                    binArray.push(data[i].charCodeAt(0).toString(2)); 
-                } 
-                for (var j=0; j < binArray.length; j++) {
-                    var pad = padding_left(binArray[j], '0', 8);
-                    datEncode += pad + ' '; 
-                }
-                function padding_left(s, c, n) { if (! s || ! c || s.length >= n) {
-                    return s;
-                }
-                var max = (n - s.length)/c.length;
-                for (var i = 0; i < max; i++) {
-                    s = c + s; } return s;
-                }
-                
-                return binArray;
             }
             
             function deleteImage(imageData) {
@@ -398,7 +390,47 @@
                     }
                 });
             }
+            
+            function getFileDetails(evt) {
+                console.log(evt.files);
+              }
         
     }]);
+    
+    /*ngFileModel Library*/
+    /*angular.module('d4d').directive('ngFileModel', ['$parse', function ($parse) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var model = $parse(attrs.ngFileModel);
+                var isMultiple = attrs.multiple;
+                var modelSetter = model.assign;
+                element.bind('change', function () {
+                    var values = [];
+                    angular.forEach(element[0].files, function (item) {
+                        console.log(element[0].files);
+                        var value = {
+                           // File Name 
+                            name: item.name,
+                            //File Size 
+                            size: item.size,
+                            //File URL to view 
+                            url: URL.createObjectURL(item),
+                            // File Input Value 
+                            _file: item
+                        };
+                        values.push(value);
+                    });
+                    scope.$apply(function () {
+                        if (isMultiple) {
+                            modelSetter(scope, values);
+                        } else {
+                            modelSetter(scope, values[0]);
+                        }
+                    });
+                });
+            }
+        };
+    }]);*/
 
 })();

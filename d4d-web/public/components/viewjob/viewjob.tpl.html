@@ -112,6 +112,19 @@
                                                     <input class="fb-image-upload" fb-image-upload class="fb-input" type="file" name="image"/>
                                                     <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid" ng-click="vm.imageUpload(image)"/>
                                                 </div>
+                                                <!--<div class="fb-inputs" ng-hide="image.isUploading">
+                                                    <input class="fb-image-upload" fb-image-upload class="fb-input" type="file" ng-model="uploadignImageList" multiple/>
+                                                    <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid" ng-click="vm.imageUpload(uploadignImageList)"/>
+                                                </div>-->
+                                                <!--<div class="fb-inputs" ng-hide="image.isUploading">
+                                                    <input class="fb-image-upload" fb-image-upload class="fb-input" type="file" name="vm.uploadignImageList" ng-model="vm.uploadignImageList" multiple/>
+                                                    <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid" ng-click="vm.imageUpload()"/>
+                                                </div>-->
+                                                
+                                                <!--<div class="fb-inputs" ng-hide="image.isUploading">
+                                                    <input type="file" id="file" name="file" multiple/>
+                                                    <input class="fb-submit" type="submit" value="Upload Image" ng-click="vm.imageUpload(file)"/>
+                                                </div>-->
                                                 <div class="fb-uploading" ng-show="image.isUploading">
                                                     Uploading...
                                                 </div>
