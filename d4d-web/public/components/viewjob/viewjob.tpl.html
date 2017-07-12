@@ -221,7 +221,7 @@
 
 <!--Completed Jobs-->
 <div layout="row" ng-if="vm.tab_number === '003'">
-  <div flex="33" class="signin-card" flex-offset="33">
+  <div class="signin-card sign-card-area">
     <md-card class="md-primary">
         <md-content class="md-padding signin-card-color">
             <center>
@@ -231,57 +231,74 @@
                 </md-content>
                 <md-content>
                     <md-list>
-                        <md-list-item class="md-3-line">
+                        <md-list-item class="md-3-line list-set">
                             <div class="md-list-item-text">
                                 <h3>Job ID</h3>
                                 <h4>{{vm.job_id}}</h4>
                             </div>
                         </md-list-item>
-                        <md-list-item class="md-3-line">
+                        <md-list-item class="md-3-line list-set">
                             <div class="md-list-item-text">
                                 <h3>Latitude</h3>
                                 <h4>{{vm.latitude}}</h4>
                             </div>
                         </md-list-item>
-                        <md-list-item class="md-3-line">
+                        <md-list-item class="md-3-line list-set">
                             <div class="md-list-item-text">
                                 <h3>Longitude</h3>
                                 <h4>{{vm.longitude}}</h4>
                             </div>
                         </md-list-item>
-                        <md-list-item class="md-3-line">
+                        <md-list-item class="md-3-line list-set">
                             <div class="md-list-item-text">
                                 <h3>Request Type</h3>
                                 <h4>{{vm.requesting_type}}</h4>
                             </div>
                         </md-list-item>
-                        <md-list-item class="md-3-line">
+                        <md-list-item class="md-3-line list-set">
                             <div class="md-list-item-text">
                                 <h3>Capturing Start Date</h3>
                                 <h4>{{vm.capturing_start_date}}</h4>
                             </div>
                         </md-list-item>
-                        <md-list-item class="md-3-line">
+                        <md-list-item class="md-3-line list-set">
                             <div class="md-list-item-text">
                                 <h3>Capturing End Date</h3>
                                 <h4>{{vm.capturing_end_date}}</h4>
                             </div>
                         </md-list-item>
-                        <md-list-item class="md-3-line">
+                        <md-list-item class="md-3-line list-set">
                             <div class="md-list-item-text">
                                 <h3>Requester</h3>
                                 <h4>{{vm.requester}}</h4>
                             </div>
                         </md-list-item>
-                        <ng-map default-style="true" zoom="9" center="6.9271, 79.8612">
-                        </ng-map>
                     </md-list>
                 </md-content>
-                <md-content class="md-padding">
+                <md-content>
+                    <ng-map default-style="true" zoom="9" center="6.9271, 79.8612">
+                    </ng-map>
+                </md-content>
+                <md-content class="md-padding" ng-if="vm.selectedImage['url'].length > 0">
+                    <div layout="row">
+                        <div flex="33" class="signin-card" flex-offset="30">
+                            <img src="{{vm.selectedImage['url']}}" style="width: 700px; height: 490px;">
+                        </div>
+                    </div>
+                </md-content>
+                <md-content class="md-padding" ng-if="vm.imageList.length > 0">
+                    <div layout="row">
+                        <div class="signin-card" ng-repeat="singleImage in vm.imageList" 
+                             ng-click="vm.viewImage(singleImage)">
+                            <img src="{{singleImage['url']}}" style="width: 100px; height: 70px;" ng-if="singleImage.confirmed == 1">
+                        </div>
+                    </div>
+                </md-content>
+                <!--<md-content class="md-padding">
                     <span ng-repeat="singleImage in vm.imageList">
                         <img src="{{singleImage['url']}}" style="width: 250px;" ng-if="singleImage.confirmed == 1">
                     </span>
-                </md-content>
+                </md-content>-->
                 <md-content>
                     <md-button class="md-accent" ng-click="vm.gotoManageJob()">Back</md-button>
                 </md-content>
