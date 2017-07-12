@@ -64,6 +64,7 @@
             /*Set of Functions*/
             vm.imageList = [];
             vm.uploadignImageList = [];
+            vm.selectedImage = [];
             vm.showToast = showToast;
             vm.confirmRequest = confirmRequest;
             vm.loadingData = loadingData;
@@ -73,7 +74,9 @@
             vm.imageUpload = imageUpload;
             vm.deleteImage = deleteImage;
             vm.completeAnalysing = completeAnalysing;
-            vm.getFileDetails = getFileDetails;
+            vm.viewImage = viewImage;
+            vm.viewPreviousImage = viewPreviousImage;
+            vm.viewNextImage = viewNextImage;
 
             console.log("viewjobController");
             vm.loadingData(vm.job_id, vm.tab_number);
@@ -143,6 +146,7 @@
                         snapshot.forEach(function(childSnapshot) {
                             vm.imageList.push(childSnapshot.val());
                         });
+                        vm.selectedImage = vm.imageList[0];
                     });
                     
                     /*Get data related to given Job ID*/
@@ -391,9 +395,17 @@
                 });
             }
             
-            function getFileDetails(evt) {
-                console.log(evt.files);
-              }
+            function viewImage(singleImage) {
+                vm.selectedImage = singleImage;
+            }
+            
+            function viewPreviousImage() {
+                console.log("Akar");
+            }
+            
+            function viewNextImage() {
+                console.log("Akar2");
+            }
         
     }]);
     
@@ -432,5 +444,6 @@
             }
         };
     }]);*/
+    
 
 })();

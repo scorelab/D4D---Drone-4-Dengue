@@ -133,20 +133,60 @@
                                     </md-content>
                                 </md-tab>
                                 <md-tab label="Images">
-                                    <md-content class="md-padding">
-                                        <span ng-repeat="singleImage in vm.imageList">
+                                    <md-content class="md-padding" ng-if="vm.selectedImage['url'].length > 0">
+                                        <div layout="row">
+                                            <div flex="33" class="signin-card" flex-offset="30">
+                                                <img src="{{vm.selectedImage['url']}}" style="width: 700px; height: 490px;">
+                                                <md-content>
+                                                    <md-button class="md-accent" ng-click="vm.deleteImage(vm.selectedImage)">Delete</md-button>
+                                                </md-content>
+                                            </div>
+                                        </div>
+                                    </md-content>
+                                    <md-content class="md-padding" ng-if="vm.imageList.length > 0">
+                                        <div layout="row">
+                                            <div class="signin-card" ng-repeat="singleImage in vm.imageList" 
+                                                 ng-click="vm.viewImage(singleImage)">
+                                                <img src="{{singleImage['url']}}" style="width: 100px; height: 70px;">
+                                                <!--<img src="{{singleImage['url']}}" style="width: 100px; height: 70px;" ng-show="$index < 10">-->
+                                            </div>
+                                        </div>
+                                        <!--<span ng-repeat="singleImage in vm.imageList">
                                             <img src="{{singleImage['url']}}" style="width: 700px;">
                                             <md-content>
                                                 <md-button class="md-accent" ng-click="vm.deleteImage(singleImage)">Delete</md-button>
                                             </md-content>
                                             <hr/>
-                                        </span>
+                                        </span>-->
                                     </md-content>
                                 </md-tab>
                             </md-tabs>
                             
                             <!--PHI View-->
-                            <md-content class="md-padding" ng-if="vm.category_id == 'phi'">
+                            <div ng-if="vm.category_id == 'phi'">
+                                <md-content class="md-padding" ng-if="vm.selectedImage['url'].length > 0">
+                                    <div layout="row">
+                                        <div flex="33" class="signin-card" flex-offset="30">
+                                            <img src="{{vm.selectedImage['url']}}" style="width: 700px; height: 490px;">
+                                            <md-content>
+                                                <md-button class="md-accent" ng-click="vm.confirm(vm.selectedImage)" ng-if="vm.selectedImage['confirmed'] == 0">
+                                                    Confirm
+                                                </md-button>
+                                                <div class="md-accent" ng-if="vm.selectedImage['confirmed'] == 1">Confirmed</div>
+                                            </md-content>
+                                        </div>
+                                    </div>
+                                </md-content>
+                                <md-content class="md-padding" ng-if="vm.imageList.length > 0">
+                                    <div layout="row">
+                                        <div class="signin-card" ng-repeat="singleImage in vm.imageList" 
+                                             ng-click="vm.viewImage(singleImage)">
+                                            <img src="{{singleImage['url']}}" style="width: 100px; height: 70px;">
+                                        </div>
+                                    </div>
+                                </md-content>
+                            </div>
+                            <!--<md-content class="md-padding" ng-if="vm.category_id == 'phi'">
                                 <span ng-repeat="singleImage in vm.imageList">
                                     <img src="{{singleImage['url']}}" style="width: 700px;">
                                     <md-content>
@@ -157,7 +197,7 @@
                                     </md-content>
                                     <hr/>
                                 </span>
-                            </md-content>
+                            </md-content>-->
                             
                         </md-content>
                     </div>
