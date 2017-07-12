@@ -75,8 +75,6 @@
             vm.deleteImage = deleteImage;
             vm.completeAnalysing = completeAnalysing;
             vm.viewImage = viewImage;
-            vm.viewPreviousImage = viewPreviousImage;
-            vm.viewNextImage = viewNextImage;
 
             console.log("viewjobController");
             vm.loadingData(vm.job_id, vm.tab_number);
@@ -397,14 +395,6 @@
             
             function viewImage(singleImage) {
                 vm.selectedImage = singleImage;
-            }
-            
-            function viewPreviousImage() {
-                console.log("Akar");
-            }
-            
-            function viewNextImage() {
-                console.log("Akar2");
             }
         
     }]);
