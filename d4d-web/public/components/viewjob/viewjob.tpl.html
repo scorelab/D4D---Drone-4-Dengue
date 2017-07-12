@@ -135,7 +135,7 @@
                                 <md-tab label="Images">
                                     <md-content class="md-padding" ng-if="vm.selectedImage['url'].length > 0">
                                         <div layout="row">
-                                            <div flex="33" class="signin-card" flex-offset="30">
+                                            <div style="margin-left: 25%;">
                                                 <img src="{{vm.selectedImage['url']}}" style="width: 700px; height: 490px;">
                                                 <md-content>
                                                     <md-button class="md-accent" ng-click="vm.deleteImage(vm.selectedImage)">Delete</md-button>
@@ -166,7 +166,7 @@
                             <div ng-if="vm.category_id == 'phi'">
                                 <md-content class="md-padding" ng-if="vm.selectedImage['url'].length > 0">
                                     <div layout="row">
-                                        <div flex="33" class="signin-card" flex-offset="30">
+                                        <div style="margin-left: 25%;">
                                             <img src="{{vm.selectedImage['url']}}" style="width: 700px; height: 490px;">
                                             <md-content>
                                                 <md-button class="md-accent" ng-click="vm.confirm(vm.selectedImage)" ng-if="vm.selectedImage['confirmed'] == 0">
