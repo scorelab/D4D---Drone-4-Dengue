@@ -65,6 +65,9 @@
             vm.imageList = [];
             vm.uploadignImageList = [];
             vm.selectedImage = [];
+            vm.filteredValue = "";
+            vm.filteringTypeList = [{id:0,name:"Coconutshell Detection"},{id:1,name:"Tyre Detection"},{id:2,name:"Water Retention Area Detection"}];
+            
             vm.showToast = showToast;
             vm.confirmRequest = confirmRequest;
             vm.loadingData = loadingData;
@@ -75,6 +78,7 @@
             vm.deleteImage = deleteImage;
             vm.completeAnalysing = completeAnalysing;
             vm.viewImage = viewImage;
+            vm.coconutShellsUpload = coconutShellsUpload;
 
             console.log("viewjobController");
             vm.loadingData(vm.job_id, vm.tab_number);
@@ -395,6 +399,48 @@
             
             function viewImage(singleImage) {
                 vm.selectedImage = singleImage;
+            }
+            
+            function coconutShellsUpload(image, parameter_name) {
+                var binStr = atob((image.data).replace(/^data:image\/jpeg;base64,/, ""));
+                var len = binStr.length;
+                var arr = new Uint8Array(len);
+
+                for (var i = 0; i < len; i++) {
+                    arr[i] = binStr.charCodeAt(i);
+                }
+                
+                // Create a child reference
+                var imagesRef = storageRef.child(parameter_name+"/"+vm.job_id.substr(1)+"/"+image.filename);  //imagesRef now points to the uploading image
+                var file = new File([arr], image.filename, {
+                    type: "image/jpeg",
+                });
+
+                imagesRef.put(file).then(function(snapshot) {
+                    // Get metadata properties
+                    imagesRef.getMetadata().then(function(metadata) {
+                        firebase.database().ref('images/'+parameter_name+'/' + vm.job_id.substr(1) + "/" + (image.filename).replace(".jpg", "")).set({
+                            "url": metadata.downloadURLs[0],
+                            "jobid": vm.job_id.substr(1),
+                            "fullPath": metadata.fullPath,
+                            "name": metadata.name,
+                            "confirmed": 0
+                        }, function(error) {
+                            if (error) {
+                                console.log("Data could not be saved." + error);
+                            } else {
+                                console.log("Data saved successfully.");
+                                location.reload();
+                            }
+                            
+                        });
+                        
+                    }).catch(function(error) {
+                        console.log("Problem Occured!");
+                        console.log(error);
+                    });
+                    
+                });
             }
         
     }]);

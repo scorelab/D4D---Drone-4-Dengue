@@ -164,6 +164,12 @@
                             
                             <!--PHI View-->
                             <div ng-if="vm.category_id == 'phi'">
+                                <md-input-container class="dropdown-area" style="width: 50%;">
+                                    <label>Filtering Type</label>
+                                    <md-select ng-model="vm.filteredValue" required>
+                                          <md-option ng-repeat="singleFilter in vm.filteringTypeList" value="{{singleFilter.id}}">{{singleFilter.name}}</md-option>
+                                    </md-select>
+                                </md-input-container>
                                 <md-content class="md-padding" ng-if="vm.selectedImage['url'].length > 0">
                                     <div layout="row">
                                         <div style="margin-left: 25%;">
@@ -199,6 +205,57 @@
                                 </span>
                             </md-content>-->
                             
+                            <!--Admin View-->
+                            <md-tabs md-dynamic-height="" md-border-bottom="" ng-if="vm.category_id == 'admin'">
+                                <md-tab label="Coconut Shells">
+                                    <md-content class="md-padding">
+                                        <div class="fb-image-upload">
+                                            <form>
+                                                <div class="fb-error" ng-show="error">{{vm.error}}</div>
+                                                <div class="fb-inputs" ng-hide="image.isUploading">
+                                                    <input class="fb-image-upload" fb-image-upload class="fb-input" type="file" name="image"/>
+                                                    <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid" ng-click="vm.coconutShellsUpload(image, 'coconut_shells')"/>
+                                                </div>
+                                                <div class="fb-uploading" ng-show="image.isUploading">
+                                                    Uploading...
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                                <md-tab label="Tyres">
+                                    <md-content class="md-padding">
+                                        <div class="fb-image-upload">
+                                            <form>
+                                                <div class="fb-error" ng-show="error">{{vm.error}}</div>
+                                                <div class="fb-inputs" ng-hide="image.isUploading">
+                                                    <input class="fb-image-upload" fb-image-upload class="fb-input" type="file" name="image"/>
+                                                    <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid" ng-click="vm.coconutShellsUpload(image, 'tyres')"/>
+                                                </div>
+                                                <div class="fb-uploading" ng-show="image.isUploading">
+                                                    Uploading...
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                                <md-tab label="Water Retention Areas">
+                                    <md-content class="md-padding">
+                                        <div class="fb-image-upload">
+                                            <form>
+                                                <div class="fb-error" ng-show="error">{{vm.error}}</div>
+                                                <div class="fb-inputs" ng-hide="image.isUploading">
+                                                    <input class="fb-image-upload" fb-image-upload class="fb-input" type="file" name="image"/>
+                                                    <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid" ng-click="vm.coconutShellsUpload(image, 'water_retention_areas')"/>
+                                                </div>
+                                                <div class="fb-uploading" ng-show="image.isUploading">
+                                                    Uploading...
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                            </md-tabs>                           
                         </md-content>
                     </div>
                 </md-content>
@@ -209,7 +266,7 @@
                 </md-content>
                 
                 <md-content ng-if="vm.imageList.length == 0">
-                    <div class="md-accent">No Images to Show</div>
+                    <div class="md-accent" ng-if="vm.category_id != 'admin'">No Images to Show</div>
                     <md-button class="md-accent" ng-click="vm.gotoManageJob()">Back</md-button>
                 </md-content>
                 
