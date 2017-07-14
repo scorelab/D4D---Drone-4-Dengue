@@ -310,16 +310,6 @@
             }
             
             function imageUpload(image) {
-                /*console.log(vm.uploadignImageList);
-                
-                var reader = new FileReader();
-                console.log(vm.uploadignImageList.length);
-                
-                for(var i=0; i<vm.uploadignImageList.length; i++) {
-                    var dataURL = (vm.uploadignImageList[i].url);
-                    console.log(vm.uploadignImageList[i]);
-                }*/
-                
                 var binStr = atob((image.data).replace(/^data:image\/jpeg;base64,/, ""));
                 var len = binStr.length;
                 var arr = new Uint8Array(len);
@@ -535,12 +525,8 @@
             }
             
             function imageUpload2(image) {
-                console.log(image);
-                var fileReader = new FileReader();
+                vm.uploadignImageList = image;
                 
-                fileReader.onload = function(fileLoadedEvent) {
-                    console.log(fileLoadedEvent.target.result);
-                }
             }
     }]);
     
@@ -554,9 +540,6 @@
                 var modelSetter = model.assign;
                 element.bind('change', function () {
                     var values = [];
-                    console.log(element);
-                    console.log(element[0]);
-                    console.log(element[0].files);
                     angular.forEach(element[0].files, function (item) {
                         var value = {
                            // File Name 

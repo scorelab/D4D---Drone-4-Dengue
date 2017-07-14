@@ -112,6 +112,10 @@
                                                 <button type="button" ng-click="vm.imageUpload2(files)">Upload</button>-->
                                                 <!--Multiple files code end-->
                                                 
+                                                <!--<span ng-repeat="aimage in vm.uploadignImageList" ng-if="vm.uploadignImageList.length > 0">
+                                                    <img src="{{aimage['url']}}"/>
+                                                </span>-->
+                                                
                                                 <!--Single file code start-->
                                                 <div class="fb-error" ng-show="error">{{vm.error}}</div>
                                                 <div class="fb-inputs" ng-hide="image.isUploading">
