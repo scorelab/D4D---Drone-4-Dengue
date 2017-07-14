@@ -369,7 +369,9 @@
                             var imagesRef = storageRef.child(vm.job_id.substr(1)+"/" + imageData.name);
                             
                             imagesRef.delete().then(function() {
-                                location.reload();                                
+                                vm.imageList = [];
+                                vm.selectedImage = [];    
+                                vm.loadingData(vm.job_id, vm.tab_number);                   
                             }).catch(function(error) {
                                 console.log("Problem Occured");
                                 console.log(error);
