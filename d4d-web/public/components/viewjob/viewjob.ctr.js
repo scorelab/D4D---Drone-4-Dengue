@@ -65,8 +65,8 @@
             vm.imageList = [];
             vm.uploadignImageList = [];
             vm.selectedImage = [];
-            vm.filteredValue = "";
-            vm.filteringTypeList = [{id:0,name:"Coconutshell Detection"},{id:1,name:"Tyre Detection"},{id:2,name:"Water Retention Area Detection"}];
+            vm.filteredValue = 0;
+            vm.filteringTypeList = [{id:0,name:"Default View"}, {id:1,name:"Coconutshell Detection"},{id:2,name:"Tyre Detection"},{id:3,name:"Water Retention Area Detection"}];
             
             vm.showToast = showToast;
             vm.confirmRequest = confirmRequest;
@@ -78,7 +78,11 @@
             vm.deleteImage = deleteImage;
             vm.completeAnalysing = completeAnalysing;
             vm.viewImage = viewImage;
-            vm.coconutShellsUpload = coconutShellsUpload;
+            vm.detectedImagesUpload = detectedImagesUpload;
+            vm.changeImageList = changeImageList;
+            vm.confirmOtherImages = confirmOtherImages;
+            vm.loadImages = loadImages;
+            vm.confirmSingleImage = confirmSingleImage;
 
             console.log("viewjobController");
             vm.loadingData(vm.job_id, vm.tab_number);
@@ -280,7 +284,9 @@
                     if (error) {
                         console.log("Data could not be saved." + error);
                     } else {
-                        location.reload();                     
+                        vm.imageList = [];
+                        vm.selectedImage = [];    
+                        vm.loadingData(vm.job_id, vm.tab_number);
                     }
                 });
             }
@@ -401,7 +407,7 @@
                 vm.selectedImage = singleImage;
             }
             
-            function coconutShellsUpload(image, parameter_name) {
+            function detectedImagesUpload(image, parameter_name) {
                 var binStr = atob((image.data).replace(/^data:image\/jpeg;base64,/, ""));
                 var len = binStr.length;
                 var arr = new Uint8Array(len);
@@ -442,7 +448,55 @@
                     
                 });
             }
+            
+            function changeImageList(selectedFilterValue) {
+                if(selectedFilterValue == 0) {
+                    vm.imageList = [];
+                    vm.selectedImage = [];
+                    vm.loadingData(vm.job_id, vm.tab_number);
+                } else if(selectedFilterValue == 1) {
+                    vm.loadImages("coconut_shells");
+                } else if(selectedFilterValue == 2) {
+                    vm.loadImages("tyres");
+                } else if(selectedFilterValue == 3) {
+                    vm.loadImages("water_retention_areas");
+                }
+            }
+            
+            function loadImages(imageCategory) {
+                vm.imageList = [];
+                vm.selectedImage = [];
+                var setOfImages = firebase.database().ref('images/'+imageCategory+'/'+vm.job_id.replace("a", ""));
+                setOfImages.on('value', function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        vm.imageList.push(childSnapshot.val());
+                    });
+                    vm.selectedImage = vm.imageList[0];
+                });
+                vm.triggerPage();
+            }
+            
+            function confirmOtherImages(selectedImage, selectedFilterValue) {
+                if(selectedFilterValue == 1) {
+                    vm.confirmSingleImage(selectedImage, "coconut_shells");
+                } else if(selectedFilterValue == 2) {
+                    vm.confirmSingleImage(selectedImage, "tyres");
+                } else if(selectedFilterValue == 3) {
+                    vm.confirmSingleImage(selectedImage, "water_retention_areas");
+                }
+            }
         
+            function confirmSingleImage(image, imageCategory) {
+                var imageRef = firebase.database().ref('images/'+imageCategory+"/"+vm.job_id.substr(1)+"/"+(image.name).replace(".jpg", ""));
+                
+                imageRef.update({ "confirmed" : 1 }, function(error) {
+                    if (error) {
+                        console.log("Data could not be saved." + error);
+                    } else {
+                        vm.loadImages(imageCategory);          
+                    }
+                });
+            }
     }]);
     
     /*ngFileModel Library*/

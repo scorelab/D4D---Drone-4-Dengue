@@ -164,10 +164,11 @@
                             
                             <!--PHI View-->
                             <div ng-if="vm.category_id == 'phi'">
+                                <!--Dropdown Filter-->
                                 <md-input-container class="dropdown-area" style="width: 50%;">
                                     <label>Filtering Type</label>
-                                    <md-select ng-model="vm.filteredValue" required>
-                                          <md-option ng-repeat="singleFilter in vm.filteringTypeList" value="{{singleFilter.id}}">{{singleFilter.name}}</md-option>
+                                    <md-select ng-model="vm.filteredValue" ng-change="vm.changeImageList(vm.filteredValue)" required>
+                                        <md-option ng-repeat="singleFilter in vm.filteringTypeList" ng-value="{{singleFilter.id}}">{{singleFilter.name}}</md-option>
                                     </md-select>
                                 </md-input-container>
                                 <md-content class="md-padding" ng-if="vm.selectedImage['url'].length > 0">
@@ -175,7 +176,12 @@
                                         <div style="margin-left: 25%;">
                                             <img src="{{vm.selectedImage['url']}}" style="width: 700px; height: 490px;">
                                             <md-content>
-                                                <md-button class="md-accent" ng-click="vm.confirm(vm.selectedImage)" ng-if="vm.selectedImage['confirmed'] == 0">
+                                                <md-button class="md-accent" ng-click="vm.confirm(vm.selectedImage)"
+                                                           ng-if="vm.selectedImage['confirmed'] == 0 && vm.filteredValue == 0">
+                                                    Confirm
+                                                </md-button>
+                                                <md-button class="md-accent" ng-click="vm.confirmOtherImages(vm.selectedImage, vm.filteredValue)"
+                                                           ng-if="vm.selectedImage['confirmed'] == 0 && vm.filteredValue != 0">
                                                     Confirm
                                                 </md-button>
                                                 <div class="md-accent" ng-if="vm.selectedImage['confirmed'] == 1">Confirmed</div>
@@ -214,7 +220,7 @@
                                                 <div class="fb-error" ng-show="error">{{vm.error}}</div>
                                                 <div class="fb-inputs" ng-hide="image.isUploading">
                                                     <input class="fb-image-upload" fb-image-upload class="fb-input" type="file" name="image"/>
-                                                    <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid" ng-click="vm.coconutShellsUpload(image, 'coconut_shells')"/>
+                                                    <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid" ng-click="vm.detectedImagesUpload(image, 'coconut_shells')"/>
                                                 </div>
                                                 <div class="fb-uploading" ng-show="image.isUploading">
                                                     Uploading...
@@ -230,7 +236,7 @@
                                                 <div class="fb-error" ng-show="error">{{vm.error}}</div>
                                                 <div class="fb-inputs" ng-hide="image.isUploading">
                                                     <input class="fb-image-upload" fb-image-upload class="fb-input" type="file" name="image"/>
-                                                    <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid" ng-click="vm.coconutShellsUpload(image, 'tyres')"/>
+                                                    <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid" ng-click="vm.detectedImagesUpload(image, 'tyres')"/>
                                                 </div>
                                                 <div class="fb-uploading" ng-show="image.isUploading">
                                                     Uploading...
@@ -246,7 +252,7 @@
                                                 <div class="fb-error" ng-show="error">{{vm.error}}</div>
                                                 <div class="fb-inputs" ng-hide="image.isUploading">
                                                     <input class="fb-image-upload" fb-image-upload class="fb-input" type="file" name="image"/>
-                                                    <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid" ng-click="vm.coconutShellsUpload(image, 'water_retention_areas')"/>
+                                                    <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid" ng-click="vm.detectedImagesUpload(image, 'water_retention_areas')"/>
                                                 </div>
                                                 <div class="fb-uploading" ng-show="image.isUploading">
                                                     Uploading...
