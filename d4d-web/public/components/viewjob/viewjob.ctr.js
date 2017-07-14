@@ -75,6 +75,7 @@
             vm.triggerPage = triggerPage;
             vm.gotoManageJob = gotoManageJob;
             vm.imageUpload = imageUpload;
+            vm.imageUpload2 = imageUpload2;
             vm.deleteImage = deleteImage;
             vm.completeAnalysing = completeAnalysing;
             vm.viewImage = viewImage;
@@ -347,7 +348,9 @@
                                 console.log("Data could not be saved." + error);
                             } else {
                                 console.log("Data saved successfully.");
-                                location.reload();
+                                vm.imageList = [];
+                                vm.selectedImage = [];
+                                vm.loadingData(vm.job_id, vm.tab_number);
                             }
                             
                         });
@@ -440,7 +443,9 @@
                                 console.log("Data could not be saved." + error);
                             } else {
                                 console.log("Data saved successfully.");
-                                location.reload();
+                                vm.imageList = [];
+                                vm.selectedImage = [];
+                                vm.loadingData(vm.job_id, vm.tab_number);
                             }
                             
                         });
@@ -528,10 +533,19 @@
                     }
                 });
             }
+            
+            function imageUpload2(image) {
+                console.log(image);
+                var fileReader = new FileReader();
+                
+                fileReader.onload = function(fileLoadedEvent) {
+                    console.log(fileLoadedEvent.target.result);
+                }
+            }
     }]);
     
     /*ngFileModel Library*/
-    /*angular.module('d4d').directive('ngFileModel', ['$parse', function ($parse) {
+    angular.module('d4d').directive('ngFileModel', ['$parse', function ($parse) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -540,8 +554,10 @@
                 var modelSetter = model.assign;
                 element.bind('change', function () {
                     var values = [];
+                    console.log(element);
+                    console.log(element[0]);
+                    console.log(element[0].files);
                     angular.forEach(element[0].files, function (item) {
-                        console.log(element[0].files);
                         var value = {
                            // File Name 
                             name: item.name,
@@ -564,7 +580,7 @@
                 });
             }
         };
-    }]);*/
+    }]);
     
 
 })();
