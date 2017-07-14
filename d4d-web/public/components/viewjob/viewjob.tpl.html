@@ -342,6 +342,12 @@
                     <ng-map default-style="true" zoom="9" center="6.9271, 79.8612">
                     </ng-map>
                 </md-content>
+                <md-input-container class="dropdown-area" style="width: 50%;" ng-if="vm.category_id == 'phi'">
+                    <label>Filtering Type</label>
+                    <md-select ng-model="vm.filteredValue" ng-change="vm.changeImageListForCompletedJobs(vm.filteredValue)" required>
+                        <md-option ng-repeat="singleFilter in vm.filteringTypeList" ng-value="{{singleFilter.id}}">{{singleFilter.name}}</md-option>
+                    </md-select>
+                </md-input-container>
                 <md-content class="md-padding" ng-if="vm.selectedImage['url'].length > 0">
                     <div layout="row">
                         <div flex="33" class="signin-card" flex-offset="30">
@@ -363,6 +369,7 @@
                     </span>
                 </md-content>-->
                 <md-content>
+                    <div class="md-accent" ng-if="vm.imageList.length == 0">No Images to Show</div>
                     <md-button class="md-accent" ng-click="vm.gotoManageJob()">Back</md-button>
                 </md-content>
             </center>

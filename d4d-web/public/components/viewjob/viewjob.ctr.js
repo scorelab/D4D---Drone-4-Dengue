@@ -80,8 +80,10 @@
             vm.viewImage = viewImage;
             vm.detectedImagesUpload = detectedImagesUpload;
             vm.changeImageList = changeImageList;
+            vm.changeImageListForCompletedJobs = changeImageListForCompletedJobs;
             vm.confirmOtherImages = confirmOtherImages;
             vm.loadImages = loadImages;
+            vm.loadImagesForCompletedJobs = loadImagesForCompletedJobs;
             vm.confirmSingleImage = confirmSingleImage;
 
             console.log("viewjobController");
@@ -467,6 +469,33 @@
                 vm.imageList = [];
                 vm.selectedImage = [];
                 var setOfImages = firebase.database().ref('images/'+imageCategory+'/'+vm.job_id.replace("a", ""));
+                setOfImages.on('value', function(snapshot) {
+                    snapshot.forEach(function(childSnapshot) {
+                        vm.imageList.push(childSnapshot.val());
+                    });
+                    vm.selectedImage = vm.imageList[0];
+                });
+                vm.triggerPage();
+            }
+             
+            function changeImageListForCompletedJobs(selectedFilterValue) {
+                if(selectedFilterValue == 0) {
+                    vm.imageList = [];
+                    vm.selectedImage = [];
+                    vm.loadingData(vm.job_id, vm.tab_number);
+                } else if(selectedFilterValue == 1) {
+                    vm.loadImagesForCompletedJobs("coconut_shells");
+                } else if(selectedFilterValue == 2) {
+                    vm.loadImagesForCompletedJobs("tyres");
+                } else if(selectedFilterValue == 3) {
+                    vm.loadImagesForCompletedJobs("water_retention_areas");
+                }
+            }
+            
+            function loadImagesForCompletedJobs(imageCategory) {
+                vm.imageList = [];
+                vm.selectedImage = [];
+                var setOfImages = firebase.database().ref('images/'+imageCategory+'/'+vm.job_id.replace("c", ""));
                 setOfImages.on('value', function(snapshot) {
                     snapshot.forEach(function(childSnapshot) {
                         vm.imageList.push(childSnapshot.val());
