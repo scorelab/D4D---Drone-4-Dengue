@@ -6,11 +6,11 @@
             <nav class="navbar navbar-inverse" role="navigation">
                 <table>
                     <tr>
-                        <td><a ui-sref="home">Home</a></td>
-                        <td><a ui-sref="managingjobs">Manage Jobs</a></td>
-                        <td><a ng-click="vm.logout()" ui-sref="auth" >Logout</a></td>
+                        <td><md-button ui-sref="home">Home</md-button></td>
+                        <td><md-button ui-sref="managingjobs" class="navbar-colors">Manage Jobs</md-button></td>
+                        <td><md-button ng-click="vm.logout()" ui-sref="auth" >Logout</md-button></td>
                         <!--<td><a ui-sref="profile">Profile</a></td>-->
-                        <td>{{vm.user_id}}</td>
+                        <td>{{vm.user_email}}</td>
                         <!--<td>{{vm.gettingName}}</td>-->
                     </tr>
                 </table>
@@ -34,7 +34,7 @@
                     <md-button class="md-accent" ng-click="vm.gotoCreateJob()">Create a New Job</md-button>
                 </md-content>
             </md-content>
-            <div ng-cloak="" class="tabsdemoDynamicHeight" ng-app="d4d">
+            <div ng-cloak="" class="tabsdemoDynamicHeight" ng-app="d4d" ng-if="vm.getCategory == 'phi' || vm.getCategory == 'pilot'">
                 <md-content>
                     <md-tabs md-dynamic-height="" md-border-bottom="">
                         <md-tab label="Processing Jobs">
@@ -43,9 +43,11 @@
                                     <tr>
                                         <th>Job ID</th>
                                         <th>Requesting Type</th>
-                                        <th>Capturing Date</th>
+                                        <th>Capturing Start Date</th>
+                                        <th>Capturing End Date</th>
                                         <th>Requester</th>
                                         <th>View Job</th>
+                                        <th ng-if="vm.getCategory == 'phi'">Edit Job</th>
                                     </tr>
                                     <tr ng-repeat="singleRow in vm.processingJobsArray">
                                         <td>{{singleRow.jobid}}</td>
@@ -53,11 +55,17 @@
                                             <span ng-if="singleRow.requesting_type == '0'">Dengue Monitoring</span>
                                             <span ng-if="singleRow.requesting_type == '1'">Other</span>
                                         </td>
-                                        <td>{{singleRow.capturing_date}}</td>
+                                        <td>{{singleRow.capturing_start_date}}</td>
+                                        <td>{{singleRow.capturing_end_date}}</td>
                                         <td>{{singleRow.requester}}</td>
                                         <td>
-                                            <a href="index.html#/managingjobs/{{vm.user_id}}/viewjob/{{singleRow.jobid}}/001/{{vm.getCategory}}">
+                                            <a href="#/managingjobs/{{vm.user_id}}/viewjob/{{singleRow.jobid}}/001/{{vm.getCategory}}">
                                                 view
+                                            </a>
+                                        </td>
+                                        <td ng-if="vm.getCategory == 'phi'">
+                                            <a href="#/managingjobs/{{vm.user_id}}/editjob/{{singleRow.jobid}}">
+                                                edit
                                             </a>
                                         </td>
                                     </tr>
@@ -70,7 +78,8 @@
                                     <tr>
                                         <th>Job ID</th>
                                         <th>Requesting Type</th>
-                                        <th>Capturing Date</th>
+                                        <th>Capturing Start Date</th>
+                                        <th>Capturing End Date</th>
                                         <th>Requester</th>
                                         <th>View Job</th>
                                     </tr>
@@ -80,10 +89,11 @@
                                             <span ng-if="singleRow.requesting_type == '0'">Dengue Monitoring</span>
                                             <span ng-if="singleRow.requesting_type == '1'">Other</span>
                                         </td>
-                                        <td>{{singleRow.capturing_date}}</td>
+                                        <td>{{singleRow.capturing_start_date}}</td>
+                                        <td>{{singleRow.capturing_end_date}}</td>
                                         <td>{{singleRow.requester}}</td>
                                         <td>
-                                            <a href="index.html#/managingjobs/{{vm.user_id}}/viewjob/{{singleRow.jobid}}/002/{{vm.getCategory}}">
+                                            <a href="#/managingjobs/{{vm.user_id}}/viewjob/{{singleRow.jobid}}/002/{{vm.getCategory}}">
                                                 view
                                             </a>
                                         </td>
@@ -97,7 +107,8 @@
                                     <tr>
                                         <th>Job ID</th>
                                         <th>Requesting Type</th>
-                                        <th>Capturing Date</th>
+                                        <th>Capturing Start Date</th>
+                                        <th>Capturing End Date</th>
                                         <th>Requester</th>
                                         <th>View Job</th>
                                     </tr>
@@ -107,10 +118,11 @@
                                             <span ng-if="singleRow.requesting_type == '0'">Dengue Monitoring</span>
                                             <span ng-if="singleRow.requesting_type == '1'">Other</span>
                                         </td>
-                                        <td>{{singleRow.capturing_date}}</td>
+                                        <td>{{singleRow.capturing_start_date}}</td>
+                                        <td>{{singleRow.capturing_end_date}}</td>
                                         <td>{{singleRow.requester}}</td>
                                         <td>
-                                            <a href="index.html#/managingjobs/{{vm.user_id}}/viewjob/{{singleRow.jobid}}/003/{{vm.getCategory}}">
+                                            <a href="#/managingjobs/{{vm.user_id}}/viewjob/{{singleRow.jobid}}/003/{{vm.getCategory}}">
                                                 view
                                             </a>
                                         </td>
@@ -121,34 +133,35 @@
                     </md-tabs>
                 </md-content>
             </div>
+            <div ng-cloak="" class="tabsdemoDynamicHeight" ng-app="d4d" ng-if="vm.getCategory == 'admin'">
+                <md-content class="md-padding">
+                    <table class="table-area">
+                        <tr>
+                            <th>Job ID</th>
+                            <th>Requesting Type</th>
+                            <th>Capturing Start Date</th>
+                            <th>Capturing End Date</th>
+                            <th>Requester</th>
+                            <th>View Job</th>
+                        </tr>
+                        <tr ng-repeat="singleRow in vm.analysingJobsArray">
+                            <td>{{singleRow.jobid}}</td>
+                            <td>
+                                <span ng-if="singleRow.requesting_type == '0'">Dengue Monitoring</span>
+                                <span ng-if="singleRow.requesting_type == '1'">Other</span>
+                            </td>
+                            <td>{{singleRow.capturing_start_date}}</td>
+                            <td>{{singleRow.capturing_end_date}}</td>
+                            <td>{{singleRow.requester}}</td>
+                            <td>
+                                <a href="#/managingjobs/{{vm.user_id}}/viewjob/{{singleRow.jobid}}/002/{{vm.getCategory}}">
+                                    view
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </md-content>
+            </div>
         </md-card>
     </div>
 </div>
-
-
-<!--<div layout="row" layout-wrap>
-<div flex="none">
-    [flex="none"]
-</div>
-<div flex>
-    [flex]
-</div>
-<div flex="nogrow">
-[flex="nogrow"]
-</div>
-<div flex="grow">
-    [flex="grow"]
-</div>
-<div flex="initial">
-    [flex="initial"]
-</div>
-<div flex="auto">
-    [flex="auto"]
-</div>
-<div flex="noshrink">
-    [flex="noshrink"]
-</div>
-<div flex="0">
-    [flex="0"]
-</div>
-</div>-->

@@ -6,12 +6,10 @@
             <nav class="navbar navbar-inverse" role="navigation">
                 <table>
                     <tr>
-                        <td><a ui-sref="home">Home</a></td>
-                        <td><a ui-sref="managingjobs">Manage Jobs</a></td>
-                        <td><a ng-click="vm.logout()" ui-sref="auth" >Logout</a></td>
-                        <!--<td><a ui-sref="profile">Profile</a></td>-->
-                        <td>{{vm.user_id}}</td>
-                        <!--<td>{{vm.gettingName}}</td>-->
+                        <td><md-button ui-sref="home">Home</md-button></td>
+                        <td><md-button ui-sref="managingjobs" class="navbar-colors">Manage Jobs</md-button></td>
+                        <td><md-button ng-click="vm.logout()" ui-sref="auth" >Logout</md-button></td>
+                        <td>{{vm.user_email}}</td>
                     </tr>
                 </table>
             </nav>
@@ -58,8 +56,14 @@
                         </md-list-item>
                         <md-list-item class="md-3-line">
                             <div class="md-list-item-text">
-                                <h3>Capturing Date</h3>
-                                <h4>{{vm.capturing_date}}</h4>
+                                <h3>Capturing Start Date</h3>
+                                <h4>{{vm.capturing_start_date}}</h4>
+                            </div>
+                        </md-list-item>
+                        <md-list-item class="md-3-line">
+                            <div class="md-list-item-text">
+                                <h3>Capturing End Date</h3>
+                                <h4>{{vm.capturing_end_date}}</h4>
                             </div>
                         </md-list-item>
                         <md-list-item class="md-3-line">
@@ -68,6 +72,8 @@
                                 <h4>{{vm.requester}}</h4>
                             </div>
                         </md-list-item>
+                        <ng-map default-style="true" zoom="9" center="6.9271, 79.8612">
+                        </ng-map>
                     </md-list>
                 </md-content>
                 <md-content>
@@ -101,11 +107,23 @@
                                     <md-content class="md-padding">
                                         <div class="fb-image-upload">
                                             <form>
+                                                <!--Multiple files code start-->
+                                                <!--<input type="file" ng-file-model="files" multiple />
+                                                <button type="button" ng-click="vm.imageUpload2(files)">Upload</button>-->
+                                                <!--Multiple files code end-->
+                                                
+                                                <!--<span ng-repeat="aimage in vm.uploadignImageList" ng-if="vm.uploadignImageList.length > 0">
+                                                    <img src="{{aimage['url']}}"/>
+                                                </span>-->
+                                                
+                                                <!--Single file code start-->
                                                 <div class="fb-error" ng-show="error">{{vm.error}}</div>
                                                 <div class="fb-inputs" ng-hide="image.isUploading">
                                                     <input class="fb-image-upload" fb-image-upload class="fb-input" type="file" name="image"/>
                                                     <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid" ng-click="vm.imageUpload(image)"/>
                                                 </div>
+                                                <!--Single file code end-->
+                                                
                                                 <div class="fb-uploading" ng-show="image.isUploading">
                                                     Uploading...
                                                 </div>
@@ -114,20 +132,72 @@
                                     </md-content>
                                 </md-tab>
                                 <md-tab label="Images">
-                                    <md-content class="md-padding">
-                                        <span ng-repeat="singleImage in vm.imageList">
+                                    <md-content class="md-padding" ng-if="vm.selectedImage['url'].length > 0">
+                                        <div layout="row">
+                                            <div style="margin-left: 25%;">
+                                                <img src="{{vm.selectedImage['url']}}" style="width: 700px; height: 490px;">
+                                                <md-content>
+                                                    <md-button class="md-accent" ng-click="vm.deleteImage(vm.selectedImage)">Delete</md-button>
+                                                </md-content>
+                                            </div>
+                                        </div>
+                                    </md-content>
+                                    <md-content class="md-padding" ng-if="vm.imageList.length > 0">
+                                        <div layout="row">
+                                            <div class="signin-card" ng-repeat="singleImage in vm.imageList" 
+                                                 ng-click="vm.viewImage(singleImage)">
+                                                <img src="{{singleImage['url']}}" style="width: 100px; height: 70px;">
+                                                <!--<img src="{{singleImage['url']}}" style="width: 100px; height: 70px;" ng-show="$index < 10">-->
+                                            </div>
+                                        </div>
+                                        <!--<span ng-repeat="singleImage in vm.imageList">
                                             <img src="{{singleImage['url']}}" style="width: 700px;">
                                             <md-content>
                                                 <md-button class="md-accent" ng-click="vm.deleteImage(singleImage)">Delete</md-button>
                                             </md-content>
                                             <hr/>
-                                        </span>
+                                        </span>-->
                                     </md-content>
                                 </md-tab>
                             </md-tabs>
                             
                             <!--PHI View-->
-                            <md-content class="md-padding" ng-if="vm.category_id == 'phi'">
+                            <div ng-if="vm.category_id == 'phi'">
+                                <!--Dropdown Filter-->
+                                <md-input-container class="dropdown-area" style="width: 50%;">
+                                    <label>Filtering Type</label>
+                                    <md-select ng-model="vm.filteredValue" ng-change="vm.changeImageList(vm.filteredValue)" required>
+                                        <md-option ng-repeat="singleFilter in vm.filteringTypeList" ng-value="{{singleFilter.id}}">{{singleFilter.name}}</md-option>
+                                    </md-select>
+                                </md-input-container>
+                                <md-content class="md-padding" ng-if="vm.selectedImage['url'].length > 0">
+                                    <div layout="row">
+                                        <div style="margin-left: 25%;">
+                                            <img src="{{vm.selectedImage['url']}}" style="width: 700px; height: 490px;">
+                                            <md-content>
+                                                <md-button class="md-accent" ng-click="vm.confirm(vm.selectedImage)"
+                                                           ng-if="vm.selectedImage['confirmed'] == 0 && vm.filteredValue == 0">
+                                                    Confirm
+                                                </md-button>
+                                                <md-button class="md-accent" ng-click="vm.confirmOtherImages(vm.selectedImage, vm.filteredValue)"
+                                                           ng-if="vm.selectedImage['confirmed'] == 0 && vm.filteredValue != 0">
+                                                    Confirm
+                                                </md-button>
+                                                <div class="md-accent" ng-if="vm.selectedImage['confirmed'] == 1">Confirmed</div>
+                                            </md-content>
+                                        </div>
+                                    </div>
+                                </md-content>
+                                <md-content class="md-padding" ng-if="vm.imageList.length > 0">
+                                    <div layout="row">
+                                        <div class="signin-card" ng-repeat="singleImage in vm.imageList" 
+                                             ng-click="vm.viewImage(singleImage)">
+                                            <img src="{{singleImage['url']}}" style="width: 100px; height: 70px;">
+                                        </div>
+                                    </div>
+                                </md-content>
+                            </div>
+                            <!--<md-content class="md-padding" ng-if="vm.category_id == 'phi'">
                                 <span ng-repeat="singleImage in vm.imageList">
                                     <img src="{{singleImage['url']}}" style="width: 700px;">
                                     <md-content>
@@ -138,14 +208,70 @@
                                     </md-content>
                                     <hr/>
                                 </span>
-                            </md-content>
+                            </md-content>-->
                             
+                            <!--Admin View-->
+                            <md-tabs md-dynamic-height="" md-border-bottom="" ng-if="vm.category_id == 'admin'">
+                                <md-tab label="Coconut Shells">
+                                    <md-content class="md-padding">
+                                        <div class="fb-image-upload">
+                                            <form>
+                                                <div class="fb-error" ng-show="error">{{vm.error}}</div>
+                                                <div class="fb-inputs" ng-hide="image.isUploading">
+                                                    <input class="fb-image-upload" fb-image-upload class="fb-input" type="file" name="image"/>
+                                                    <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid" ng-click="vm.detectedImagesUpload(image, 'coconut_shells')"/>
+                                                </div>
+                                                <div class="fb-uploading" ng-show="image.isUploading">
+                                                    Uploading...
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                                <md-tab label="Tyres">
+                                    <md-content class="md-padding">
+                                        <div class="fb-image-upload">
+                                            <form>
+                                                <div class="fb-error" ng-show="error">{{vm.error}}</div>
+                                                <div class="fb-inputs" ng-hide="image.isUploading">
+                                                    <input class="fb-image-upload" fb-image-upload class="fb-input" type="file" name="image"/>
+                                                    <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid" ng-click="vm.detectedImagesUpload(image, 'tyres')"/>
+                                                </div>
+                                                <div class="fb-uploading" ng-show="image.isUploading">
+                                                    Uploading...
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                                <md-tab label="Water Retention Areas">
+                                    <md-content class="md-padding">
+                                        <div class="fb-image-upload">
+                                            <form>
+                                                <div class="fb-error" ng-show="error">{{vm.error}}</div>
+                                                <div class="fb-inputs" ng-hide="image.isUploading">
+                                                    <input class="fb-image-upload" fb-image-upload class="fb-input" type="file" name="image"/>
+                                                    <input class="fb-submit" type="submit" value="Upload Image" ng-show="image.valid" ng-click="vm.detectedImagesUpload(image, 'water_retention_areas')"/>
+                                                </div>
+                                                <div class="fb-uploading" ng-show="image.isUploading">
+                                                    Uploading...
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </md-content>
+                                </md-tab>
+                            </md-tabs>                           
                         </md-content>
                     </div>
                 </md-content>
                 
-                <md-content>
+                <md-content ng-if="vm.imageList.length > 0">
                     <md-button class="md-accent" ng-if="vm.category_id == 'phi'" ng-click="vm.completeAnalysing()">Analysing Completed</md-button>
+                    <md-button class="md-accent" ng-click="vm.gotoManageJob()">Back</md-button>
+                </md-content>
+                
+                <md-content ng-if="vm.imageList.length == 0">
+                    <div class="md-accent" ng-if="vm.category_id != 'admin'">No Images to Show</div>
                     <md-button class="md-accent" ng-click="vm.gotoManageJob()">Back</md-button>
                 </md-content>
                 
@@ -157,7 +283,7 @@
 
 <!--Completed Jobs-->
 <div layout="row" ng-if="vm.tab_number === '003'">
-  <div flex="33" class="signin-card" flex-offset="33">
+  <div class="signin-card sign-card-area">
     <md-card class="md-primary">
         <md-content class="md-padding signin-card-color">
             <center>
@@ -167,37 +293,43 @@
                 </md-content>
                 <md-content>
                     <md-list>
-                        <md-list-item class="md-3-line">
+                        <md-list-item class="md-3-line list-set">
                             <div class="md-list-item-text">
                                 <h3>Job ID</h3>
                                 <h4>{{vm.job_id}}</h4>
                             </div>
                         </md-list-item>
-                        <md-list-item class="md-3-line">
+                        <md-list-item class="md-3-line list-set">
                             <div class="md-list-item-text">
                                 <h3>Latitude</h3>
                                 <h4>{{vm.latitude}}</h4>
                             </div>
                         </md-list-item>
-                        <md-list-item class="md-3-line">
+                        <md-list-item class="md-3-line list-set">
                             <div class="md-list-item-text">
                                 <h3>Longitude</h3>
                                 <h4>{{vm.longitude}}</h4>
                             </div>
                         </md-list-item>
-                        <md-list-item class="md-3-line">
+                        <md-list-item class="md-3-line list-set">
                             <div class="md-list-item-text">
                                 <h3>Request Type</h3>
                                 <h4>{{vm.requesting_type}}</h4>
                             </div>
                         </md-list-item>
-                        <md-list-item class="md-3-line">
+                        <md-list-item class="md-3-line list-set">
                             <div class="md-list-item-text">
-                                <h3>Capturing Date</h3>
-                                <h4>{{vm.capturing_date}}</h4>
+                                <h3>Capturing Start Date</h3>
+                                <h4>{{vm.capturing_start_date}}</h4>
                             </div>
                         </md-list-item>
-                        <md-list-item class="md-3-line">
+                        <md-list-item class="md-3-line list-set">
+                            <div class="md-list-item-text">
+                                <h3>Capturing End Date</h3>
+                                <h4>{{vm.capturing_end_date}}</h4>
+                            </div>
+                        </md-list-item>
+                        <md-list-item class="md-3-line list-set">
                             <div class="md-list-item-text">
                                 <h3>Requester</h3>
                                 <h4>{{vm.requester}}</h4>
@@ -205,12 +337,38 @@
                         </md-list-item>
                     </md-list>
                 </md-content>
-                <md-content class="md-padding">
+                <md-content>
+                    <ng-map default-style="true" zoom="9" center="6.9271, 79.8612">
+                    </ng-map>
+                </md-content>
+                <md-input-container class="dropdown-area" style="width: 50%;" ng-if="vm.category_id == 'phi'">
+                    <label>Filtering Type</label>
+                    <md-select ng-model="vm.filteredValue" ng-change="vm.changeImageListForCompletedJobs(vm.filteredValue)" required>
+                        <md-option ng-repeat="singleFilter in vm.filteringTypeList" ng-value="{{singleFilter.id}}">{{singleFilter.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-content class="md-padding" ng-if="vm.selectedImage['url'].length > 0">
+                    <div layout="row">
+                        <div flex="33" class="signin-card" flex-offset="30">
+                            <img src="{{vm.selectedImage['url']}}" style="width: 700px; height: 490px;">
+                        </div>
+                    </div>
+                </md-content>
+                <md-content class="md-padding" ng-if="vm.imageList.length > 0">
+                    <div layout="row">
+                        <div class="signin-card" ng-repeat="singleImage in vm.imageList" 
+                             ng-click="vm.viewImage(singleImage)">
+                            <img src="{{singleImage['url']}}" style="width: 100px; height: 70px;" ng-if="singleImage.confirmed == 1">
+                        </div>
+                    </div>
+                </md-content>
+                <!--<md-content class="md-padding">
                     <span ng-repeat="singleImage in vm.imageList">
                         <img src="{{singleImage['url']}}" style="width: 250px;" ng-if="singleImage.confirmed == 1">
                     </span>
-                </md-content>
+                </md-content>-->
                 <md-content>
+                    <div class="md-accent" ng-if="vm.imageList.length == 0">No Images to Show</div>
                     <md-button class="md-accent" ng-click="vm.gotoManageJob()">Back</md-button>
                 </md-content>
             </center>

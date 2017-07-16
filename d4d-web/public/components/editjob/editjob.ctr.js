@@ -4,7 +4,7 @@
     
     angular
         .module('d4d')
-        .controller('createjobController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', '$firebaseObject', 'sharedUsernameServices', 'sharedUseridServices', 'sharedUserCategoryServices', 'NgMap', '$stateParams', function($state, $mdToast, $firebaseAuth, $firebase, $firebaseObject, $sharedUsernameServices, $sharedUseridServices, $sharedUserCategoryServices, NgMap, $stateParams)  {
+        .controller('editjobController', ['$state', '$mdToast', '$firebaseAuth', '$firebase', '$firebaseObject', 'sharedUsernameServices', 'sharedUseridServices', 'sharedUserCategoryServices', 'NgMap', '$stateParams', function($state, $mdToast, $firebaseAuth, $firebase, $firebaseObject, $sharedUsernameServices, $sharedUseridServices, $sharedUserCategoryServices, NgMap, $stateParams)  {
         
             var config = {
                 apiKey: "AIzaSyAfh1IU93CQfo9nyJqnxxcZ0R7z3Uve3nE",
@@ -37,6 +37,7 @@
             vm.requestingTypeList = [{id:0,name:"Dengue Monitoring"},{id:1,name:"Other"}];
 
             vm.user_id = $stateParams.user_id;
+            vm.job_id = $stateParams.job_id;
             
             vm.user_email = "";
             vm.getCategory = "";
@@ -49,43 +50,44 @@
                 vm.triggerPage();
             });
             
-            vm.gettingName = $sharedUsernameServices.getUsername();
-            vm.gettingID = $sharedUseridServices.getUserid();
-            //vm.getCategory = $sharedUserCategoryServices.getUserCategory();
-
-            vm.triangleCoords = [
-                new google.maps.LatLng(7.0873, 80.0144),
-                new google.maps.LatLng(6.8018, 79.9227),
-                new google.maps.LatLng(6.0535, 80.2210),     
-                new google.maps.LatLng(7.2906, 80.6337)              
-            ];
-
-            vm.bounds = {
-              north: 7.0873,
-              south: 6.8018,
-              east: 80.0144,
-              west: 79.9227
-            };
+            vm.bounds = {};
             
             // Styling & Controls
-            vm.rectangle = new google.maps.Rectangle({
-                bounds: vm.bounds,
-                editable: true,
-                draggable: true
+            vm.rectangle = new google.maps.Rectangle({});
+            
+            var ref_job = firebase.database().ref("jobs/processingjobs/" + vm.job_id);
+            ref_job.once("value")
+              .then(function(snapshot) {
+                vm.requesting_value = snapshot.child("requesting_type").val();
+                var start_date = snapshot.child("capturing_start_date").val(); 
+                vm.capturing_start_date = (new Date(start_date));
+                var end_date = snapshot.child("capturing_end_date").val();  
+                vm.capturing_end_date = (new Date(end_date));
+                vm.requester = snapshot.child("requester").val(); 
+                vm.latitude = snapshot.child("latitude").val();
+                vm.longitude = snapshot.child("logitude").val();
+
+                vm.bounds = {
+                  north: vm.latitude[0],
+                  south: vm.latitude[1],
+                  east: vm.longitude[0],
+                  west: vm.longitude[1]
+                };
+
+                vm.rectangle = new google.maps.Rectangle({
+                    bounds: vm.bounds,
+                    editable: true,
+                    draggable: true
+                });
+
+                NgMap.getMap().then(function(map) {
+                    vm.rectangle.setMap(map);
+                    vm.map = map;
+                });
+
             });
-            /*vm.myPolygon = new google.maps.Polygon({
-                paths: vm.triangleCoords,
-                draggable: true, // turn off if it gets annoying
-                editable: true,
-                strokeColor: '#FF0000',
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: '#FF0000',
-                fillOpacity: 0.35
-            });*/
 
             function getPolygonCoords() {
-                //var len = vm.rectangle.getPath().getLength();
                 vm.latitudeArray = [];
                 vm.longitudeArray = [];
                 
@@ -96,13 +98,6 @@
                 vm.latitudeArray.push(sw.lat());
                 vm.longitudeArray.push(ne.lng());
                 vm.longitudeArray.push(sw.lng());
-
-                /*for (var i = 0; i < len; i++) {
-                    var tempString = vm.rectangle.getPath().getAt(i).toUrlValue(5);
-                    var tempArray = tempString.split(",");
-                    vm.latitudeArray.push(tempArray[0]);
-                    vm.longitudeArray.push(tempArray[1]);
-                }*/
             }
 
             NgMap.getMap().then(function(map) {
@@ -119,14 +114,14 @@
                 );
             }
 
-            console.log("createjobController");
+            console.log("editjobController");
 
             function saveSelectedValue(selectValue) {
                 console.log(selectValue);
             }
 
             function sendData(selectedValue, capturing_start_date, capturing_end_date) {
-                vm.selectedValue = selectedValue;
+                vm.requesting_value = selectedValue;
                 vm.capturing_start_date = capturing_start_date;
                 vm.capturing_end_date = capturing_end_date;
 
@@ -134,7 +129,7 @@
                     vm.getPolygonCoords();
 
                     /*Get the highest job id in processing jobs*/
-                    var processingJobsData = firebase.database().ref('jobs/processingjobs');
+                    /*var processingJobsData = firebase.database().ref('jobs/processingjobs');
                     var processingNumArray = [];
 
                     processingJobsData.on('value', function(snapshot) {
@@ -143,10 +138,10 @@
                         });
                     });
 
-                    var maxProcessingNum = Math.max.apply(null, processingNumArray);
+                    var maxProcessingNum = Math.max.apply(null, processingNumArray);*/
 
                     /*Get the highest job id in analysing jobs*/
-                    var analysingJobsData = firebase.database().ref('jobs/analysingjobs');
+                    /*var analysingJobsData = firebase.database().ref('jobs/analysingjobs');
                     var analysingNumArray = [];
 
                     analysingJobsData.on('value', function(snapshot) {
@@ -155,10 +150,10 @@
                         });
                     });
 
-                    var maxAnalysingNum = Math.max.apply(null, analysingNumArray);
+                    var maxAnalysingNum = Math.max.apply(null, analysingNumArray);*/
 
                     /*Get the highest job id in completed jobs*/
-                    var completedJobsData = firebase.database().ref('jobs/completedjobs');
+                    /*var completedJobsData = firebase.database().ref('jobs/completedjobs');
                     var completedNumArray = [];
 
                     completedJobsData.on('value', function(snapshot) {
@@ -167,10 +162,10 @@
                         });
                     });
 
-                    var maxCompletedNum = Math.max.apply(null, completedNumArray);
+                    var maxCompletedNum = Math.max.apply(null, completedNumArray);*/
 
                     /*Get the highest num from all three arrays to make the next ID*/
-                    var oneBeforeNextIDNum = Math.max(maxCompletedNum, maxProcessingNum, maxAnalysingNum);
+                    /*var oneBeforeNextIDNum = Math.max(maxCompletedNum, maxProcessingNum, maxAnalysingNum);
 
                     var currentIDNum = (oneBeforeNextIDNum + 1).toString();
 
@@ -180,7 +175,7 @@
                         currentIDNum = "0" + currentIDNum;
                     } else if(currentIDNum.length == 3) {
                         currentIDNum = currentIDNum;
-                    }
+                    }*/
 
                     /*Get a proper date format for start date*/
                     var day = capturing_start_date.getDate();
@@ -195,19 +190,18 @@
                     var endingDate = [month_end, day_end, year_end].join('/');
                     
                     if(capturing_start_date.getTime()<capturing_end_date.getTime() || capturing_start_date.getTime()==capturing_end_date.getTime()) {
-                        firebase.database().ref('jobs/processingjobs/p' + currentIDNum).set({
+                        firebase.database().ref('jobs/processingjobs/' + vm.job_id).set({
                             "capturing_start_date": sendingDate,
                             "capturing_end_date": endingDate,
-                            "jobid": "p" + currentIDNum,
+                            "jobid": vm.job_id,
                             "requesting_type": selectedValue,
                             "latitude": vm.latitudeArray,
                             "logitude": vm.longitudeArray,
                             "requester": vm.user_email
                         });
 
-                        var siteURL = (window.location.href).replace("/createjob", "");
-                        window.location = siteURL; 
-                        location.reload();
+                        vm.gotoManageJob();
+                        
                     } else {
                         vm.showToast("Enter valid dates");
                     }
@@ -219,9 +213,10 @@
             }
             
             function gotoManageJob() {
-                var siteURL = (window.location.href).replace("/createjob", "");
+                var siteURL = (window.location.href).replace("/editjob", "");
+                var siteURL2 = siteURL.replace("/" + vm.job_id, "");
                 
-                window.location = siteURL;
+                window.location = siteURL2;
                 
                 location.reload();
             }

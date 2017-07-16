@@ -12,7 +12,7 @@
         <script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
 
         <!-- App Styling -->
-        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,300">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amaranth:700">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -22,22 +22,22 @@
         
         <!-- Angular Material requires Angular.js Libraries -->
         <!--<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>-->
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
         
         <!-- Angular ui-router Libraries -->
-        <script src="http://unpkg.com/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="https://unpkg.com/angular-ui-router/release/angular-ui-router.min.js"></script>
         
         <!-- Firebase Libraries -->
-        <script src="http://unpkg.com/angular-ui-router/release/angular-ui-router.min.js"></script>
+        <script src="https://unpkg.com/angular-ui-router/release/angular-ui-router.min.js"></script>
 
         <!--<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
         <script src="https://cdn.firebase.com/libs/angularfire/2.2.0/angularfire.min.js"></script>-->
 
         
         <!-- Angular Material Library -->
-        <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
         
         <!--NgMap Library-->
         <script src="libraries/ng-map.min.js"></script>
@@ -59,6 +59,7 @@
         <script src="components/home/home.ctr.js"></script>
         <script src="components/createjob/createjob.ctr.js"></script>
         <script src="components/viewjob/viewjob.ctr.js"></script>
+        <script src="components/editjob/editjob.ctr.js"></script>
         <script src="components/imageuploading/fp-image-upload.js"></script>
         <script src="components/imageuploading/fp-src.js"></script>
         <script src="components/imageuploading/imageUpload.js"></script>
@@ -71,6 +72,17 @@
            
     </head>
     <body class="site-background-color">
+        <!--<div ng-cloak>
+          <md-content class="md-padding">
+            <md-nav-bar md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+                <md-nav-item ui-sref="home" name="home">Home</md-nav-item>
+                <md-nav-item ui-sref="auth" name="login">Login</md-nav-item>
+                <md-nav-item ui-sref="signup" name="signup">SignUp</md-nav-item>
+                <md-nav-item ui-sref="auth" md-nav-click="vm.logout()">Logout</md-nav-item>
+                <md-nav-item >{{vm.user_email}}</md-nav-item>
+            </md-nav-bar>
+          </md-content>
+        </div>-->
         <div class="site-background-color" ui-view></div>
     </body>
 </html>

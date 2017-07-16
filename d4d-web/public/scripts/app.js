@@ -67,6 +67,16 @@
             controller: 'viewjobController as vm'
         })
       
+        .state('editjob', {
+            url: '/managingjobs/:user_id/editjob/:job_id',
+            controller: function($stateParams){
+                $stateParams.job_id,
+                $stateParams.user_id
+            },
+            templateUrl: 'components/editjob/editjob.tpl.html',
+            controller: 'editjobController as vm'
+        })
+      
         .state('imageuploading', {
             url: '/imageuploading',
             templateUrl: 'components/imageuploading/template.html',
@@ -78,6 +88,12 @@
             templateUrl: 'components/forgotpassword/forgotpassword.tpl.html',
             controller: 'forgotpasswordController as vm'
         });
+      
+        /*.state('navbar', {
+            url: '/navbar',
+            templateUrl: 'components/navigationbar/navbar.tpl.html',
+            controller: 'navbarController as vm'
+        });*/
       
     });
 })();

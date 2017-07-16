@@ -36,6 +36,8 @@
         // Get a reference to the database service
         var database = firebase.database().ref("users");
             
+        vm.currentNavItem = "login";
+            
         function showToast(message) {
             $mdToast.show(
                 $mdToast.simple()
@@ -60,7 +62,8 @@
                             snapshot.forEach(function(childSnapshot) {
                                 if(childSnapshot.key == 'profile') {
                                     $sharedUserCategoryServices.setUserCategory(childSnapshot.val());
-                                    var siteURL = (window.location.href).concat("managingjobs/" + d4dLogin.$getAuth().email);
+                                    var siteURL = (window.location.href).concat("managingjobs/" + d4dLogin.$getAuth().uid);
+                                    //var siteURL = (window.location.href).concat("managingjobs/" + d4dLogin.$getAuth().email);
                                     window.location = siteURL;
                                 }
                             });
