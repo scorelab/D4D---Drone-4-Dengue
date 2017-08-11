@@ -1,0 +1,64 @@
+<!--Menu-->
+<div layout="row">
+  <div class="signin-card">
+    <md-card class="md-primary">
+        <md-content class="md-padding">
+            <nav class="navbar navbar-inverse" role="navigation">
+                <table>
+                    <tr>
+                        <td><md-button ui-sref="home">Home</md-button></td>
+                        <td><md-button ui-sref="managingjobs" class="navbar-colors">Manage Jobs</md-button></td>
+                        <td><md-button ng-click="vm.logout()" ui-sref="auth" >Logout</md-button></td>
+                        <td>{{vm.user_email}}</td>
+                    </tr>
+                </table>
+            </nav>
+        </md-content>
+    </md-card>
+  </div>
+</div>
+<!--Content-->
+<div layout="row">
+  <div class="signin-card sign-card-area">
+    <md-card class="md-primary">
+        <md-content class="md-padding signin-card-color">
+            <center>
+                <md-content class="md-padding signin-card-color">
+                    <h1 class="md-display-1 h1-text-white">Create a Job</h1>
+                    <md-divider></md-divider>
+                </md-content>
+                
+                <md-input-container class="dropdown-area" style="width: 50%;">
+                    <label>Requesting Type</label>
+                    <md-select ng-model="selectedValue" required>
+                          <md-option ng-repeat="singleRequest in vm.requestingTypeList" value="{{singleRequest.id}}">{{singleRequest.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+                
+                <md-input-container style="width: 50%;">
+                    <label>Capturing Start Date</label>
+                    <input type="date" ng-model="capturing_start_date" required>
+                </md-input-container>
+                
+                <md-input-container style="width: 50%;">
+                    <label>Capturing End Date</label>
+                    <input type="date" ng-model="capturing_end_date" required>
+                </md-input-container>
+                
+                <md-input-container class="map-label-area">
+                    <label>Capturing Area</label>
+                </md-input-container>
+                <ng-map default-style="true" zoom="9" center="6.9271, 79.8612">
+                </ng-map>
+                
+                <md-content>
+                    <md-button class="md-accent" ng-click="vm.sendData(selectedValue, capturing_start_date, capturing_end_date)">Send</md-button>
+                </md-content>
+                <md-content>
+                    <md-button class="md-accent" ng-click="vm.gotoManageJob()">Back</md-button>
+                </md-content>
+            </center>
+        </md-content>
+    </md-card>
+  </div>
+</div>
