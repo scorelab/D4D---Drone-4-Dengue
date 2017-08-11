@@ -60,6 +60,7 @@
                 new google.maps.LatLng(7.2906, 80.6337)              
             ];
 
+            // Default rectangle
             vm.bounds = {
               north: 7.0873,
               south: 6.8018,
@@ -227,7 +228,7 @@
             }
             
             function triggerPage() {
-                vm.showToast("Landed");
+                vm.showToast("Loading");
             }
         }]);
 

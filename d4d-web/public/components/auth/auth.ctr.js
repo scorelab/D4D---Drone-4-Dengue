@@ -1,7 +1,6 @@
+// References:
 //https://github.com/firebase/angularfire/issues/768
 
-//test@gmail.com
-//test1234
 (function() {
 
     "use strict";
@@ -17,6 +16,7 @@
         vm.username = "";
         vm.password = "";
             
+        // Firebase configarations 
         var config = {
             apiKey: "AIzaSyAfh1IU93CQfo9nyJqnxxcZ0R7z3Uve3nE",
             authDomain: "dronemap-b66a3.firebaseapp.com",
@@ -26,6 +26,7 @@
             messagingSenderId: "610754060845"
         };
             
+        //Initialization app
         if (!firebase.apps.length) {
             firebase.initializeApp(config);
         }
@@ -50,6 +51,7 @@
             vm.username = username;
             vm.password = password;
             
+            //validating and login function
             if(vm.username != null || vm.password !=null) {
                 if(validateEmail(vm.username)){
                     if(firebase.auth().signInWithEmailAndPassword(vm.username, vm.password)){
@@ -81,7 +83,7 @@
                 
         }
         
-        //pls add this to general js file, then we can call it from anywhere
+        //Add this to general js file, then we can call it from anywhere
         function validateEmail(email) {
             var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(email);
