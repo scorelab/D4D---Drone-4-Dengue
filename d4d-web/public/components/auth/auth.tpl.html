@@ -35,13 +35,14 @@
   </md-content>
 </div>-->
 <!--Content-->
+
 <div layout="row">
   <div flex="33" class="signin-card" flex-offset="33">
     <md-card class="md-primary">
         <md-content class="md-padding signin-card-color">
             <center>
                 <md-content class="md-padding signin-card-color">
-                    <h1 class="md-display-1 h1-text-white">Login in to App</h1>
+                    <h1 class="md-display-1 h1-text-white">Login in to D4D</h1>
                     <md-divider></md-divider>
                 </md-content>
                 <md-input-container>
@@ -53,7 +54,7 @@
                     <input type="password" ng-model="password" required>
                 </md-input-container>
                 <md-content>
-                    <md-button class="md-primary" ng-click="vm.login(username, password)">Login</md-button>
+                    <md-button class="md-primary" color="primary" ng-click="vm.login(username, password)">Login</md-button>
                     <md-button class="md-accent" ui-sref="signup">Sign Up</md-button>
                 </md-content>
                 <a class="link-text" align="center" ui-sref="forgotpassword">Forgot Password</a>
