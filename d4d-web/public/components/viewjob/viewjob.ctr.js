@@ -106,6 +106,11 @@
               el.addEventListener('click', swapper, false);
             }
             
+            /*
+            tab_number => 001 -> processing jobs
+                          002 -> analysing jobs
+                          003 ->completed jobs
+            */
             function loadingData(job_id, tab_number) {
 
                 if(tab_number == "001") {
