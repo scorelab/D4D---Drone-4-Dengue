@@ -1,37 +1,27 @@
-## Welcome to GitHub Pages
+# D4D --- Drone-4-Dengue <br>
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/scorelab/scorelab) <br>
+<img src="https://github.com/padamchopra/D4D---Drone-4-Dengue/blob/master/DARK.png" align="right" height="270">
+<p align="justify">
+  Drone for Dengue (D4D) is a system for detecting dengue mosquito breeding sites via drone images. Public Health Inspectors (PHIs) in Sri Lanka are facing a problem of identifying certain mosquito breeding sites since they cannot easily reach places such as roof gutters, overhead water tanks, inaccessible rooftops and cement materials which are capable of retaining water. With the help of D4D, these places which were not easy to reach, now become easily accessible.
+ </p>
 
-You can use the [editor on GitHub](https://github.com/scorelab/D4D---Drone-4-Dengue/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/scorelab/D4D---Drone-4-Dengue/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+### D4D is a necessity
+<p align="justify">
+  Due to the retention of water in the aforementioned sites for a long period of time, those places tend to be full of lichens. In general, lichens are visible in dark color. This characteristic helps to identify prolonged water retention areas. With the rapid advancement of technology, the drone has been created as one of the most cost effective apparatus to capture the places that a human cannot access. This system processes images captured from a drone to identify possible sites where stagnant water may retain and highlights if such areas are apparent within the image.
+  </p>
+  
+## Setting up the development environment
+1) D4D is available on two platforms- Mobile and Web
+2) Fork the D4D---Drone-4-Dengue repository
+3) Clone the forked repository by simply downloading it as a zip or running the git clone command in terminal
+   ```
+    $ git clone https://github.com/yourusername/D4D---Drone-4-Dengue.git
+   ```
+4) Download ![Android Studio](https://developer.android.com/studio/index.html) to work on the Mobile version or a ![Text Editor](https://www.google.co.in/search?q=text%20editors) to work on the Web App
+5) Commit your changes to the forked repository by using the Git Client or using the terminal-
+   ```
+    $ git add -A
+    $ git commit -m "Your commit message"
+    $ git push
+   ```
+6) Create a PR for merging your work with the D4D---Drone-4-Dengue repository
