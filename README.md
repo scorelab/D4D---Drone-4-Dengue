@@ -17,7 +17,7 @@
    ```
     $ git clone https://github.com/yourusername/D4D---Drone-4-Dengue.git
    ```
-4) Download ![Android Studio](https://developer.android.com/studio/index.html) to work on the Mobile version or a ![Text Editor](https://www.google.co.in/search?q=text%20editors) to work on the Web App
+4) Download [Android Studio](https://developer.android.com/studio/index.html) to work on the Mobile version or a [Text Editor](https://www.google.co.in/search?q=text%20editors) to work on the Web App
 5) Commit your changes to the forked repository by using the Git Client or using the terminal-
    ```
     $ git add -A
