@@ -1,37 +1,35 @@
-## Welcome to GitHub Pages
+# Drone for Dengue (D4D)
 
-You can use the [editor on GitHub](https://github.com/scorelab/D4D---Drone-4-Dengue/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+**Drone for Dengue (D4D)** is a system for detecting dengue mosquito breeding sites via drone images. Public Health Inspectors (PHIs) in Sri Lanka are facing a problem of identifying certain mosquito breeding sites since they cannot easily reach places such as roof gutters, overhead water tanks, inaccessible rooftops and cement materials which are capable of retaining water.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Due to the retention of water in the aforementioned sites for a long period of time, those places tend to be full of lichens. In general, lichens are visible in dark color. This characteristic helps to identify prolonged water retention areas. With the rapid advancement of technology, the drone has been created as one of the most cost effective apparatus to capture the places that a human cannot access. This system processes images captured from a drone to identify possible sites where stagnant water may retain and highlights if such areas are apparent within the image.
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Installation
 
-```markdown
-Syntax highlighted code block
+1. Go to your terminal and enter this command
+`git clone https://github.com/scorelab/D4D---Drone-4-Dengue.git`
 
-# Header 1
-## Header 2
-### Header 3
+2. Launch Android Studio IDE
 
-- Bulleted
-- List
+3. Click on File, then New and then Import Project. (If you wish to contribute, you can directly link to GitHub)
 
-1. Numbered
-2. List
+4. Browse to the directory where you cloned the repository.
 
-**Bold** and _Italic_ and `Code` text
+5. Select `d4d-android` directory to proceed.
 
-[Link](url) and ![Image](src)
-```
+6. Let the gradle build and install all the components, if there's an error, try installing that component again.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+7. After a successful installation, the application should run on your emulator after a few seconds.
 
-### Jekyll Themes
+## Google Code-In 2017
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/scorelab/D4D---Drone-4-Dengue/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+Google Code-in users should checkout the `c_in_refine` branch for all tasks.
 
-### Support or Contact
+`git checkout c_in_refine`
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+You'll have all the necessary information to procede in there.
+
+## License 
+
+This project is licensed under the terms of the Apache License 2.0.
