@@ -1,6 +1,31 @@
 {
   "name": "functions",
+  "version": "1.0.0",
   "description": "Cloud Functions for Firebase",
+  "bugs": "https://github.com/scorelab/D4D---Drone-4-Dengue/issues",
+  "author": "SCoRe Community",
+  "contributors": [
+    "Akarshani",
+    "Lasith-Niro",
+    "Imal1992",
+    "sambhav2612",
+    "charithccmc"
+  ],
+  "repository": {
+    "type": ["git"],
+    "url": "https://github.com/scorelab/D4D---Drone-4-Dengue.git"
+  },
+  "keywords": [
+    "D4D",
+    "Drone-4-Dengue"
+  ],
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "homepage": "http://www.scorelab.org/blog/drone-for-dengue",
   "dependencies": {
     "angularfire": "^2.3.0",
     "angularfire2": "^4.0.0-rc.0",
