@@ -3,16 +3,117 @@
   <div class="signin-card">
     <md-card class="md-primary">
         <md-content class="md-padding">
-            <nav class="navbar navbar-inverse" role="navigation">
-                <table>
-                    <tr>
-                        <td><md-button ui-sref="home">Home</md-button></td>
-                        <td><md-button ui-sref="managingjobs" class="navbar-colors">Manage Jobs</md-button></td>
-                        <td><md-button ng-click="vm.logout()" ui-sref="auth" >Logout</md-button></td>
-                        <td>{{vm.user_email}}</td>
-                    </tr>
-                </table>
-            </nav>
+          <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+            <nav class = "menu-bar"><br/>
+            <font class = "main_f">D<font class = "spec">4</font>D</font>
+            <ul>
+                <li id="one" class = "hvr-sweep-to-bottom">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li id="two" class = "hvr-sweep-to-bottom">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;More&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li id="three" class = "hvr-sweep-to-bottom">Sign In</li>
+            </ul>
+           </nav>
+           <style>
+           *{
+            padding:0;
+            font-family: 'Open Sans', sans-serif;
+            margin:0;
+           }
+           li{
+            font-size:1.5em;
+            font-family:'Open Sans';
+            margin-top:-7%;
+           }
+           #one{
+               margin-left:59%;
+               color:white;
+               padding-top:4%;
+               padding-bottom:3.2%
+           }
+           #two{
+            margin-left:7%;
+            color:white;
+             padding-top:4%;
+             padding-bottom:3.2%
+           }
+           #two:hover{
+            color:#1DE9B6;
+           }
+            #one:hover{
+            color:#1DE9B6;
+           }
+            #three{
+            margin-left:7%;
+            background-color:white;
+            color:#00695C;
+            padding-top:1%;
+            padding-bottom:1%;
+            padding-left:3%;
+            padding-right:3%;
+            border-radius:15px;
+           }
+            .menu-bar{
+                width:100%;
+                height:120px;
+                margin-bottom:10%;
+                background-color:#1DE9B6;
+            }
+            .main_f{
+                font-family:'Open Sans';
+                font-size:4em;
+                font-weight:500;
+                color:white;
+                padding-left:5%;
+            }
+            .spec{
+                color:#00695C;
+            }
+            .hvr-sweep-to-bottom {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  -webkit-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+.hvr-sweep-to-bottom:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  -webkit-transform: scaleY(0);
+  transform: scaleY(0);
+  -webkit-transform-origin: 50% 0;
+  transform-origin: 50% 0;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  color:#1DE9B6;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.hvr-sweep-to-bottom:hover, .hvr-sweep-to-bottom:focus, .hvr-sweep-to-bottom:active {
+  color:#1DE9B6;
+}
+.hvr-sweep-to-bottom:hover:before, .hvr-sweep-to-bottom:focus:before, .hvr-sweep-to-bottom:active:before {
+  -webkit-transform: scaleY(1);
+  transform: scaleY(1);
+  color:#1DE9B6;
+}
+
+
+           </style>
         </md-content>
     </md-card>
   </div>
